@@ -1,0 +1,98 @@
+name: Daily Blog Post
+
+on:
+  schedule:
+    # Runs every day at 7:00am UTC
+    - cron: "0 7 * * *"
+  # Allow manual trigger from the GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  generate-post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Generate blog post with AI
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          TODAY=$(date +%Y-%m-%d)
+
+          # Topics to rotate through so posts stay varied
+          TOPICS=(
+            "Why brand consistency in presentations directly impacts client trust and how to enforce it without a design team"
+            "The hidden cost of off-brand slides: how much time your team wastes fixing formatting"
+            "How to build a PowerPoint template that non-designers can't break"
+            "5 alignment mistakes everyone makes in PowerPoint and how to fix them in one click"
+            "Why your sales deck is losing deals before you even speak"
+            "How to maintain brand standards across a team of 100+ people in PowerPoint"
+            "The case for a bespoke PowerPoint toolbar: why generic tools fall short for enterprise teams"
+            "How to make PowerPoint work harder for your marketing team"
+            "Slide design for finance teams: clarity, consistency, and credibility"
+            "Why HR decks are always off-brand and what to do about it"
+            "The difference between a good slide and a great one: it's not creativity, it's consistency"
+            "How law firms and professional services can elevate their pitch decks"
+            "From chaos to consistency: standardising presentations across a large organisation"
+            "Why your design team is spending too much time fixing other people's slides"
+            "What makes a PowerPoint add-in actually worth deploying company-wide"
+          )
+
+          # Pick a topic based on the day of the year so it cycles predictably
+          DAY_OF_YEAR=$(date +%j)
+          TOPIC_INDEX=$(( ($DAY_OF_YEAR - 1) % ${#TOPICS[@]} ))
+          TOPIC="${TOPICS[$TOPIC_INDEX]}"
+
+          echo "Generating post on topic: $TOPIC"
+
+          RESPONSE=$(curl -s https://api.openai.com/v1/chat/completions \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer $OPENAI_API_KEY" \
+            -d "$(jq -n \
+              --arg topic "$TOPIC" \
+              --arg today "$TODAY" \
+              '{
+                model: "gpt-4o",
+                temperature: 0.7,
+                messages: [
+                  {
+                    role: "system",
+                    content: "You are a content writer for tlbr.io — a bespoke PowerPoint add-in for enterprise teams. You write sharp, practical, opinionated blog posts about presentation design, brand consistency, and working in PowerPoint. Your tone is confident and direct, like a senior consultant who has seen every bad slide deck. No fluff. No generic advice. Write for people who work in professional services, finance, sales, marketing, and HR at companies with 100–5,000 employees. Always write in British English."
+                  },
+                  {
+                    role: "user",
+                    content: ("Write a blog post on this topic: " + $topic + "\n\nReturn ONLY valid markdown starting with YAML frontmatter in this exact format (no code fences, no extra text before or after):\n\n---\ntitle: \"The title here\"\ndescription: \"A one-sentence meta description under 160 characters\"\ndate: \"" + $today + "\"\ntags: [\"tag1\", \"tag2\", \"tag3\"]\nauthor: \"tlbr.io team\"\n---\n\nThen the blog post content in markdown. Requirements:\n- 600-900 words\n- Use ## for section headings\n- Use bullet points where appropriate\n- Include a practical takeaway or clear conclusion\n- Do not mention competitors by name\n- Do not use the phrase \"in conclusion\"\n- Do not use em dashes")
+                  }
+                ]
+              }' \
+            )"
+          )
+
+          # Extract the content from the API response
+          POST_CONTENT=$(echo "$RESPONSE" | jq -r '.choices[0].message.content')
+
+          if [ -z "$POST_CONTENT" ] || [ "$POST_CONTENT" = "null" ]; then
+            echo "Error: No content returned from OpenAI"
+            echo "Response: $RESPONSE"
+            exit 1
+          fi
+
+          # Generate a filename slug from the date and topic index
+          SLUG="${TODAY}-post-${TOPIC_INDEX}"
+          FILE_PATH="content/blog/${SLUG}.md"
+
+          echo "$POST_CONTENT" > "$FILE_PATH"
+          echo "Post written to $FILE_PATH"
+          head -10 "$FILE_PATH"
+
+      - name: Commit and push
+        run: |
+          git config user.name "tlbr.io bot"
+          git config user.email "noreply@tlbr.io"
+          git add content/blog/
+          git diff --staged --quiet || git commit -m "chore: add daily blog post for $(date +%Y-%m-%d)"
+          git push
