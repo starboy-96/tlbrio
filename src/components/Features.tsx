@@ -147,7 +147,7 @@ export default function Features() {
   return (
     <div id="features">
       {/* Mobile heading */}
-      <div className="lg:hidden px-6 pt-16 pb-8">
+      <div className="lg:hidden px-6 pt-16 pb-4">
         <p className="section-label mb-3">Features</p>
         <h2
           className="text-3xl mb-3 leading-tight"
