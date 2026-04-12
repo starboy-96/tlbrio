@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 
     // 1. Notify you that someone requested a demo
     await resend.emails.send({
-      from: "tlbr.io <noreply@mail.tlbr.io>",
+      from: "tlbr.io <hello@mail.tlbr.io>",
       to: TO,
       subject: `New demo request from ${email}`,
       html: `
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
 
     // 2. Send a confirmation to the person who signed up
     await resend.emails.send({
-      from: "tlbr.io <noreply@mail.tlbr.io>",
+      from: "tlbr.io <hello@mail.tlbr.io>",
       to: email,
       subject: "Demo booked — here's what to expect from tlbr.io",
       html: `
