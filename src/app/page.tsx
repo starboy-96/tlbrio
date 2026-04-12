@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
@@ -9,6 +10,26 @@ import WhoItsFor from "@/components/WhoItsFor";
 import FAQ from "@/components/FAQ";
 import Demo from "@/components/Demo";
 import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "tlbr.io – Elevate Every Presentation",
+  description:
+    "A bespoke PowerPoint add-in helping designers and non-designers build high-impact, on-brand decks – 2× faster. Trusted by teams from 10 to 2,000+ users.",
+  alternates: {
+    canonical: "https://tlbr.io",
+  },
+  openGraph: {
+    url: "https://tlbr.io",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "tlbr.io – Elevate Every Presentation",
+      },
+    ],
+  },
+};
 
 const jsonLd = {
   "@context": "https://schema.org",

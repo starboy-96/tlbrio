@@ -24,17 +24,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: post.title,
     description: post.description,
     authors: [{ name: post.author }],
+    alternates: {
+      canonical: `https://tlbr.io/blog/${slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.description,
       type: "article",
+      url: `https://tlbr.io/blog/${slug}`,
       publishedTime: post.date,
       authors: [post.author],
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
+      images: ["/og-image.png"],
     },
   };
 }
