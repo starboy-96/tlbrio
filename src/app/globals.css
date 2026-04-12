@@ -151,3 +151,6 @@ p {
   background-color: rgba(148, 229, 97, 0.25);
   border-radius: 2px;
 }
+
+/* Hide scrollbar on mobile feature carousel */
+.mobile-carousel::-webkit-scrollbar { display: none; }
