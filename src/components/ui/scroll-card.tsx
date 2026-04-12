@@ -58,7 +58,7 @@ function MobileCarousel({ cards }: { cards: ScrollCardData[] }) {
       {/* ── Track: each child is exactly one viewport-width wide ── */}
       <div
         ref={trackRef}
-        className="mobile-carousel flex overflow-x-auto py-3"
+        className="mobile-carousel flex overflow-x-auto pt-3 pb-6"
         style={{
           scrollSnapType: "x mandatory",
           scrollbarWidth: "none",
