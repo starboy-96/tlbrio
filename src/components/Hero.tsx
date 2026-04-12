@@ -50,23 +50,52 @@ export default function Hero() {
   );
 
   // iOS 13+ requires explicit permission for DeviceOrientationEvent.
-  // "unknown" = not yet attempted, "granted" = active, "denied" = refused
-  const [gyroPermission, setGyroPermission] = useState<"unknown" | "granted" | "denied">(
+  // "unknown"      = first visit, show the button
+  // "granted"      = active this session
+  // "silent"       = returning user — silently re-request on first touch, no button
+  // "denied"       = user refused, don't ask again
+  const [gyroPermission, setGyroPermission] = useState<"unknown" | "granted" | "silent" | "denied">(
     "unknown"
   );
 
   useEffect(() => {
     if (!isMobile.current) return;
-    // Android and non-iOS browsers fire events without any permission call
+
+    type DOE = { requestPermission?: () => Promise<string> };
     const needsPermission =
       typeof DeviceOrientationEvent !== "undefined" &&
-      typeof (DeviceOrientationEvent as unknown as { requestPermission?: () => Promise<string> })
-        .requestPermission === "function";
+      typeof (DeviceOrientationEvent as unknown as DOE).requestPermission === "function";
+
     if (!needsPermission) {
-      // Android / older iOS — events available immediately
+      // Android / non-iOS — events fire without any permission call
       setGyroPermission("granted");
+      return;
     }
-    // iOS 13+: leave as "unknown" — the button handles the prompt
+
+    // iOS 13+: check localStorage for a previous grant
+    const stored = localStorage.getItem("gyro-permission");
+
+    if (stored === "granted") {
+      // Returning user — silently re-request on their first touch
+      setGyroPermission("silent");
+      const silentRequest = async () => {
+        try {
+          const result = await (
+            DeviceOrientationEvent as unknown as { requestPermission: () => Promise<string> }
+          ).requestPermission();
+          setGyroPermission(result === "granted" ? "granted" : "denied");
+        } catch {
+          setGyroPermission("denied");
+        }
+      };
+      // { once: true } auto-removes the listener after the first event
+      window.addEventListener("touchstart", silentRequest, { once: true, passive: true });
+      window.addEventListener("click",      silentRequest, { once: true });
+    } else if (stored === "denied") {
+      // User previously refused — respect that, don't show button
+      setGyroPermission("denied");
+    }
+    // else: first visit — leave as "unknown" so the button renders
   }, []);
 
   async function requestGyroPermission() {
@@ -74,7 +103,13 @@ export default function Hero() {
       const result = await (
         DeviceOrientationEvent as unknown as { requestPermission: () => Promise<string> }
       ).requestPermission();
-      setGyroPermission(result === "granted" ? "granted" : "denied");
+      if (result === "granted") {
+        localStorage.setItem("gyro-permission", "granted");
+        setGyroPermission("granted");
+      } else {
+        localStorage.setItem("gyro-permission", "denied");
+        setGyroPermission("denied");
+      }
     } catch {
       setGyroPermission("denied");
     }
@@ -155,7 +190,7 @@ export default function Hero() {
       </div>
 
       {/* iOS gyroscope permission prompt */}
-      {isMobile.current && gyroPermission === "unknown" && (
+      {isMobile.current && gyroPermission === "unknown" && /* first-visit iOS prompt */ (
         <button
           onClick={requestGyroPermission}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-white/60 text-xs pointer-events-auto"
