@@ -187,21 +187,6 @@ export default function Hero() {
         </Gravity>
       </div>
 
-      {/* iOS gyroscope permission prompt */}
-      {isMobile.current && gyroPermission === "unknown" && /* first-visit iOS prompt */ (
-        <button
-          onClick={requestGyroPermission}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-white/60 text-xs pointer-events-auto"
-          style={{
-            fontFamily: '"General Sans", sans-serif',
-            background: "rgba(10,26,47,0.75)",
-            backdropFilter: "blur(8px)",
-          }}
-        >
-          <span aria-hidden="true">📱</span>
-          Tilt to interact – tap to enable
-        </button>
-      )}
 
       {/* ── Foreground content ── */}
       <div className="flex-1 flex flex-col lg:flex-row">
@@ -212,13 +197,27 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 border border-green/30 bg-green-xlight w-fit pointer-events-auto"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4 border border-green/30 bg-green-xlight w-fit pointer-events-auto"
           >
             <span className="w-2 h-2 rounded-full bg-green animate-glow" aria-hidden="true" />
             <span className="section-label" style={{ color: "#0a1a2f", opacity: 0.7, fontSize: "clamp(0.58rem, 1.8vw, 0.72rem)", letterSpacing: "0.1em" }}>
               Bespoke PowerPoint add-in for everyone
             </span>
           </motion.div>
+
+          {/* iOS gyroscope permission — shown only on first visit until granted */}
+          {isMobile.current && gyroPermission === "unknown" && (
+            <motion.button
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              onClick={requestGyroPermission}
+              className="flex items-center gap-2 mb-6 px-4 py-2 rounded-full w-fit pointer-events-auto border border-navy/15 bg-navy/5 text-navy/60 text-xs cursor-pointer"
+              style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 500 }}
+            >
+              Tap to enable tilt interaction
+            </motion.button>
+          )}
 
           {/* Headline */}
           <h1
