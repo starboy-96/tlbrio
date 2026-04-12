@@ -188,28 +188,31 @@ export default function Hero() {
 
           {/* Headline */}
           <h1
-            className="text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5rem] leading-[1.0] mb-7"
+            className="text-[2.625rem] md:text-6xl lg:text-[4.5rem] xl:text-[5rem] leading-[1.15] mb-7"
             style={{ fontFamily: '"Cal Sans", sans-serif', fontWeight: 700 }}
           >
-            {["Stop formatting.", "Start presenting."].map((line, li) => (
-              <span key={li} className="block">
-                {line.split(" ").map((word, wi) => (
-                  <motion.span
-                    key={wi}
-                    initial={{ opacity: 0, y: 48 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      duration: 0.7,
-                      delay: 0.2 + li * 0.15 + wi * 0.08,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    className="inline-block mr-[0.22em]"
-                  >
-                    {word}
-                  </motion.span>
-                ))}
-              </span>
-            ))}
+            {["Stop formatting.", "Start presenting."].map((line, li) => {
+              const words = line.split(" ");
+              return (
+                <span key={li} className="block">
+                  {words.map((word, wi) => (
+                    <motion.span
+                      key={wi}
+                      initial={{ opacity: 0, y: 48 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: 0.7,
+                        delay: 0.2 + li * 0.15 + wi * 0.08,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className={`inline-block${wi < words.length - 1 ? " mr-[0.22em]" : ""}`}
+                    >
+                      {word}
+                    </motion.span>
+                  ))}
+                </span>
+              );
+            })}
           </h1>
 
           {/* Subheading */}
