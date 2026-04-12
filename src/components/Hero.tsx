@@ -91,11 +91,9 @@ export default function Hero() {
       // { once: true } auto-removes the listener after the first event
       window.addEventListener("touchstart", silentRequest, { once: true, passive: true });
       window.addEventListener("click",      silentRequest, { once: true });
-    } else if (stored === "denied") {
-      // User previously refused — respect that, don't show button
-      setGyroPermission("denied");
     }
-    // else: first visit — leave as "unknown" so the button renders
+    // No stored value (first visit or previously denied) — leave as "unknown"
+    // so the button renders and the user gets another chance
   }, []);
 
   async function requestGyroPermission() {
@@ -107,7 +105,7 @@ export default function Hero() {
         localStorage.setItem("gyro-permission", "granted");
         setGyroPermission("granted");
       } else {
-        localStorage.setItem("gyro-permission", "denied");
+        // Don't save denial — button will reappear on next visit
         setGyroPermission("denied");
       }
     } catch {
