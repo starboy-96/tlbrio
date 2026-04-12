@@ -35,10 +35,10 @@ export default function Hero() {
       </div>
 
       {/* ── Physics — full hero canvas, text column sits at z-10 above settled pills ── */}
-      <div className="absolute inset-0 z-0" aria-hidden="true">
+      <div className="absolute inset-0 z-[65] pointer-events-none" aria-hidden="true">
         <Gravity
           gravity={{ x: 0, y: 0.9 }}
-          grabCursor
+          grabCursor={false}
           addTopWall={false}
           autoStart
           floorAtViewport
