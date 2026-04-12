@@ -4,6 +4,13 @@ import CookieBanner from "@/components/CookieBanner";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tlbr.io"),
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: { url: "/favicon.svg", type: "image/svg+xml" },
+  },
   title: {
     default: "tlbr.io – Elevate Every Presentation",
     template: "%s | tlbr.io",
