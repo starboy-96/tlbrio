@@ -54,7 +54,7 @@ function MobileCarousel({ cards }: { cards: ScrollCardData[] }) {
   const dotAccent = cards[activeIndex]?.accentColor === "#0A1A2F" ? "#0A1A2F" : "#94E561";
 
   return (
-    <div className="lg:hidden pb-10 pt-2">
+    <div className="lg:hidden pb-6 pt-2">
       {/* ── Track: each child is exactly one viewport-width wide ── */}
       <div
         ref={trackRef}
@@ -64,6 +64,8 @@ function MobileCarousel({ cards }: { cards: ScrollCardData[] }) {
           scrollbarWidth: "none",
           WebkitOverflowScrolling: "touch",
           msOverflowStyle: "none",
+          touchAction: "pan-x", // block vertical drag — page scroll handles that
+          overflowY: "hidden",  // ensure no vertical scroll within track
         }}
       >
         {cards.map((c, i) => (
@@ -75,11 +77,11 @@ function MobileCarousel({ cards }: { cards: ScrollCardData[] }) {
             style={{ scrollSnapAlign: "start" }}
           >
             <article
-              className={cn("w-full rounded-3xl shadow-xl select-none", c.rotation)}
-              style={{ backgroundColor: c.bg, padding: "2rem" }}
+              className="w-full rounded-3xl shadow-xl select-none"
+              style={{ backgroundColor: c.bg, padding: "1.6rem" }}
             >
               {/* Icon + Number */}
-              <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center justify-between mb-4">
                 <div
                   className="rounded-2xl flex items-center justify-center"
                   style={{
@@ -136,7 +138,7 @@ function MobileCarousel({ cards }: { cards: ScrollCardData[] }) {
                 {c.description}
               </p>
 
-              <div className="mt-6" />
+              <div className="mt-4" />
             </article>
           </div>
         ))}
