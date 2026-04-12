@@ -1,8 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Gravity, MatterBody } from "@/components/ui/gravity";
+
+// Stable constant — defined outside component so it never gets a new
+// object reference on re-render, which would restart the physics engine.
+const GRAVITY_CONFIG = { x: 0, y: 0.9 };
 
 // Pills positioned relative to the full hero canvas width
 const gravityPills = [
@@ -19,16 +23,22 @@ const gravityPills = [
 ];
 
 export default function Hero() {
-  // When cookie banner is visible, raise the physics floor so pills
-  // pile up above the banner. Drop to 0 when the banner is dismissed.
-  const [floorOffset, setFloorOffset] = useState(0);
+  // Lazy initialiser reads localStorage synchronously on first client render
+  // so the floor is correct before the physics engine ever starts — no
+  // extra re-render, no restart of the physics simulation.
+  const [floorOffset, setFloorOffset] = useState<number>(() => {
+    if (typeof window === "undefined") return 0;
+    return localStorage.getItem("cookie-consent") ? 0 : window.innerHeight * 0.1;
+  });
+
+  // Keep a stable ref so the event listener never closes over a stale value.
+  const floorOffsetRef = useRef(floorOffset);
 
   useEffect(() => {
-    const bannerHeight = window.innerHeight * 0.1;
-    const hasConsent = !!localStorage.getItem("cookie-consent");
-    if (!hasConsent) setFloorOffset(bannerHeight);
-
-    const onResolved = () => setFloorOffset(0);
+    const onResolved = () => {
+      floorOffsetRef.current = 0;
+      setFloorOffset(0);
+    };
     window.addEventListener("tlbr:cookie-resolved", onResolved);
     return () => window.removeEventListener("tlbr:cookie-resolved", onResolved);
   }, []);
@@ -52,7 +62,7 @@ export default function Hero() {
       {/* ── Physics — full hero canvas, text column sits at z-10 above settled pills ── */}
       <div className="absolute inset-0 z-[65] pointer-events-none" aria-hidden="true">
         <Gravity
-          gravity={{ x: 0, y: 0.9 }}
+          gravity={GRAVITY_CONFIG}
           grabCursor={false}
           addTopWall={false}
           autoStart
