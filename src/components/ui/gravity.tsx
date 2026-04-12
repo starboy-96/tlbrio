@@ -81,6 +81,9 @@ type GravityProps = {
    *  the canvas bottom — keeps physics bodies inside the visible viewport
    *  when the canvas container is taller than the screen. */
   floorAtViewport?: boolean;
+  /** Raise the floor by this many pixels from the bottom. Useful for
+   *  keeping bodies above a fixed UI element like a cookie banner. */
+  floorOffset?: number;
   className?: string;
 };
 
@@ -172,6 +175,7 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
       addTopWall = true,
       autoStart = true,
       floorAtViewport = false,
+      floorOffset = 0,
       className,
       ...props
     },
@@ -187,6 +191,7 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
     const mouseDown = useRef(false);
     const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
     const isRunning = useRef(false);
+    const floorBodyRef = useRef<Matter.Body | undefined>(undefined);
 
     const registerElement = useCallback(
       (id: string, element: HTMLElement, elementProps: MatterBodyProps) => {
@@ -317,11 +322,14 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
       const wallOpts = { isStatic: true, friction: 1, render: { visible: debug } };
       // floorAtViewport: pin the floor to the visible screen bottom so physics
       // bodies don't fall off-screen when the canvas is taller than the viewport.
-      const floorY = floorAtViewport
+      const baseFloorY = floorAtViewport
         ? (typeof window !== "undefined" ? window.innerHeight : height)
         : height;
+      const floorY = baseFloorY - floorOffset;
+      const floorBody = Bodies.rectangle(width / 2, floorY + 10, width, 20, wallOpts);
+      floorBodyRef.current = floorBody;
       const walls = [
-        Bodies.rectangle(width / 2, floorY + 10, width, 20, wallOpts),
+        floorBody,
         Bodies.rectangle(width + 10, height / 2, 20, height, wallOpts),
         Bodies.rectangle(-10, height / 2, 20, height, wallOpts),
       ];
@@ -371,6 +379,17 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
         startEngine();
       }
     }, [updateElements, debug, autoStart, gravity, grabCursor, addTopWall, startEngine]);
+
+    // Dynamically move the floor when floorOffset changes (e.g. cookie banner dismissed)
+    useEffect(() => {
+      if (!floorBodyRef.current || !canvas.current) return;
+      const w = canvas.current.offsetWidth;
+      const h = canvas.current.offsetHeight;
+      const baseY = floorAtViewport
+        ? (typeof window !== "undefined" ? window.innerHeight : h)
+        : h;
+      Matter.Body.setPosition(floorBodyRef.current, { x: w / 2, y: baseY - floorOffset + 10 });
+    }, [floorOffset, floorAtViewport]);
 
     const clearRenderer = useCallback(() => {
       if (frameId.current) cancelAnimationFrame(frameId.current);

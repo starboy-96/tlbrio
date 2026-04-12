@@ -23,6 +23,7 @@ export default function CookieBanner({ children }: { children: React.ReactNode }
   function resolve(value: "accepted" | "rejected") {
     localStorage.setItem("cookie-consent", value);
     setShowBanner(false);
+    window.dispatchEvent(new CustomEvent("tlbr:cookie-resolved"));
     // Delay consent state update to let banner exit animation finish
     setTimeout(() => setConsent(value), 350);
   }

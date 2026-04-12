@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Gravity, MatterBody } from "@/components/ui/gravity";
 
@@ -18,6 +19,20 @@ const gravityPills = [
 ];
 
 export default function Hero() {
+  // When cookie banner is visible, raise the physics floor so pills
+  // pile up above the banner. Drop to 0 when the banner is dismissed.
+  const [floorOffset, setFloorOffset] = useState(0);
+
+  useEffect(() => {
+    const bannerHeight = window.innerHeight * 0.1;
+    const hasConsent = !!localStorage.getItem("cookie-consent");
+    if (!hasConsent) setFloorOffset(bannerHeight);
+
+    const onResolved = () => setFloorOffset(0);
+    window.addEventListener("tlbr:cookie-resolved", onResolved);
+    return () => window.removeEventListener("tlbr:cookie-resolved", onResolved);
+  }, []);
+
   return (
     <section
       id="hero"
@@ -42,6 +57,7 @@ export default function Hero() {
           addTopWall={false}
           autoStart
           floorAtViewport
+          floorOffset={floorOffset}
           className="w-full h-full absolute inset-0"
         >
           {gravityPills.map((pill, i) => (
