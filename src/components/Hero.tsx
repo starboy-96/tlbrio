@@ -60,10 +60,11 @@ export default function Hero() {
       </div>
 
       {/* ── Physics — full hero canvas, text column sits at z-10 above settled pills ── */}
-      <div className="absolute inset-0 z-[65] pointer-events-none" aria-hidden="true">
+      {/* pointer-events-none only while cookie banner is visible so its buttons stay clickable */}
+      <div className={`absolute inset-0 z-[65] ${floorOffset > 0 ? "pointer-events-none" : ""}`} aria-hidden="true">
         <Gravity
           gravity={GRAVITY_CONFIG}
-          grabCursor={false}
+          grabCursor={floorOffset === 0}
           addTopWall={false}
           autoStart
           floorAtViewport
