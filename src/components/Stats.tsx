@@ -107,7 +107,7 @@ export default function Stats() {
   return (
     <section
       aria-label="Key statistics"
-      className="bg-[#fafafa] px-6 md:px-12" style={{ paddingTop: "200px", paddingBottom: "200px" }}
+      className="bg-[#fafafa] py-24 md:py-28 px-6 md:px-12"
     >
       <motion.div
         variants={containerVariants}
