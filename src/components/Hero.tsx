@@ -122,6 +122,7 @@ export default function Hero() {
           floorAtViewport
           floorOffset={floorOffset}
           enableGyroscope={isMobile.current}
+          resetOnResize={!isMobile.current}
           className="w-full h-full absolute inset-0"
         >
           {gravityPills.map((pill, i) => (
