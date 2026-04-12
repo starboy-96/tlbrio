@@ -84,6 +84,9 @@ type GravityProps = {
   /** Raise the floor by this many pixels from the bottom. Useful for
    *  keeping bodies above a fixed UI element like a cookie banner. */
   floorOffset?: number;
+  /** When true, skips mouse/touch drag and instead drives gravity from
+   *  the device gyroscope (DeviceOrientationEvent). Designed for mobile. */
+  enableGyroscope?: boolean;
   className?: string;
 };
 
@@ -176,6 +179,7 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
       autoStart = true,
       floorAtViewport = false,
       floorOffset = 0,
+      enableGyroscope = false,
       className,
       ...props
     },
@@ -300,25 +304,6 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
         },
       });
 
-      // Forward wheel events to the page so the user can still scroll
-      // while hovering over the physics canvas
-      render.current.canvas.addEventListener(
-        "wheel",
-        (e) => {
-          window.scrollBy({ top: e.deltaY, left: e.deltaX, behavior: "auto" });
-        },
-        { passive: true }
-      );
-
-      const mouse = Mouse.create(render.current.canvas);
-      mouseConstraint.current = MouseConstraint.create(engine.current, {
-        mouse,
-        constraint: {
-          stiffness: 0.2,
-          render: { visible: debug },
-        },
-      });
-
       const wallOpts = { isStatic: true, friction: 1, render: { visible: debug } };
       // floorAtViewport: pin the floor to the visible screen bottom so physics
       // bodies don't fall off-screen when the canvas is taller than the viewport.
@@ -335,40 +320,64 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
       ];
       if (addTopWall) walls.push(Bodies.rectangle(width / 2, -10, width, 20, wallOpts));
 
-      const touchingMouse = () =>
-        Query.point(
-          engine.current.world.bodies,
-          mouseConstraint.current?.mouse.position || { x: 0, y: 0 }
-        ).length > 0;
+      if (!enableGyroscope) {
+        // Forward wheel events to the page so the user can still scroll
+        // while hovering over the physics canvas
+        render.current.canvas.addEventListener(
+          "wheel",
+          (e) => {
+            window.scrollBy({ top: e.deltaY, left: e.deltaX, behavior: "auto" });
+          },
+          { passive: true }
+        );
 
-      if (grabCursor) {
-        Events.on(engine.current, "beforeUpdate", () => {
-          if (canvas.current) {
-            canvas.current.style.cursor =
-              !mouseDown.current && !touchingMouse()
-                ? "default"
-                : touchingMouse()
-                ? mouseDown.current
-                  ? "grabbing"
-                  : "grab"
-                : "default";
-          }
+        const mouse = Mouse.create(render.current.canvas);
+        mouseConstraint.current = MouseConstraint.create(engine.current, {
+          mouse,
+          constraint: {
+            stiffness: 0.2,
+            render: { visible: debug },
+          },
         });
 
-        canvas.current.addEventListener("mousedown", () => {
-          mouseDown.current = true;
-          if (canvas.current)
-            canvas.current.style.cursor = touchingMouse() ? "grabbing" : "default";
-        });
-        canvas.current.addEventListener("mouseup", () => {
-          mouseDown.current = false;
-          if (canvas.current)
-            canvas.current.style.cursor = touchingMouse() ? "grab" : "default";
-        });
+        const touchingMouse = () =>
+          Query.point(
+            engine.current.world.bodies,
+            mouseConstraint.current?.mouse.position || { x: 0, y: 0 }
+          ).length > 0;
+
+        if (grabCursor) {
+          Events.on(engine.current, "beforeUpdate", () => {
+            if (canvas.current) {
+              canvas.current.style.cursor =
+                !mouseDown.current && !touchingMouse()
+                  ? "default"
+                  : touchingMouse()
+                  ? mouseDown.current
+                    ? "grabbing"
+                    : "grab"
+                  : "default";
+            }
+          });
+
+          canvas.current.addEventListener("mousedown", () => {
+            mouseDown.current = true;
+            if (canvas.current)
+              canvas.current.style.cursor = touchingMouse() ? "grabbing" : "default";
+          });
+          canvas.current.addEventListener("mouseup", () => {
+            mouseDown.current = false;
+            if (canvas.current)
+              canvas.current.style.cursor = touchingMouse() ? "grab" : "default";
+          });
+        }
+
+        World.add(engine.current.world, [mouseConstraint.current, ...walls]);
+        render.current.mouse = mouse;
+      } else {
+        // Gyroscope mode — no mouse/touch constraints, just walls
+        World.add(engine.current.world, walls);
       }
-
-      World.add(engine.current.world, [mouseConstraint.current, ...walls]);
-      render.current.mouse = mouse;
       runner.current = Runner.create();
       Render.run(render.current);
       updateElements();
@@ -378,7 +387,7 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
         runner.current.enabled = true;
         startEngine();
       }
-    }, [updateElements, debug, autoStart, gravity, grabCursor, addTopWall, startEngine]);
+    }, [updateElements, debug, autoStart, gravity, grabCursor, addTopWall, startEngine, enableGyroscope]);
 
     // Dynamically move the floor when floorOffset changes (e.g. cookie banner dismissed)
     useEffect(() => {
@@ -391,11 +400,26 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
       Matter.Body.setPosition(floorBodyRef.current, { x: w / 2, y: baseY - floorOffset + 10 });
     }, [floorOffset, floorAtViewport]);
 
+    // Gyroscope — update engine gravity from device tilt (mobile only)
+    useEffect(() => {
+      if (!enableGyroscope) return;
+      const STRENGTH = 1.2;
+      function handler(e: DeviceOrientationEvent) {
+        const gamma = e.gamma ?? 0;   // left-right tilt: -90 to 90°
+        const beta  = e.beta  ?? 90;  // front-back tilt: -180 to 180°
+        engine.current.gravity.x = (gamma / 90) * STRENGTH;
+        // sin(90°)=1 when upright (portrait), sin(-90°)=-1 when upside-down
+        engine.current.gravity.y = Math.sin((beta * Math.PI) / 180) * STRENGTH;
+      }
+      window.addEventListener("deviceorientation", handler, true);
+      return () => window.removeEventListener("deviceorientation", handler, true);
+    }, [enableGyroscope]);
+
     const clearRenderer = useCallback(() => {
       if (frameId.current) cancelAnimationFrame(frameId.current);
       if (mouseConstraint.current) World.remove(engine.current.world, mouseConstraint.current);
       if (render.current) {
-        Mouse.clearSourceEvents(render.current.mouse);
+        if (render.current.mouse) Mouse.clearSourceEvents(render.current.mouse);
         Render.stop(render.current);
         render.current.canvas.remove();
       }

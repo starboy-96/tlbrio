@@ -43,6 +43,43 @@ export default function Hero() {
     return () => window.removeEventListener("tlbr:cookie-resolved", onResolved);
   }, []);
 
+  // Detect touchscreen once — never causes a re-render
+  const isMobile = useRef(
+    typeof window !== "undefined" &&
+      window.matchMedia("(pointer: coarse)").matches
+  );
+
+  // iOS 13+ requires explicit permission for DeviceOrientationEvent.
+  // "unknown" = not yet attempted, "granted" = active, "denied" = refused
+  const [gyroPermission, setGyroPermission] = useState<"unknown" | "granted" | "denied">(
+    "unknown"
+  );
+
+  useEffect(() => {
+    if (!isMobile.current) return;
+    // Android and non-iOS browsers fire events without any permission call
+    const needsPermission =
+      typeof DeviceOrientationEvent !== "undefined" &&
+      typeof (DeviceOrientationEvent as unknown as { requestPermission?: () => Promise<string> })
+        .requestPermission === "function";
+    if (!needsPermission) {
+      // Android / older iOS — events available immediately
+      setGyroPermission("granted");
+    }
+    // iOS 13+: leave as "unknown" — the button handles the prompt
+  }, []);
+
+  async function requestGyroPermission() {
+    try {
+      const result = await (
+        DeviceOrientationEvent as unknown as { requestPermission: () => Promise<string> }
+      ).requestPermission();
+      setGyroPermission(result === "granted" ? "granted" : "denied");
+    } catch {
+      setGyroPermission("denied");
+    }
+  }
+
   return (
     <section
       id="hero"
@@ -59,19 +96,32 @@ export default function Hero() {
         />
       </div>
 
-      {/* ── Physics — full hero canvas, text column sits at z-10 above settled pills ── */}
-      {/* While banner is visible: z-[65] + pointer-events-none so pills appear above
-          the banner but clicks still reach its buttons.
-          After banner dismissed: drop to z-[1] so navbar/hero buttons (z-10+) receive
-          clicks normally, and pills can be dragged freely. */}
-      <div className={`absolute inset-0 ${floorOffset > 0 ? "z-[65] pointer-events-none" : "z-[1]"}`} aria-hidden="true">
+      {/* ── Physics — full hero canvas ── */}
+      {/*
+        Mobile:  always pointer-events-none so page scroll is never blocked.
+                 Gravity is driven by the gyroscope, not touch.
+        Desktop: pointer-events-none only while cookie banner is up (z-[65])
+                 so banner buttons remain clickable. After banner: z-[1] so
+                 pills are draggable and navbar/buttons get clicks normally.
+      */}
+      <div
+        className={`absolute inset-0 ${
+          floorOffset > 0
+            ? "z-[65] pointer-events-none"
+            : isMobile.current
+            ? "z-[1] pointer-events-none"
+            : "z-[1]"
+        }`}
+        aria-hidden="true"
+      >
         <Gravity
           gravity={GRAVITY_CONFIG}
-          grabCursor
+          grabCursor={!isMobile.current}
           addTopWall={false}
           autoStart
           floorAtViewport
           floorOffset={floorOffset}
+          enableGyroscope={isMobile.current}
           className="w-full h-full absolute inset-0"
         >
           {gravityPills.map((pill, i) => (
@@ -102,6 +152,22 @@ export default function Hero() {
           ))}
         </Gravity>
       </div>
+
+      {/* iOS gyroscope permission prompt */}
+      {isMobile.current && gyroPermission === "unknown" && (
+        <button
+          onClick={requestGyroPermission}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-white/60 text-xs pointer-events-auto"
+          style={{
+            fontFamily: '"General Sans", sans-serif',
+            background: "rgba(10,26,47,0.75)",
+            backdropFilter: "blur(8px)",
+          }}
+        >
+          <span aria-hidden="true">📱</span>
+          Tilt to interact – tap to enable
+        </button>
+      )}
 
       {/* ── Foreground content ── */}
       <div className="flex-1 flex flex-col lg:flex-row">
