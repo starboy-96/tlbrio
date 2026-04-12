@@ -58,14 +58,13 @@ function MobileCarousel({ cards }: { cards: ScrollCardData[] }) {
       {/* ── Track: each child is exactly one viewport-width wide ── */}
       <div
         ref={trackRef}
-        className="mobile-carousel flex overflow-x-auto"
+        className="mobile-carousel flex overflow-x-auto py-3"
         style={{
           scrollSnapType: "x mandatory",
           scrollbarWidth: "none",
           WebkitOverflowScrolling: "touch",
           msOverflowStyle: "none",
-          touchAction: "pan-x", // block vertical drag — page scroll handles that
-          overflowY: "hidden",  // ensure no vertical scroll within track
+          touchAction: "pan-x", // blocks vertical drag; page scroll handles that
         }}
       >
         {cards.map((c, i) => (
