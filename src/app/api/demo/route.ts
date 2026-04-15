@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 const TENANT_ID   = process.env.AZURE_TENANT_ID!;
 const CLIENT_ID   = process.env.AZURE_CLIENT_ID!;
 const CLIENT_SECRET = process.env.AZURE_CLIENT_SECRET!;
-const SENDER      = "hello@tlbr.io";
+const SENDER      = "jayvin@tlbr.io";
 const TO          = process.env.DEMO_EMAIL_TO ?? "hello@tlbr.io";
 
 async function getAccessToken(): Promise<string> {
@@ -38,7 +38,7 @@ async function sendMail(token: string, to: string, subject: string, html: string
         message: {
           subject,
           body: { contentType: "HTML", content: html },
-          from: { emailAddress: { address: SENDER, name: "tlbr.io" } },
+          from: { emailAddress: { address: SENDER, name: "Jayvin at tlbr.io" } },
           toRecipients: [{ emailAddress: { address: to } }],
         },
         saveToSentItems: false,
