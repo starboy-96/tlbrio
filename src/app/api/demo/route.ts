@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
     await sendMail(
       token,
       email,
-      "Thanks for your interest in tlbr.io — we'll be in touch shortly",
+      "Thanks for your interest in tlbr.io. We'll be in touch shortly.",
       `
         <div style="font-family: sans-serif; max-width: 520px; margin: 0 auto; padding: 32px 24px; background: #ffffff;">
 
@@ -119,7 +119,7 @@ export async function POST(req: NextRequest) {
                 </td>
                 <td style="vertical-align: top;">
                   <p style="margin: 0 0 2px; font-weight: 600; color: #0A1A2F; font-size: 0.9rem;">30-minute live walkthrough</p>
-                  <p style="margin: 0; color: #666; font-size: 0.82rem; line-height: 1.5;">We'll demo the toolbar using a pre-loaded brand — so you can see exactly what it would look like for your team.</p>
+                  <p style="margin: 0; color: #666; font-size: 0.82rem; line-height: 1.5;">We'll demo the toolbar using a pre-loaded brand so you can see exactly what it would look like for your team.</p>
                 </td>
               </tr></table>
             </div>
@@ -130,7 +130,7 @@ export async function POST(req: NextRequest) {
                   <div style="width: 32px; height: 32px; background: #94E561; border-radius: 50%; text-align: center; line-height: 32px; font-weight: 700; font-size: 0.85rem; color: #0A1A2F;">3</div>
                 </td>
                 <td style="vertical-align: top;">
-                  <p style="margin: 0 0 2px; font-weight: 600; color: #0A1A2F; font-size: 0.9rem;">No hard sell — just the product</p>
+                  <p style="margin: 0 0 2px; font-weight: 600; color: #0A1A2F; font-size: 0.9rem;">No hard sell. Just the product.</p>
                   <p style="margin: 0; color: #666; font-size: 0.82rem; line-height: 1.5;">Ask anything, see everything. You'll leave with a clear picture of what tlbr.io can do for your team.</p>
                 </td>
               </tr></table>
@@ -147,7 +147,7 @@ export async function POST(req: NextRequest) {
               <tr><td style="padding: 5px 0;"><p style="margin: 0; color: rgba(255,255,255,0.8); font-size: 0.85rem;">&#10003;&nbsp; Brand asset library</p></td></tr>
               <tr><td style="padding: 5px 0;"><p style="margin: 0; color: rgba(255,255,255,0.8); font-size: 0.85rem;">&#10003;&nbsp; Layout &amp; spacing tools</p></td></tr>
               <tr><td style="padding: 5px 0;"><p style="margin: 0; color: rgba(255,255,255,0.8); font-size: 0.85rem;">&#10003;&nbsp; Edit graphs &amp; tables</p></td></tr>
-              <tr><td style="padding: 8px 0 0;"><p style="margin: 0; color: #94E561; font-size: 0.85rem; font-weight: 600;">Result: on-brand decks, 2&times; faster — for everyone on your team.</p></td></tr>
+              <tr><td style="padding: 8px 0 0;"><p style="margin: 0; color: #94E561; font-size: 0.85rem; font-weight: 600;">Result: on-brand decks, 2x faster for everyone on your team.</p></td></tr>
             </table>
           </div>
 
@@ -159,7 +159,7 @@ export async function POST(req: NextRequest) {
           <!-- Footer -->
           <p style="color: #bbb; font-size: 0.72rem; text-align: center; margin: 0; line-height: 1.6;">
             tlbr.io &nbsp;&middot;&nbsp; The bespoke PowerPoint add-in<br/>
-            This is an automated message — please do not reply to this email.
+            This is an automated message. Please do not reply to this email.
           </p>
 
         </div>
