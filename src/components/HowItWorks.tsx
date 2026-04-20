@@ -81,7 +81,7 @@ export default function HowItWorks() {
             className="text-5xl md:text-6xl text-white mb-4 leading-[1.05]"
             style={{ fontFamily: '"Cal Sans", sans-serif', fontWeight: 700, color: "white" }}
           >
-            {"It's already inside PowerPoint"}
+            {"Built inside PowerPoint"}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
