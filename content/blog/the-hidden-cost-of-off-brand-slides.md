@@ -4,7 +4,7 @@ description: "Off-brand slides can waste significant team time, impacting produc
 date: "2026-04-20"
 tags: ["presentation design", "brand consistency", "productivity"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1553484771-047a44eee27b?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&auto=format&q=80"
 ---
 
 ## Introduction to the Problem

@@ -4,6 +4,7 @@ description: "Most companies underestimate how much inconsistent slide design er
 date: "2026-04-10"
 tags: ["brand consistency", "presentations", "PowerPoint"]
 author: "tlbr.io"
+image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1200&auto=format&q=80"
 ---
 
 Every week, teams across your organisation are opening PowerPoint and starting from scratch. Wrong fonts. Old logos. Colours copied from memory. And then a finished deck goes to a client that looks nothing like your brand guidelines.

@@ -2,8 +2,8 @@ name: Weekly Blog Post
 
 on:
   schedule:
-    # Runs every Tuesday at 8:00am UTC
-    - cron: "0 8 * * 2"
+    # Runs every Tuesday and Thursday at 8:00am UTC
+    - cron: "0 8 * * 2,4"
   # Allow manual trigger from the GitHub Actions tab
   workflow_dispatch:
 
@@ -65,7 +65,10 @@ jobs:
             "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&auto=format&q=80"
             "https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=1200&auto=format&q=80"
           )
-          IMAGE_URL="${IMAGES[$TOPIC_INDEX]}"
+          # Use day-of-year so every post gets a different image
+          DAY_OF_YEAR=$(date +%j)
+          IMAGE_INDEX=$(( (10#$DAY_OF_YEAR - 1) % ${#IMAGES[@]} ))
+          IMAGE_URL="${IMAGES[$IMAGE_INDEX]}"
 
           echo "Generating post on topic: $TOPIC"
 

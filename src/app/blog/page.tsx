@@ -31,7 +31,7 @@ export default function BlogPage() {
     <>
       <Navbar />
       <main className="flex flex-col flex-1 pt-24 pb-20 px-6 min-h-screen">
-        <div className="max-w-4xl mx-auto w-full">
+        <div className="max-w-5xl mx-auto w-full">
           {/* Header */}
           <div className="mb-16">
             <p className="section-label mb-3">Blog</p>
@@ -61,16 +61,32 @@ export default function BlogPage() {
               </p>
             </div>
           ) : (
-            <div className="space-y-px bg-navy/5 rounded-2xl overflow-hidden border border-navy/5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {posts.map((post) => (
                 <Link
                   key={post.slug}
                   href={`/blog/${post.slug}`}
-                  className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-[#fafafa] hover:bg-green-xlight transition-colors duration-200"
+                  className="group flex flex-col rounded-2xl overflow-hidden border border-navy/8 bg-[#fafafa] hover:border-navy/20 transition-all duration-200 hover:shadow-md"
                   aria-label={`Read: ${post.title}`}
                 >
-                  <div className="flex-1 min-w-0">
-                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                  {/* Thumbnail */}
+                  <div className="w-full aspect-[16/9] bg-navy/5 overflow-hidden flex-shrink-0">
+                    {post.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={post.image}
+                        alt=""
+                        aria-hidden="true"
+                        className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-navy/8 to-green/10" />
+                    )}
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex flex-col flex-1 p-6">
+                    <div className="flex flex-wrap items-center gap-2 mb-3">
                       {post.tags.slice(0, 2).map((tag) => (
                         <span
                           key={tag}
@@ -81,48 +97,41 @@ export default function BlogPage() {
                         </span>
                       ))}
                     </div>
+
                     <h2
-                      className="text-lg text-navy group-hover:text-navy truncate mb-1"
+                      className="text-lg text-navy leading-snug mb-2 group-hover:text-navy"
                       style={{ fontFamily: '"Cal Sans", sans-serif' }}
                     >
                       {post.title}
                     </h2>
+
                     <p
-                      className="text-sm text-navy/50 line-clamp-1"
+                      className="text-sm text-navy/50 line-clamp-2 mb-4 flex-1"
                       style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 300 }}
                     >
                       {post.description}
                     </p>
-                  </div>
-                  <div className="flex flex-shrink-0 items-center gap-4">
-                    <div className="text-right">
-                      <p
-                        className="text-xs text-navy/40"
-                        style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 300 }}
-                      >
-                        {formatDate(post.date)}
-                      </p>
-                      <p
-                        className="text-xs text-navy/35"
-                        style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 300 }}
-                      >
-                        {post.readingTime}
-                      </p>
-                    </div>
-                    {post.image && (
-                      <div className="hidden sm:block w-16 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-navy/5">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={post.image}
-                          alt=""
-                          aria-hidden="true"
-                          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-200"
-                        />
+
+                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-navy/6">
+                      <div className="flex items-center gap-3">
+                        <span
+                          className="text-xs text-navy/40"
+                          style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 300 }}
+                        >
+                          {formatDate(post.date)}
+                        </span>
+                        <span className="text-navy/20 text-xs">·</span>
+                        <span
+                          className="text-xs text-navy/35"
+                          style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 300 }}
+                        >
+                          {post.readingTime}
+                        </span>
                       </div>
-                    )}
-                    <span className="text-navy/25 group-hover:text-green transition-colors duration-200 text-lg">
-                      →
-                    </span>
+                      <span className="text-navy/25 group-hover:text-green transition-colors duration-200 text-sm">
+                        →
+                      </span>
+                    </div>
                   </div>
                 </Link>
               ))}
