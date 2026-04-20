@@ -223,8 +223,8 @@ export default function Hero() {
 
           {/* Headline */}
           <h1
-            className="text-[2.625rem] md:text-6xl lg:text-[4.5rem] xl:text-[5rem] leading-[1.15] mb-7"
-            style={{ fontFamily: '"Cal Sans", sans-serif', fontWeight: 700 }}
+            className="leading-[1.15] mb-7"
+            style={{ fontFamily: '"Cal Sans", sans-serif', fontWeight: 700, fontSize: "clamp(2.625rem, 4.5vw, 5rem)" }}
           >
             {["Stop formatting.", "Start presenting."].map((line, li) => {
               const words = line.split(" ");
