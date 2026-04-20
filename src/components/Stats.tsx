@@ -119,7 +119,7 @@ export default function Stats() {
         {/* ── Card 1: 2× faster — tall, spans 2 rows ── */}
         <motion.div
           variants={itemVariants}
-          className="sm:row-span-2 relative overflow-hidden rounded-3xl bg-navy p-8 flex flex-col justify-between group"
+          className="lg:row-span-2 relative overflow-hidden rounded-3xl bg-navy p-8 flex flex-col justify-between group"
           style={{
             background:
               "radial-gradient(ellipse at 80% 10%, rgba(148,229,97,0.12) 0%, transparent 60%), #0A1A2F",
