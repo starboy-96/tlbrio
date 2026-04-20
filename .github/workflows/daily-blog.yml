@@ -47,6 +47,26 @@ jobs:
           TOPIC_INDEX=$(( ($WEEK_OF_YEAR - 1) % ${#TOPICS[@]} ))
           TOPIC="${TOPICS[$TOPIC_INDEX]}"
 
+          # Curated Unsplash images — one per topic (business/presentation themed)
+          IMAGES=(
+            "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1553484771-047a44eee27b?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=1200&auto=format&q=80"
+          )
+          IMAGE_URL="${IMAGES[$TOPIC_INDEX]}"
+
           echo "Generating post on topic: $TOPIC"
 
           RESPONSE=$(curl -s "https://api.groq.com/openai/v1/chat/completions" \
@@ -76,11 +96,23 @@ jobs:
             exit 1
           fi
 
-          # Generate a filename slug from the date and topic index
-          SLUG="${TODAY}-post-${TOPIC_INDEX}"
+          # Derive a clean slug from the generated title
+          TITLE=$(echo "$POST_CONTENT" | grep -m1 '^title:' | sed 's/^title: *//' | tr -d '"' | tr -d "'")
+          SLUG=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/-\+/-/g' | sed 's/^-//;s/-$//')
+          if [ -z "$SLUG" ]; then
+            SLUG="${TODAY}-post-${TOPIC_INDEX}"
+          fi
           FILE_PATH="content/blog/${SLUG}.md"
 
-          echo "$POST_CONTENT" > "$FILE_PATH"
+          # Inject the image field into the frontmatter (before the closing ---)
+          MODIFIED_CONTENT=$(echo "$POST_CONTENT" | awk -v img="$IMAGE_URL" '
+            BEGIN { count=0 }
+            /^---$/ { count++ }
+            count==2 && /^---$/ { print "image: \"" img "\"" }
+            { print }
+          ')
+
+          echo "$MODIFIED_CONTENT" > "$FILE_PATH"
           echo "Post written to $FILE_PATH"
           head -10 "$FILE_PATH"
 

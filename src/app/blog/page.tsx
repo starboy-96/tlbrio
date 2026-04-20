@@ -109,6 +109,17 @@ export default function BlogPage() {
                         {post.readingTime}
                       </p>
                     </div>
+                    {post.image && (
+                      <div className="hidden sm:block w-16 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-navy/5">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={post.image}
+                          alt=""
+                          aria-hidden="true"
+                          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-200"
+                        />
+                      </div>
+                    )}
                     <span className="text-navy/25 group-hover:text-green transition-colors duration-200 text-lg">
                       →
                     </span>

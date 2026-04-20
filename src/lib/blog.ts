@@ -12,6 +12,7 @@ export interface PostMeta {
   tags: string[];
   author: string;
   readingTime: string;
+  image?: string;
 }
 
 export interface Post extends PostMeta {
@@ -44,6 +45,7 @@ export function getAllPosts(): PostMeta[] {
         tags: data.tags ?? [],
         author: data.author ?? "tlbr.io",
         readingTime: estimateReadingTime(content),
+        image: data.image,
       } satisfies PostMeta;
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1));
@@ -67,6 +69,7 @@ export function getPostBySlug(slug: string): Post | null {
     tags: data.tags ?? [],
     author: data.author ?? "tlbr.io",
     readingTime: estimateReadingTime(content),
+    image: data.image,
     content,
   };
 }
