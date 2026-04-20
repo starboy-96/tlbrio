@@ -195,17 +195,13 @@ function MobileCarousel({ cards }: { cards: ScrollCardData[] }) {
       <div className="flex items-center justify-center gap-4 mt-5">
         {/* Prev arrow */}
         <button
-          onClick={() => goTo(Math.max(0, activeIndex - 1))}
-          disabled={activeIndex === 0}
+          onClick={() => goTo((activeIndex - 1 + cards.length) % cards.length)}
           aria-label="Previous feature"
           className="w-7 h-7 rounded-full flex items-center justify-center transition-all duration-200"
-          style={{
-            backgroundColor: activeIndex === 0 ? "rgba(10,26,47,0.06)" : dotAccent,
-            opacity: activeIndex === 0 ? 0.4 : 1,
-          }}
+          style={{ backgroundColor: dotAccent }}
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M7.5 2L3.5 6L7.5 10" stroke={activeIndex === 0 ? "#0A1A2F" : "#0A1A2F"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M7.5 2L3.5 6L7.5 10" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
 
@@ -228,17 +224,13 @@ function MobileCarousel({ cards }: { cards: ScrollCardData[] }) {
 
         {/* Next arrow */}
         <button
-          onClick={() => goTo(Math.min(cards.length - 1, activeIndex + 1))}
-          disabled={activeIndex === cards.length - 1}
+          onClick={() => goTo((activeIndex + 1) % cards.length)}
           aria-label="Next feature"
           className="w-7 h-7 rounded-full flex items-center justify-center transition-all duration-200"
-          style={{
-            backgroundColor: activeIndex === cards.length - 1 ? "rgba(10,26,47,0.06)" : dotAccent,
-            opacity: activeIndex === cards.length - 1 ? 0.4 : 1,
-          }}
+          style={{ backgroundColor: dotAccent }}
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M4.5 2L8.5 6L4.5 10" stroke="#0A1A2F" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M4.5 2L8.5 6L4.5 10" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
       </div>
