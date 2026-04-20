@@ -150,7 +150,7 @@ export default function Features() {
       <div className="lg:hidden px-6 pt-10 pb-4">
         <p className="section-label mb-3">Features</p>
         <h2
-          className="text-3xl mb-3 leading-tight"
+          className="text-4xl md:text-5xl mb-3 leading-tight"
           style={{ fontFamily: '"Cal Sans", sans-serif', fontWeight: 700 }}
         >
           The formatting work, <span className="gradient-text">done for you</span>
