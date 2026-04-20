@@ -43,10 +43,12 @@ export default function Hero() {
     return () => window.removeEventListener("tlbr:cookie-resolved", onResolved);
   }, []);
 
-  // Detect touchscreen once — never causes a re-render
+  // Treat as mobile if: touchscreen device OR viewport narrower than the lg:
+  // breakpoint (1024px) — keeps JS behaviour aligned with CSS layout switching.
   const isMobile = useRef(
     typeof window !== "undefined" &&
-      window.matchMedia("(pointer: coarse)").matches
+      (window.matchMedia("(pointer: coarse)").matches ||
+        window.matchMedia("(max-width: 1023px)").matches)
   );
 
   // iOS 13+ requires explicit permission for DeviceOrientationEvent.
