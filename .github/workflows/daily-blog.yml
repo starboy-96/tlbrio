@@ -19,7 +19,7 @@ jobs:
 
       - name: Generate blog post with AI
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           TODAY=$(date +%Y-%m-%d)
 
@@ -49,31 +49,30 @@ jobs:
 
           echo "Generating post on topic: $TOPIC"
 
-          RESPONSE=$(curl -s https://api.openai.com/v1/chat/completions \
+          RESPONSE=$(curl -s "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$GEMINI_API_KEY" \
             -H "Content-Type: application/json" \
-            -H "Authorization: Bearer $OPENAI_API_KEY" \
             -d "$(jq -n \
+              --arg system "You are a content writer for tlbr.io — a bespoke PowerPoint add-in for enterprise teams. You write sharp, practical, opinionated blog posts about presentation design, brand consistency, and working in PowerPoint. Your tone is confident and direct, like a senior consultant who has seen every bad slide deck. No fluff. No generic advice. Write for people who work in professional services, finance, sales, marketing, and HR at companies with 100–5,000 employees. Always write in British English." \
               --arg topic "$TOPIC" \
               --arg today "$TODAY" \
               '{
-                model: "gpt-4o",
-                temperature: 0.7,
-                messages: [
-                  {
-                    role: "system",
-                    content: "You are a content writer for tlbr.io — a bespoke PowerPoint add-in for enterprise teams. You write sharp, practical, opinionated blog posts about presentation design, brand consistency, and working in PowerPoint. Your tone is confident and direct, like a senior consultant who has seen every bad slide deck. No fluff. No generic advice. Write for people who work in professional services, finance, sales, marketing, and HR at companies with 100–5,000 employees. Always write in British English."
-                  },
-                  {
-                    role: "user",
-                    content: ("Write a blog post on this topic: " + $topic + "\n\nReturn ONLY valid markdown starting with YAML frontmatter in this exact format (no code fences, no extra text before or after):\n\n---\ntitle: \"The title here\"\ndescription: \"A one-sentence meta description under 160 characters\"\ndate: \"" + $today + "\"\ntags: [\"tag1\", \"tag2\", \"tag3\"]\nauthor: \"tlbr.io team\"\n---\n\nThen the blog post content in markdown. Requirements:\n- 600-900 words\n- Use ## for section headings\n- Use bullet points where appropriate\n- Include a practical takeaway or clear conclusion\n- Do not mention competitors by name\n- Do not use the phrase \"in conclusion\"\n- Do not use em dashes")
-                  }
-                ]
+                systemInstruction: {
+                  parts: [{ text: $system }]
+                },
+                contents: [{
+                  parts: [{
+                    text: ("Write a blog post on this topic: " + $topic + "\n\nReturn ONLY valid markdown starting with YAML frontmatter in this exact format (no code fences, no extra text before or after):\n\n---\ntitle: \"The title here\"\ndescription: \"A one-sentence meta description under 160 characters\"\ndate: \"" + $today + "\"\ntags: [\"tag1\", \"tag2\", \"tag3\"]\nauthor: \"tlbr.io team\"\n---\n\nThen the blog post content in markdown. Requirements:\n- 600-900 words\n- Use ## for section headings\n- Use bullet points where appropriate\n- Include a practical takeaway or clear conclusion\n- Do not mention competitors by name\n- Do not use the phrase \"in conclusion\"\n- Do not use em dashes")
+                  }]
+                }],
+                generationConfig: {
+                  temperature: 0.7
+                }
               }' \
             )"
           )
 
           # Extract the content from the API response
-          POST_CONTENT=$(echo "$RESPONSE" | jq -r '.choices[0].message.content')
+          POST_CONTENT=$(echo "$RESPONSE" | jq -r '.candidates[0].content.parts[0].text')
 
           if [ -z "$POST_CONTENT" ] || [ "$POST_CONTENT" = "null" ]; then
             echo "Error: No content returned from OpenAI"
