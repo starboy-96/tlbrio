@@ -61,7 +61,7 @@ jobs:
                 temperature: 0.7,
                 messages: [
                   { role: "system", content: $system },
-                  { role: "user", content: ("Write a blog post on this topic: " + $topic + "\n\nReturn ONLY valid markdown starting with YAML frontmatter in this exact format (no code fences, no extra text before or after):\n\n---\ntitle: \"The title here\"\ndescription: \"A one-sentence meta description under 160 characters\"\ndate: \"" + $today + "\"\ntags: [\"tag1\", \"tag2\", \"tag3\"]\nauthor: \"tlbr.io team\"\n---\n\nThen the blog post content in markdown. Requirements:\n- 600-900 words\n- Use ## for section headings\n- Use bullet points where appropriate\n- Include a practical takeaway or clear conclusion\n- Do not mention competitors by name\n- Do not use the phrase \"in conclusion\"\n- Do not use em dashes") }
+                  { role: "user", content: ("Write a blog post on this topic: " + $topic + "\n\nReturn ONLY valid markdown starting with YAML frontmatter in this exact format (no code fences, no extra text before or after):\n\n---\ntitle: \"The title here\"\ndescription: \"A compelling one-sentence meta description that summarises the post and why it matters, between 120 and 155 characters — never shorter than 100 characters\"\ndate: \"" + $today + "\"\ntags: [\"tag1\", \"tag2\", \"tag3\"]\nauthor: \"tlbr.io team\"\n---\n\nThen the blog post content in markdown. Requirements:\n- 600-900 words\n- Use ## for section headings\n- Use bullet points where appropriate\n- Include a practical takeaway or clear conclusion\n- Do not mention competitors by name\n- Do not use the phrase \"in conclusion\"\n- Do not use em dashes") }
                 ]
               }' \
             )"
