@@ -1,36 +1,37 @@
 ---
 title: "The Hidden Cost of Off-Brand Slides"
-description: "Off-brand slides can waste significant team time, impacting productivity and consistency, and this post explains why and how to fix it"
-date: "2026-04-20"
+description: "Discover how inconsistent slides impact productivity and brand reputation"
+date: "2026-04-21"
 tags: ["presentation design", "brand consistency", "productivity"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&auto=format&q=80"
 ---
 
 ## Introduction to the Problem
-Creating presentations is a crucial part of many professional roles, particularly in fields such as sales, marketing, and finance. When it comes to presentation design, maintaining brand consistency is key to making a good impression and reinforcing a company's identity. However, many teams struggle with this, resulting in off-brand slides that can have a significant hidden cost: wasted time fixing formatting.
+Creating effective presentations is a critical task for many professionals, particularly those in enterprise teams. A well-designed slide deck can make a significant difference in engaging audiences, conveying key messages, and ultimately driving business results. However, many organisations struggle with maintaining consistency in their presentation design, leading to what we term "off-brand slides". These slides not only undermine the company's visual identity but also have a hidden cost: the substantial amount of time team members waste fixing formatting issues.
 
-## The Issue of Inconsistency
-Inconsistent slides can arise from various sources, including outdated templates, lack of training, or simple oversights. This inconsistency can lead to a multitude of problems, not least of which is the time spent correcting these issues. When team members have to spend valuable hours adjusting fonts, colours, and layouts to match the company brand, it takes away from more important tasks such as content creation, strategy, and client engagement.
+## The Prevalence of Off-Brand Slides
+Off-brand slides are more common than one might think. They often result from a lack of standardisation in presentation design across different departments or teams within an organisation. Without clear guidelines or accessible templates, employees may create slides that do not align with the company's brand manual. This inconsistency can lead to a plethora of issues, including:
+* Inconsistent fonts, colours, and layouts
+* Incorrect use of logos and imagery
+* Poorly structured content that fails to engage the audience
+* Lack of cohesion when multiple presenters contribute to a single deck
 
-## Identifying the Time Wasters
-Several common practices contribute to the waste of time when dealing with off-brand slides:
-* Manual formatting: Adjusting each slide individually to match brand guidelines is laborious and prone to errors.
-* Searching for assets: Finding the correct version of the company logo, the right colour palette, or approved imagery can be a daunting task, especially if these assets are not centrally located or easily accessible.
-* Re-creating content: When slides do not conform to brand standards, they may need to be re-created from scratch, which can be incredibly time-consuming, especially for complex presentations.
+## The Time-Wasting Reality
+The time spent correcting these inconsistencies is often underestimated. When team members have to fix formatting issues, it takes away from more strategic and high-value tasks. Consider the following scenarios:
+* A marketing team spends hours each week standardising slides for a major product launch, ensuring they adhere to the brand's visual identity.
+* Sales representatives waste valuable time before meetings adjusting fonts and colours in their pitch decks to match the company's latest brand guidelines.
+* HR personnel dedicate significant hours to reformatting training slides to ensure consistency with the organisation's overall branding.
 
-## The Cumulative Effect
-The time spent on these tasks can quickly add up, affecting not just individual productivity but also team efficiency and overall project timelines. For example, if each team member spends just an hour a week fixing formatting issues, in a team of 20, that equates to 20 hours of wasted time per week. Over the course of a year, this amounts to a significant loss of productive hours that could be better spent on high-value tasks.
+## Quantifying the Cost
+To understand the financial impact, let's consider a hypothetical scenario. Assume an organisation has 50 employees who work with presentations regularly. If each of these employees spends just one hour per week fixing formatting issues, that equates to 50 hours per week. With an average hourly wage of £25, this translates to £1,250 per week or £65,000 per year spent solely on correcting off-brand slides. This is a conservative estimate and does not account for larger organisations or those with higher average wages.
 
 ## Implementing a Solution
-To mitigate the hidden cost of off-brand slides, teams can implement several strategies:
-* **Centralise brand assets**: Keep all brand-related materials, such as logos, colour schemes, and templates, in a single, accessible location.
-* **Use consistent templates**: Develop and enforce the use of on-brand templates for all presentations to ensure consistency from the outset.
-* **Automate formatting**: Utilise tools that can automatically apply brand styles to presentations, reducing the need for manual formatting.
-* **Train team members**: Provide regular training on brand guidelines and the importance of consistency to prevent errors and ensure everyone is on the same page.
+To mitigate this waste of time and resources, organisations can take proactive steps:
+* Develop and disseminate comprehensive brand guidelines that include detailed instructions on presentation design.
+* Create and maintain a library of approved, customisable templates that reflect the brand's visual identity.
+* Invest in tools and software that automate the process of applying brand standards to presentations.
+* Provide training to ensure all team members understand the importance of brand consistency and how to apply it in their work.
 
 ## Practical Takeaway
-One of the most effective ways to reduce the time wasted on fixing off-brand slides is to invest in a bespoke PowerPoint add-in designed specifically for enterprise teams. Such a tool can help centralise brand assets, automate formatting, and ensure that all presentations are on-brand and consistent. By streamlining the presentation design process, teams can free up valuable time and focus on what really matters: delivering high-quality content and engaging presentations that reflect the company's professional image.
-
-## Moving Forward with Efficiency
-By understanding the hidden cost of off-brand slides and implementing strategies to mitigate these issues, teams can significantly improve their productivity and efficiency. This not only benefits the team internally but also enhances the external perception of the company, reinforcing its brand and values through consistent, professional presentations. The key to success lies in adopting a proactive approach to presentation design, leveraging the right tools and practices to ensure that every slide, every presentation, and every interaction reflects the company's brand identity accurately and consistently.
+By addressing the issue of off-brand slides and implementing measures to ensure consistency, organisations can significantly reduce the time their teams waste on formatting corrections. This not only leads to increased productivity but also enhances the professional image of the company. As professionals, we should strive for presentations that are not only engaging and informative but also consistently reflect our organisation's brand values. By doing so, we can focus more on the content and message, and less on the tedious task of formatting.
