@@ -47,23 +47,23 @@ jobs:
           TOPIC_INDEX=$(( ($WEEK_OF_YEAR - 1) % ${#TOPICS[@]} ))
           TOPIC="${TOPICS[$TOPIC_INDEX]}"
 
-          # Curated Unsplash images — one per topic (business/presentation themed)
+          # Curated Unsplash images — dynamic, high-energy visuals for each post
           IMAGES=(
-            "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1553484771-047a44eee27b?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1497215842964-222b430dc094?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1590402494682-cd3fb53b1f70?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=1200&auto=format&q=80"
+            "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?w=1200&auto=format&q=80"
           )
           # Use day-of-year so every post gets a different image
           DAY_OF_YEAR=$(date +%j)
@@ -84,7 +84,7 @@ jobs:
                 temperature: 0.7,
                 messages: [
                   { role: "system", content: $system },
-                  { role: "user", content: ("Write a blog post on this topic: " + $topic + "\n\nReturn ONLY valid markdown starting with YAML frontmatter in this exact format (no code fences, no extra text before or after):\n\n---\ntitle: \"The title here\"\ndescription: \"A compelling one-sentence meta description that summarises the post and why it matters, between 120 and 155 characters — never shorter than 100 characters\"\ndate: \"" + $today + "\"\ntags: [\"tag1\", \"tag2\", \"tag3\"]\nauthor: \"tlbr.io team\"\n---\n\nThen the blog post content in markdown. Requirements:\n- 600-900 words\n- Use ## for section headings\n- Use bullet points where appropriate\n- Include a practical takeaway or clear conclusion\n- Do not mention competitors by name\n- Do not use the phrase \"in conclusion\"\n- Do not use em dashes") }
+                  { role: "user", content: ("Write a blog post on this topic: " + $topic + "\n\nReturn ONLY valid markdown starting with YAML frontmatter in this exact format (no code fences, no extra text before or after):\n\n---\ntitle: \"The title here — maximum 8 words\"\ndescription: \"A compelling one-sentence meta description that summarises the post and why it matters, between 120 and 155 characters — never shorter than 100 characters\"\ndate: \"" + $today + "\"\ntags: [\"tag1\", \"tag2\", \"tag3\"]\nauthor: \"tlbr.io team\"\n---\n\nThen the blog post content in markdown. Requirements:\n- 600-900 words\n- Title must be 8 words or fewer\n- Use ## for section headings\n- Use bullet points where appropriate\n- Include a practical takeaway or clear conclusion\n- Do not mention competitors by name\n- Do not use the phrase \"in conclusion\"\n- Do not use em dashes\n- SEO: include the primary keyword naturally in the first paragraph and use keyword variations throughout\n- Internal links: include 2 links to tlbr.io pages using this format — [link text](https://tlbr.io/#features), [link text](https://tlbr.io/#pricing), [link text](https://tlbr.io/#demo), or [link text](https://tlbr.io/blog) — choose whichever 2 are most relevant\n- External links: include 1-2 links to authoritative external sources such as industry research, statistics, or relevant articles that support the post") }
                 ]
               }' \
             )"

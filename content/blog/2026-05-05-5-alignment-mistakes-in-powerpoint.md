@@ -4,7 +4,7 @@ description: "Stop wasting time nudging objects manually — here’s how to ali
 date: "2026-05-05"
 tags: ["PowerPoint tips", "presentation design", "brand consistency", "slide alignment", "efficiency"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&auto=format&q=80"
 ---
 
 ## Why alignment still trips up even experienced teams
