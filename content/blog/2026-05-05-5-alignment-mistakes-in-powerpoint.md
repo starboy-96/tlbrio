@@ -1,7 +1,7 @@
 ---
 title: "5 alignment mistakes everyone makes in PowerPoint and how to fix them in one click"
 description: "Stop wasting time nudging objects manually — here’s how to align slides perfectly in seconds with one-click fixes for common PowerPoint alignment errors."
-date: "2025-04-10"
+date: "2026-05-05"
 tags: ["PowerPoint tips", "presentation design", "brand consistency", "slide alignment", "efficiency"]
 author: "tlbr.io team"
 image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&auto=format&q=80"

@@ -105,8 +105,14 @@ jobs:
           if [ -z "$TITLE_SLUG" ]; then
             TITLE_SLUG="post-${TOPIC_INDEX}"
           fi
+          # Truncate title slug to 50 chars to keep URLs short
+          TITLE_SLUG="${TITLE_SLUG:0:50}"
+          TITLE_SLUG="${TITLE_SLUG%-}" # remove trailing hyphen if truncated
           SLUG="${TODAY}-${TITLE_SLUG}"
           FILE_PATH="content/blog/${SLUG}.md"
+
+          # Force correct date in frontmatter in case AI generated a wrong one
+          POST_CONTENT=$(echo "$POST_CONTENT" | sed "s/^date: .*/date: \"$TODAY\"/m")
 
           # Inject the image field into the frontmatter (before the closing ---)
           MODIFIED_CONTENT=$(echo "$POST_CONTENT" | awk -v img="$IMAGE_URL" '
