@@ -19,7 +19,7 @@ jobs:
 
       - name: Generate blog post with AI
         env:
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
           TODAY=$(date +%Y-%m-%d)
 
@@ -72,15 +72,16 @@ jobs:
 
           echo "Generating post on topic: $TOPIC"
 
-          RESPONSE=$(curl -s "https://api.groq.com/openai/v1/chat/completions" \
+          RESPONSE=$(curl -s "https://openrouter.ai/api/v1/chat/completions" \
             -H "Content-Type: application/json" \
-            -H "Authorization: Bearer $GROQ_API_KEY" \
+            -H "Authorization: Bearer $OPENROUTER_API_KEY" \
+            -H "HTTP-Referer: https://tlbr.io" \
             -d "$(jq -n \
               --arg system "You are a content writer for tlbr.io — a bespoke PowerPoint add-in for enterprise teams. You write sharp, practical, opinionated blog posts about presentation design, brand consistency, and working in PowerPoint. Your tone is confident and direct, like a senior consultant who has seen every bad slide deck. No fluff. No generic advice. Write for people who work in professional services, finance, sales, marketing, and HR at companies with 100–5,000 employees. Always write in British English." \
               --arg topic "$TOPIC" \
               --arg today "$TODAY" \
               '{
-                model: "llama-3.3-70b-versatile",
+                model: "meta-llama/llama-3.3-70b-instruct:free",
                 temperature: 0.7,
                 messages: [
                   { role: "system", content: $system },
