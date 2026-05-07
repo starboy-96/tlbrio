@@ -2,6 +2,8 @@ name: Weekly Blog Post
 
 on:
   schedule:
+    # TEST CRON — remove after test
+    - cron: "53 12 * * *"
     # Primary: Tuesday and Thursday at 8:00am UTC
     - cron: "0 8 * * 2,4"
     # Backup: runs every day at 9:00am UTC — script skips non-Tue/Thu days
@@ -51,9 +53,9 @@ jobs:
             "What makes a PowerPoint add-in actually worth deploying company-wide"
           )
 
-          # Pick a topic based on the week of the year so it cycles predictably
-          WEEK_OF_YEAR=$(date +%V)
-          TOPIC_INDEX=$(( ($WEEK_OF_YEAR - 1) % ${#TOPICS[@]} ))
+          # Pick a topic based on day of year so each post gets a different topic
+          DAY_OF_YEAR_TOPIC=$(date +%j)
+          TOPIC_INDEX=$(( (10#$DAY_OF_YEAR_TOPIC - 1) % ${#TOPICS[@]} ))
           TOPIC="${TOPICS[$TOPIC_INDEX]}"
 
           # Curated Unsplash images — dynamic, high-energy visuals for each post
