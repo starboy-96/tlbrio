@@ -2,8 +2,6 @@ name: Weekly Blog Post
 
 on:
   schedule:
-    # TEST CRON — remove after test
-    - cron: "53 12 * * *"
     # Primary: Tuesday and Thursday at 8:00am UTC
     - cron: "0 8 * * 2,4"
     # Backup: runs every day at 9:00am UTC — script skips non-Tue/Thu days
