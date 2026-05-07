@@ -143,3 +143,9 @@ jobs:
           git diff --staged --quiet || git commit -m "chore: add weekly blog post for $(date +%Y-%m-%d)"
           git push
 
+      - name: Trigger Vercel deploy
+        env:
+          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          curl -X POST "$VERCEL_DEPLOY_HOOK"
+
