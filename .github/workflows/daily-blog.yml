@@ -2,8 +2,10 @@ name: Weekly Blog Post
 
 on:
   schedule:
-    # Runs every Tuesday and Thursday at 8:00am UTC
+    # Primary: Tuesday and Thursday at 8:00am UTC
     - cron: "0 8 * * 2,4"
+    # Backup: runs every day at 9:00am UTC — script skips non-Tue/Thu days
+    - cron: "0 9 * * *"
   # Allow manual trigger from the GitHub Actions tab
   workflow_dispatch:
 
@@ -22,6 +24,13 @@ jobs:
           MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
         run: |
           TODAY=$(date +%Y-%m-%d)
+
+          # Only post on Tuesdays (2) and Thursdays (4) — protects against backup cron running on other days
+          DAY_OF_WEEK=$(date +%u)
+          if [ "$DAY_OF_WEEK" != "2" ] && [ "$DAY_OF_WEEK" != "4" ]; then
+            echo "Today is not Tuesday or Thursday (day $DAY_OF_WEEK) — skipping post."
+            exit 0
+          fi
 
           # Topics to rotate through so posts stay varied
           TOPICS=(
