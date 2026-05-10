@@ -143,9 +143,13 @@ jobs:
           git diff --staged --quiet || git commit -m "chore: add weekly blog post for $(date +%Y-%m-%d)"
           git push
 
-      - name: Trigger Vercel deploy
+      - name: Deploy to Vercel
         env:
-          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: team_UwfCcFAl87KIbKIfENwBmGdl
+          VERCEL_PROJECT_ID: prj_4f20NiNhRoV6xAjFqD7uFaZ6koDI
         run: |
-          curl -X POST "$VERCEL_DEPLOY_HOOK"
+          npx vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+          npx vercel build --prod --token=$VERCEL_TOKEN
+          npx vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
 
