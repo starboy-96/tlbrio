@@ -2,10 +2,8 @@ name: Weekly Blog Post
 
 on:
   schedule:
-    # Primary: Tuesday and Thursday at 8:00am UTC
+    # Tuesday and Thursday at 8:00am UTC (9am UK/BST)
     - cron: "0 8 * * 2,4"
-    # Backup: runs every day at 9:00am UTC — script skips non-Tue/Thu days
-    - cron: "0 9 * * *"
   # Allow manual trigger from the GitHub Actions tab
   workflow_dispatch:
 
@@ -146,10 +144,6 @@ jobs:
       - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: team_UwfCcFAl87KIbKIfENwBmGdl
-          VERCEL_PROJECT_ID: prj_4f20NiNhRoV6xAjFqD7uFaZ6koDI
         run: |
-          npx vercel pull --yes --environment=production --token=$VERCEL_TOKEN
-          npx vercel build --prod --token=$VERCEL_TOKEN
-          npx vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+          npx vercel --prod --yes --token=$VERCEL_TOKEN --scope=starboy-96s-projects
 
