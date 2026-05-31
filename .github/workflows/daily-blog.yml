@@ -1,10 +1,8 @@
 name: Weekly Blog Post
 
 on:
-  schedule:
-    # Tuesday and Thursday at 8:00am UTC (9am UK/BST)
-    - cron: "0 8 * * 2,4"
-  # Allow manual trigger from the GitHub Actions tab
+  # Triggered by EasyCron on Tuesday and Thursday at 8am UTC
+  # Do not add a schedule here — EasyCron is the only trigger
   workflow_dispatch:
 
 jobs:
