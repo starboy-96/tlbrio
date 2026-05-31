@@ -10,6 +10,7 @@ const navLinks = [
   { label: "How it works", href: "#how-it-works" },
   { label: "Pricing", href: "#pricing" },
   { label: "About", href: "#about" },
+  { label: "Blog", href: "/blog" },
 ];
 
 function TlbrLogo() {
@@ -40,7 +41,9 @@ export default function Navbar() {
 
   const handleNavClick = (href: string) => {
     setMenuOpen(false);
-    if (pathname === "/") {
+    if (href.startsWith("/")) {
+      window.location.href = href;
+    } else if (pathname === "/") {
       const el = document.querySelector(href);
       if (el) el.scrollIntoView({ behavior: "smooth" });
     } else {
