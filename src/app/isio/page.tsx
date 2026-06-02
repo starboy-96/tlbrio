@@ -370,6 +370,93 @@ export default function IsioPage() {
         </div>
       </div>
 
+      {/* ── Intro ── */}
+      <div className="border-b border-gray-100" style={{ background: "#fafafa" }}>
+        <div className="max-w-4xl mx-auto px-6 md:px-8 py-16">
+
+          <p className="text-base font-semibold mb-3 uppercase tracking-widest" style={{ color: GREEN }}>
+            Welcome to your demo
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: NAVY }}>
+            See what a bespoke PowerPoint<br className="hidden md:block" /> toolbar can do for your team
+          </h2>
+          <p className="text-gray-700 text-base leading-relaxed max-w-2xl mb-10">
+            This demo gives you a working taste of the Isio tlbr. Once installed, you have <span className="font-semibold" style={{ color: NAVY }}>two weeks to explore it freely</span> — no limitations, no paywalls. After that, just get in touch and we&apos;ll take it from there.
+          </p>
+
+          {/* Cards */}
+          <div className="grid md:grid-cols-3 gap-4">
+
+            <div className="rounded-2xl p-6 border border-gray-200 bg-white">
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4"
+                style={{ background: "rgba(148,229,97,0.15)" }}
+              >
+                🧰
+              </div>
+              <h3 className="font-semibold mb-2 text-base" style={{ color: NAVY }}>
+                Generic tools, ready to go
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                This demo includes a full set of formatting tools — margin controls, alignment, sizing, table and chart utilities — that work out of the box for any presentation.
+              </p>
+            </div>
+
+            <div className="rounded-2xl p-6 border border-gray-200 bg-white">
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4"
+                style={{ background: "rgba(148,229,97,0.15)" }}
+              >
+                🎨
+              </div>
+              <h3 className="font-semibold mb-2 text-base" style={{ color: NAVY }}>
+                Bespoke tools are where it gets powerful
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                The real power comes from tools built around your brand — one-click table formatting, branded chart styles, and graph layouts that match your exact guidelines.
+              </p>
+            </div>
+
+            <div className="rounded-2xl p-6 border border-gray-200 bg-white">
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4"
+                style={{ background: "rgba(148,229,97,0.15)" }}
+              >
+                ⚡
+              </div>
+              <h3 className="font-semibold mb-2 text-base" style={{ color: NAVY }}>
+                Your elements, one click away
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                We can add your icons, images, and frequently used graphics directly into the toolbar — so anyone on the team can build on-brand slides without hunting through folders.
+              </p>
+            </div>
+
+          </div>
+
+          {/* Demo expiry notice */}
+          <div
+            className="mt-8 rounded-2xl px-6 py-4 flex flex-col md:flex-row md:items-center gap-4 justify-between"
+            style={{ background: NAVY }}
+          >
+            <div>
+              <p className="text-white font-semibold text-base">Your demo is active for 14 days from first use</p>
+              <p className="text-white/60 text-sm mt-0.5">
+                The clock starts the first time you click a button — not when you install it.
+              </p>
+            </div>
+            <a
+              href="mailto:jayvin@tlbr.io"
+              className="shrink-0 px-5 py-2.5 rounded-full text-sm font-semibold transition-opacity hover:opacity-85 text-center"
+              style={{ background: GREEN, color: NAVY }}
+            >
+              Talk to us about the full version
+            </a>
+          </div>
+
+        </div>
+      </div>
+
       <div className="max-w-4xl mx-auto px-6 md:px-8 py-16 space-y-24">
 
         {/* ── Section 1: Install ── */}
