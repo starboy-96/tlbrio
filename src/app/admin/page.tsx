@@ -688,8 +688,8 @@ export default function AdminPage() {
             <h2 className="text-sm font-semibold mb-6" style={{ color: NAVY }}>Visitor Map</h2>
             <ComposableMap projectionConfig={{ scale: 140 }} style={{ width: "100%", height: "auto" }}>
               <Geographies geography={GEO_URL}>
-                {({ geographies }) =>
-                  geographies.map((geo) => {
+                {({ geographies }: { geographies: any[] }) =>
+                  geographies.map((geo: any) => {
                     const countryName = Object.entries(COUNTRY_CODES).find(([, code]) => code === geo.id)?.[0];
                     const count = countryName ? (countryData.find(([c]) => c === countryName)?.[1] || 0) : 0;
                     const intensity = count > 0 ? Math.min(0.2 + (count / maxCountry) * 0.8, 1) : 0;
