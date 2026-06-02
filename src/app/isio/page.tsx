@@ -268,50 +268,56 @@ function StepCard({ step, isLast }: { step: typeof installSteps[0]; isLast: bool
         )}
       </div>
 
-      {/* Content */}
-      <div className="pb-8 md:pb-10 flex-1 min-w-0">
-        <h3
-          className="text-base md:text-lg font-semibold mb-2"
-          style={{ color: NAVY, fontFamily: '"General Sans", sans-serif' }}
-        >
-          {step.title}
-        </h3>
-        <p className="text-gray-800 text-sm md:text-base leading-relaxed mb-3">{step.description}</p>
-
-        {step.note && (
-          <div
-            className="rounded-xl px-4 py-3 text-sm md:text-base mb-4"
-            style={{ background: "rgba(148,229,97,0.12)", borderLeft: `3px solid ${GREEN}` }}
+      {/* Content — text left, image right on xl */}
+      <div className={`pb-8 md:pb-10 flex-1 min-w-0 ${step.image ? "xl:flex xl:gap-10 xl:items-start" : ""}`}>
+        {/* Text */}
+        <div className={step.image ? "xl:w-72 xl:shrink-0" : ""}>
+          <h3
+            className="text-base md:text-lg font-semibold mb-2"
+            style={{ color: NAVY, fontFamily: '"General Sans", sans-serif' }}
           >
-            <span className="font-semibold" style={{ color: NAVY }}>Note: </span>
-            <span className="text-gray-700">{step.note}</span>
-          </div>
-        )}
+            {step.title}
+          </h3>
+          <p className="text-gray-800 text-sm md:text-base leading-relaxed mb-3">{step.description}</p>
 
-        {step.download && (
-          <a
-            href="/isio/isio-tlbr-demo.ppam"
-            download="Isio tlbr.ppam"
-            className="inline-flex items-center gap-2 mt-4 px-4 md:px-5 py-3 rounded-full text-sm font-semibold transition-opacity hover:opacity-85"
-            style={{ background: NAVY, color: GREEN }}
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M8 1v9M4.5 6.5L8 10l3.5-3.5M2 13h12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            Download Isio tlbr.ppam
-          </a>
-        )}
+          {step.note && (
+            <div
+              className="rounded-xl px-4 py-3 text-sm md:text-base mb-4"
+              style={{ background: "rgba(148,229,97,0.12)", borderLeft: `3px solid ${GREEN}` }}
+            >
+              <span className="font-semibold" style={{ color: NAVY }}>Note: </span>
+              <span className="text-gray-700">{step.note}</span>
+            </div>
+          )}
 
+          {step.download && (
+            <a
+              href="/isio/isio-tlbr-demo.ppam"
+              download="Isio tlbr.ppam"
+              className="inline-flex items-center gap-2 mt-4 px-4 md:px-5 py-3 rounded-full text-sm font-semibold transition-opacity hover:opacity-85"
+              style={{ background: NAVY, color: GREEN }}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 1v9M4.5 6.5L8 10l3.5-3.5M2 13h12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Download Isio tlbr.ppam
+            </a>
+          )}
+        </div>
+
+        {/* Image */}
         {step.image && (
-          <div className="mt-4 rounded-2xl overflow-hidden border border-gray-100 shadow-sm inline-block max-w-full">
-            <Image
-              src={step.image}
-              alt={step.imageAlt || ""}
-              width={step.imageWidth}
-              height={step.imageHeight}
-              className="block w-auto"
-              style={{ maxHeight: step.imageDisplayHeight ?? 420, height: step.imageDisplayHeight ?? 420, width: "auto" }}
-            />
+          <div className="mt-4 xl:mt-0 xl:flex-1 flex xl:items-start xl:justify-start">
+            <div className="rounded-2xl overflow-hidden border border-gray-100 shadow-sm inline-block max-w-full">
+              <Image
+                src={step.image}
+                alt={step.imageAlt || ""}
+                width={step.imageWidth}
+                height={step.imageHeight}
+                className="block w-auto"
+                style={{ maxHeight: step.imageDisplayHeight ?? 420, height: step.imageDisplayHeight ?? 420, width: "auto" }}
+              />
+            </div>
           </div>
         )}
       </div>
