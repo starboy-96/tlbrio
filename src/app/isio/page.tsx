@@ -20,14 +20,6 @@ const installSteps = [
   },
   {
     number: "02",
-    title: "Move the file to a permanent location",
-    description:
-      "Before installing, move the Isio tlbr.ppam file from your Downloads folder to somewhere permanent — for example, a folder on your desktop or in your Documents.",
-    note: "Important: Once installed, the .ppam file must not be renamed or moved. If it moves, PowerPoint will lose track of it and the toolbar will stop working.",
-    image: null,
-  },
-  {
-    number: "03",
     title: "Open PowerPoint Add-ins",
     description:
       "Open PowerPoint. Click File in the top-left, then scroll down and click Options at the bottom of the left-hand menu.",
@@ -38,7 +30,7 @@ const installSteps = [
     imageHeight: 658,
   },
   {
-    number: "04",
+    number: "03",
     title: "Navigate to Add-ins",
     description:
       "In the PowerPoint Options window, click Add-ins in the left-hand list. At the very bottom of the window, click the dropdown and select PowerPoint Add-ins, then click Go.",
@@ -49,7 +41,7 @@ const installSteps = [
     imageHeight: 673,
   },
   {
-    number: "05",
+    number: "04",
     title: "Add the toolbar file",
     description:
       "In the Add-ins window that opens, click Add New. Navigate to the folder where you saved the Isio tlbr.ppam file. Click on it to select it, then click Open.",
@@ -60,7 +52,7 @@ const installSteps = [
     imageHeight: 354,
   },
   {
-    number: "06",
+    number: "05",
     title: "Enable Macros",
     description:
       "PowerPoint will show a security notice. Click Enable Macros to proceed. This is expected — the toolbar uses macros to run its tools.",
@@ -71,7 +63,7 @@ const installSteps = [
     imageHeight: 281,
   },
   {
-    number: "07",
+    number: "06",
     title: "Confirm it is active",
     description:
       "Back in the Add-ins list, you should now see Isio tlbr listed. Make sure the checkbox next to it is ticked. Click Close.",
