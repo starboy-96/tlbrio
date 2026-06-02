@@ -263,11 +263,11 @@ function StepCard({ step, isLast }: { step: typeof installSteps[0]; isLast: bool
         >
           {step.title}
         </h3>
-        <p className="text-gray-600 text-sm leading-relaxed mb-3">{step.description}</p>
+        <p className="text-gray-800 text-base leading-relaxed mb-3">{step.description}</p>
 
         {step.note && (
           <div
-            className="rounded-xl px-4 py-3 text-sm mb-4"
+            className="rounded-xl px-4 py-3 text-base mb-4"
             style={{ background: "rgba(148,229,97,0.12)", borderLeft: `3px solid ${GREEN}` }}
           >
             <span className="font-semibold" style={{ color: NAVY }}>Note: </span>
@@ -323,7 +323,7 @@ export default function IsioPage() {
   const currentSection = toolbarSections.find((s) => s.id === activeSection)!;
 
   return (
-    <main className="min-h-screen" style={{ fontFamily: '"General Sans", sans-serif' }}>
+    <main className="min-h-screen font-normal" style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400 }}>
 
       {/* Hero */}
       <div
@@ -337,7 +337,7 @@ export default function IsioPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-5 leading-tight">
             Your PowerPoint toolbar guide
           </h1>
-          <p className="text-white/60 text-lg max-w-xl">
+          <p className="text-white/80 text-lg max-w-xl">
             Everything you need to install and use the Isio tlbr — your custom PowerPoint add-in for building faster, more consistent presentations.
           </p>
         </div>
@@ -387,7 +387,7 @@ export default function IsioPage() {
             >
               How to install the toolbar
             </h2>
-            <p className="text-gray-500 mt-3 max-w-2xl">
+            <p className="text-gray-700 mt-3 max-w-2xl text-base">
               The toolbar arrives as a ZIP file in your email. Follow these steps to get it running in PowerPoint. This takes about 3 minutes and only needs to be done once.
             </p>
           </div>
@@ -407,10 +407,10 @@ export default function IsioPage() {
             className="mt-8 rounded-2xl p-6 border"
             style={{ background: "#f8fafc", borderColor: "#e5e7eb" }}
           >
-            <h4 className="font-semibold mb-2 text-sm" style={{ color: NAVY }}>
+            <h4 className="font-semibold mb-3 text-base" style={{ color: NAVY }}>
               Don&apos;t see the Isio tlbr tab after installing?
             </h4>
-            <ul className="text-sm text-gray-600 space-y-1.5 list-disc list-inside">
+            <ul className="text-base text-gray-700 space-y-2 list-disc list-inside">
               <li>Make sure the .ppam file hasn&apos;t been moved or renamed since you installed it.</li>
               <li>Go back to File → Options → Add-ins → PowerPoint Add-ins → Go and check the Isio tlbr box is ticked.</li>
               <li>If it asks you to locate the file again, navigate to wherever you saved the .ppam file and re-select it.</li>
@@ -434,7 +434,7 @@ export default function IsioPage() {
             >
               How to use the toolbar
             </h2>
-            <p className="text-gray-500 mt-3 max-w-2xl">
+            <p className="text-gray-700 mt-3 max-w-2xl text-base">
               The Isio tlbr tab sits in your PowerPoint ribbon and is split into 6 sections. Click a section below to explore what each tool does.
             </p>
           </div>
@@ -463,7 +463,7 @@ export default function IsioPage() {
               >
                 {currentSection.label}
               </h3>
-              <p className="text-gray-500 mt-1 text-sm">{currentSection.description}</p>
+              <p className="text-gray-700 mt-1 text-base">{currentSection.description}</p>
             </div>
 
             {/* Grouped tools (Object section) */}
@@ -489,7 +489,7 @@ export default function IsioPage() {
                           />
                           <div>
                             <p className="text-sm font-semibold" style={{ color: NAVY }}>{tool.name}</p>
-                            <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{tool.desc}</p>
+                            <p className="text-sm text-gray-600 mt-0.5 leading-relaxed">{tool.desc}</p>
                           </div>
                         </div>
                       ))}
