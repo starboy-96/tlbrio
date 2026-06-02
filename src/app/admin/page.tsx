@@ -30,6 +30,17 @@ type Event = {
   referrer: string | null;
   session_id: string | null;
   created_at: string;
+  // Enriched fields
+  is_new_user: boolean | null;
+  scroll_depth: number | null;
+  screen_width: number | null;
+  screen_height: number | null;
+  timezone: string | null;
+  utm_source: string | null;
+  utm_medium: string | null;
+  utm_campaign: string | null;
+  pages_in_session: number | null;
+  session_duration_ms: number | null;
 };
 
 type TimeRange = "1h" | "12h" | "24h" | "5d" | "10d" | "30d" | "1y";
@@ -59,21 +70,33 @@ function bucketKey(date: Date, range: TimeRange): string {
   return `${date.getDate()}/${date.getMonth() + 1}`;
 }
 
-function StatCard({ label, value, delta }: { label: string; value: number; delta?: number }) {
+function StatCard({
+  label, value, delta, suffix, sub,
+}: {
+  label: string;
+  value: number | string;
+  delta?: number;
+  suffix?: string;
+  sub?: string;
+}) {
   return (
     <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
       <p className="text-xs text-gray-400 uppercase tracking-wide mb-2">{label}</p>
-      <p className="text-3xl font-bold" style={{ color: NAVY }}>{value.toLocaleString()}</p>
+      <p className="text-3xl font-bold" style={{ color: NAVY }}>
+        {typeof value === "number" ? value.toLocaleString() : value}
+        {suffix && <span className="text-lg font-medium text-gray-400 ml-1">{suffix}</span>}
+      </p>
       {delta !== undefined && (
         <p className={`text-xs mt-1 font-medium ${delta >= 0 ? "text-green-500" : "text-red-400"}`}>
           {delta >= 0 ? "+" : ""}{delta} vs prev period
         </p>
       )}
+      {sub && <p className="text-xs mt-1 text-gray-400">{sub}</p>}
     </div>
   );
 }
 
-// Country name → ISO 3166-1 numeric code mapping (subset for common countries)
+// Country name → ISO 3166-1 numeric code mapping
 const COUNTRY_CODES: Record<string, string> = {
   "United Kingdom": "826", "United States": "840", "Germany": "276",
   "France": "250", "Netherlands": "528", "Ireland": "372",
@@ -93,7 +116,7 @@ export default function AdminPage() {
   const [timeRange, setTimeRange] = useState<TimeRange>("24h");
   const [filterDevice, setFilterDevice] = useState("all");
   const [filterCountry, setFilterCountry] = useState("all");
-  const [activeTab, setActiveTab] = useState<"overview" | "map" | "events">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "visitors" | "map" | "events">("overview");
 
   useEffect(() => {
     if (sessionStorage.getItem("tlbr_admin") === "1") setAuthed(true);
@@ -131,25 +154,55 @@ export default function AdminPage() {
     });
   }, [allEvents, startDate]);
 
-  // Computed stats
-  const pageviews = events.filter((e) => e.event_type === "pageview").length;
-  const prevPageviews = prevEvents.filter((e) => e.event_type === "pageview").length;
+  // ── Core stats ──
+  const pageviewEvents = useMemo(() => events.filter((e) => e.event_type === "pageview"), [events]);
+  const prevPageviewEvents = useMemo(() => prevEvents.filter((e) => e.event_type === "pageview"), [prevEvents]);
+
+  const pageviews = pageviewEvents.length;
+  const prevPageviews = prevPageviewEvents.length;
   const sessions = new Set(events.map((e) => e.session_id)).size;
   const prevSessions = new Set(prevEvents.map((e) => e.session_id)).size;
   const clicks = events.filter((e) => e.event_type === "click").length;
   const prevClicks = prevEvents.filter((e) => e.event_type === "click").length;
 
-  // Chart: page views over time
+  // ── New vs Returning ──
+  const newVisitors = useMemo(() => pageviewEvents.filter((e) => e.is_new_user === true).length, [pageviewEvents]);
+  const returningVisitors = useMemo(() => pageviewEvents.filter((e) => e.is_new_user === false).length, [pageviewEvents]);
+  const newVsReturningData = useMemo(() => [
+    { name: "New", value: newVisitors },
+    { name: "Returning", value: returningVisitors },
+  ].filter((d) => d.value > 0), [newVisitors, returningVisitors]);
+
+  // ── Scroll depth (from session_end events) ──
+  const avgScrollDepth = useMemo(() => {
+    const scrollEvents = events.filter((e) => e.event_type === "session_end" && e.scroll_depth != null);
+    if (scrollEvents.length === 0) {
+      // Fall back to pageview scroll data
+      const pv = pageviewEvents.filter((e) => e.scroll_depth != null && (e.scroll_depth || 0) > 0);
+      if (pv.length === 0) return 0;
+      return Math.round(pv.reduce((s, e) => s + (e.scroll_depth || 0), 0) / pv.length);
+    }
+    return Math.round(scrollEvents.reduce((s, e) => s + (e.scroll_depth || 0), 0) / scrollEvents.length);
+  }, [events, pageviewEvents]);
+
+  // ── Avg session duration ──
+  const avgSessionDuration = useMemo(() => {
+    const se = events.filter((e) => e.event_type === "session_end" && e.session_duration_ms != null);
+    if (se.length === 0) return 0;
+    return Math.round(se.reduce((s, e) => s + (e.session_duration_ms || 0), 0) / se.length / 1000);
+  }, [events]);
+
+  // ── Chart: page views over time ──
   const viewsOverTime = useMemo(() => {
     const buckets: Record<string, number> = {};
-    events.filter((e) => e.event_type === "pageview").forEach((e) => {
+    pageviewEvents.forEach((e) => {
       const key = bucketKey(new Date(e.created_at), timeRange);
       buckets[key] = (buckets[key] || 0) + 1;
     });
     return Object.entries(buckets).map(([t, v]) => ({ t, v })).reverse();
-  }, [events, timeRange]);
+  }, [pageviewEvents, timeRange]);
 
-  // Top sections by time
+  // ── Top sections by dwell time ──
   const topSections = useMemo(() => {
     const acc: Record<string, number> = {};
     events.filter((e) => e.event_type === "section_view").forEach((e) => {
@@ -160,7 +213,7 @@ export default function AdminPage() {
       .map(([name, ms]) => ({ name, value: Math.round(ms / 1000) }));
   }, [events]);
 
-  // Device breakdown
+  // ── Device breakdown ──
   const deviceData = useMemo(() => {
     const acc: Record<string, number> = {};
     events.filter((e) => e.device_type).forEach((e) => {
@@ -169,7 +222,25 @@ export default function AdminPage() {
     return Object.entries(acc).map(([name, value]) => ({ name: name.charAt(0).toUpperCase() + name.slice(1), value }));
   }, [events]);
 
-  // Countries
+  // ── Browser breakdown ──
+  const browserData = useMemo(() => {
+    const acc: Record<string, number> = {};
+    pageviewEvents.filter((e) => e.browser).forEach((e) => {
+      acc[e.browser!] = (acc[e.browser!] || 0) + 1;
+    });
+    return Object.entries(acc).sort((a, b) => b[1] - a[1]).map(([name, value]) => ({ name, value }));
+  }, [pageviewEvents]);
+
+  // ── OS breakdown ──
+  const osData = useMemo(() => {
+    const acc: Record<string, number> = {};
+    pageviewEvents.filter((e) => e.os).forEach((e) => {
+      acc[e.os!] = (acc[e.os!] || 0) + 1;
+    });
+    return Object.entries(acc).sort((a, b) => b[1] - a[1]).map(([name, value]) => ({ name, value }));
+  }, [pageviewEvents]);
+
+  // ── Countries ──
   const countryData = useMemo(() => {
     const acc: Record<string, number> = {};
     events.filter((e) => e.country).forEach((e) => {
@@ -178,18 +249,43 @@ export default function AdminPage() {
     return Object.entries(acc).sort((a, b) => b[1] - a[1]);
   }, [events]);
 
-  const allDevices = useMemo(() => {
-    const s = new Set(allEvents.map((e) => e.device_type).filter(Boolean));
-    return Array.from(s) as string[];
-  }, [allEvents]);
+  // ── Top timezones ──
+  const timezoneData = useMemo(() => {
+    const acc: Record<string, number> = {};
+    pageviewEvents.filter((e) => e.timezone).forEach((e) => {
+      acc[e.timezone!] = (acc[e.timezone!] || 0) + 1;
+    });
+    return Object.entries(acc).sort((a, b) => b[1] - a[1]).slice(0, 8);
+  }, [pageviewEvents]);
 
-  const allCountries = useMemo(() => {
-    const s = new Set(allEvents.map((e) => e.country).filter(Boolean));
-    return Array.from(s) as string[];
-  }, [allEvents]);
+  // ── UTM sources ──
+  const utmData = useMemo(() => {
+    const acc: Record<string, number> = {};
+    pageviewEvents.filter((e) => e.utm_source).forEach((e) => {
+      acc[e.utm_source!] = (acc[e.utm_source!] || 0) + 1;
+    });
+    return Object.entries(acc).sort((a, b) => b[1] - a[1]);
+  }, [pageviewEvents]);
 
+  // ── Top referrers ──
+  const referrerData = useMemo(() => {
+    const acc: Record<string, number> = {};
+    pageviewEvents.filter((e) => e.referrer).forEach((e) => {
+      try {
+        const host = new URL(e.referrer!).hostname.replace("www.", "");
+        acc[host] = (acc[host] || 0) + 1;
+      } catch {
+        acc[e.referrer!] = (acc[e.referrer!] || 0) + 1;
+      }
+    });
+    return Object.entries(acc).sort((a, b) => b[1] - a[1]).slice(0, 8);
+  }, [pageviewEvents]);
+
+  const allDevices = useMemo(() => Array.from(new Set(allEvents.map((e) => e.device_type).filter(Boolean))) as string[], [allEvents]);
+  const allCountries = useMemo(() => Array.from(new Set(allEvents.map((e) => e.country).filter(Boolean))) as string[], [allEvents]);
   const maxCountry = countryData[0]?.[1] || 1;
 
+  // ─── Login screen ──────────────────────────────────────────────────────────
   if (!authed) {
     return (
       <main className="min-h-screen flex items-center justify-center px-4" style={{ background: NAVY }}>
@@ -198,11 +294,32 @@ export default function AdminPage() {
             <p className="text-xs uppercase tracking-widest text-gray-400 mb-1">tlbr.io</p>
             <h1 className="text-2xl font-bold" style={{ color: NAVY }}>Admin</h1>
           </div>
-          <form onSubmit={(e) => { e.preventDefault(); if (password === ADMIN_PASSWORD) { sessionStorage.setItem("tlbr_admin", "1"); setAuthed(true); } else setError("Incorrect password."); }} className="flex flex-col gap-4">
-            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}
-              className="border border-gray-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-navy transition-colors" autoFocus />
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (password === ADMIN_PASSWORD) {
+                sessionStorage.setItem("tlbr_admin", "1");
+                setAuthed(true);
+              } else {
+                setError("Incorrect password.");
+              }
+            }}
+            className="flex flex-col gap-4"
+          >
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="border border-gray-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-navy transition-colors"
+              autoFocus
+            />
             {error && <p className="text-red-500 text-xs">{error}</p>}
-            <button type="submit" className="text-white rounded-xl py-3 text-sm font-semibold transition-colors" style={{ background: NAVY }}>
+            <button
+              type="submit"
+              className="text-white rounded-xl py-3 text-sm font-semibold transition-colors"
+              style={{ background: NAVY }}
+            >
               Sign in
             </button>
           </form>
@@ -211,6 +328,7 @@ export default function AdminPage() {
     );
   }
 
+  // ─── Dashboard ─────────────────────────────────────────────────────────────
   return (
     <main className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -219,35 +337,45 @@ export default function AdminPage() {
           <p className="text-xs uppercase tracking-widest text-white/40 mb-0.5">tlbr.io</p>
           <h1 className="text-lg font-bold text-white">Analytics</h1>
         </div>
-        <button onClick={() => { sessionStorage.removeItem("tlbr_admin"); setAuthed(false); }}
-          className="text-xs text-white/40 hover:text-white transition-colors">Sign out</button>
+        <button
+          onClick={() => { sessionStorage.removeItem("tlbr_admin"); setAuthed(false); }}
+          className="text-xs text-white/40 hover:text-white transition-colors"
+        >
+          Sign out
+        </button>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8 space-y-6">
 
         {/* Filters */}
         <div className="flex flex-wrap gap-3 items-center">
-          {/* Time range */}
           <div className="flex bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
             {TIME_RANGES.map(({ label, value }) => (
-              <button key={value} onClick={() => setTimeRange(value)}
+              <button
+                key={value}
+                onClick={() => setTimeRange(value)}
                 className={`px-4 py-2 text-sm font-medium transition-colors ${timeRange === value ? "text-white" : "text-gray-500 hover:text-navy"}`}
-                style={timeRange === value ? { background: NAVY } : {}}>
+                style={timeRange === value ? { background: NAVY } : {}}
+              >
                 {label}
               </button>
             ))}
           </div>
 
-          {/* Device filter */}
-          <select value={filterDevice} onChange={(e) => setFilterDevice(e.target.value)}
-            className="bg-white border border-gray-100 rounded-xl px-4 py-2 text-sm text-gray-600 shadow-sm outline-none">
+          <select
+            value={filterDevice}
+            onChange={(e) => setFilterDevice(e.target.value)}
+            className="bg-white border border-gray-100 rounded-xl px-4 py-2 text-sm text-gray-600 shadow-sm outline-none"
+          >
             <option value="all">All devices</option>
             {allDevices.map((d) => <option key={d} value={d}>{d.charAt(0).toUpperCase() + d.slice(1)}</option>)}
           </select>
 
-          {/* Country filter */}
-          <select value={filterCountry} onChange={(e) => setFilterCountry(e.target.value)}
-            className="bg-white border border-gray-100 rounded-xl px-4 py-2 text-sm text-gray-600 shadow-sm outline-none">
+          <select
+            value={filterCountry}
+            onChange={(e) => setFilterCountry(e.target.value)}
+            className="bg-white border border-gray-100 rounded-xl px-4 py-2 text-sm text-gray-600 shadow-sm outline-none"
+          >
             <option value="all">All regions</option>
             {allCountries.map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
@@ -256,11 +384,14 @@ export default function AdminPage() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2">
-          {(["overview", "map", "events"] as const).map((tab) => (
-            <button key={tab} onClick={() => setActiveTab(tab)}
+        <div className="flex gap-2 flex-wrap">
+          {(["overview", "visitors", "map", "events"] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${activeTab === tab ? "text-white" : "bg-white text-gray-500 hover:text-navy border border-gray-200"}`}
-              style={activeTab === tab ? { background: NAVY } : {}}>
+              style={activeTab === tab ? { background: NAVY } : {}}
+            >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
             </button>
           ))}
@@ -268,16 +399,29 @@ export default function AdminPage() {
 
         {loading ? (
           <div className="text-center py-20 text-gray-400 text-sm">Loading analytics...</div>
+
         ) : activeTab === "overview" ? (
           <div className="space-y-6">
-            {/* Stat cards */}
+            {/* Stat cards row 1 */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               <StatCard label="Page Views" value={pageviews} delta={pageviews - prevPageviews} />
               <StatCard label="Unique Sessions" value={sessions} delta={sessions - prevSessions} />
               <StatCard label="Clicks" value={clicks} delta={clicks - prevClicks} />
             </div>
 
-            {/* Area chart: views over time */}
+            {/* Stat cards row 2 */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <StatCard label="New Visitors" value={newVisitors} sub={pageviews > 0 ? `${Math.round((newVisitors / pageviews) * 100)}% of visits` : undefined} />
+              <StatCard label="Returning Visitors" value={returningVisitors} sub={pageviews > 0 ? `${Math.round((returningVisitors / pageviews) * 100)}% of visits` : undefined} />
+              <StatCard
+                label="Avg Scroll Depth"
+                value={avgScrollDepth}
+                suffix="%"
+                sub={avgSessionDuration > 0 ? `Avg ${avgSessionDuration}s on site` : undefined}
+              />
+            </div>
+
+            {/* Area chart */}
             <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
               <h2 className="text-sm font-semibold mb-5" style={{ color: NAVY }}>Page Views Over Time</h2>
               {viewsOverTime.length === 0 ? (
@@ -301,9 +445,9 @@ export default function AdminPage() {
               )}
             </div>
 
-            {/* Sections + Devices row */}
+            {/* Sections + New vs Returning */}
             <div className="grid md:grid-cols-2 gap-6">
-              {/* Section time bar chart */}
+              {/* Section dwell time */}
               <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
                 <h2 className="text-sm font-semibold mb-5" style={{ color: NAVY }}>Time Spent Per Section</h2>
                 {topSections.length === 0 ? (
@@ -321,7 +465,42 @@ export default function AdminPage() {
                 )}
               </div>
 
-              {/* Device pie */}
+              {/* New vs Returning */}
+              <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+                <h2 className="text-sm font-semibold mb-5" style={{ color: NAVY }}>New vs Returning</h2>
+                {newVsReturningData.length === 0 ? (
+                  <p className="text-gray-400 text-sm">No visitor data yet</p>
+                ) : (
+                  <div className="flex items-center gap-6">
+                    <ResponsiveContainer width="50%" height={180}>
+                      <PieChart>
+                        <Pie data={newVsReturningData} cx="50%" cy="50%" innerRadius={50} outerRadius={80} dataKey="value" paddingAngle={3}>
+                          {newVsReturningData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                        </Pie>
+                        <Tooltip contentStyle={{ borderRadius: 12, border: "none", boxShadow: "0 4px 20px rgba(0,0,0,0.08)", fontSize: 12 }} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                    <div className="flex flex-col gap-3">
+                      {newVsReturningData.map((d, i) => (
+                        <div key={d.name} className="flex flex-col gap-0.5">
+                          <div className="flex items-center gap-2">
+                            <div className="w-3 h-3 rounded-full" style={{ background: COLORS[i % COLORS.length] }} />
+                            <span className="text-sm text-gray-600">{d.name}</span>
+                            <span className="text-sm font-semibold ml-auto" style={{ color: NAVY }}>{d.value}</span>
+                          </div>
+                          <span className="text-xs text-gray-400 pl-5">
+                            {pageviews > 0 ? `${Math.round((d.value / pageviews) * 100)}%` : "—"}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Devices + Browsers */}
+            <div className="grid md:grid-cols-2 gap-6">
               <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
                 <h2 className="text-sm font-semibold mb-5" style={{ color: NAVY }}>Devices</h2>
                 {deviceData.length === 0 ? (
@@ -348,9 +527,29 @@ export default function AdminPage() {
                   </div>
                 )}
               </div>
+
+              <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+                <h2 className="text-sm font-semibold mb-5" style={{ color: NAVY }}>Browsers</h2>
+                {browserData.length === 0 ? (
+                  <p className="text-gray-400 text-sm">No data yet</p>
+                ) : (
+                  <div className="space-y-3">
+                    {browserData.map(({ name, value }, i) => (
+                      <div key={name} className="flex items-center gap-3">
+                        <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: COLORS[i % COLORS.length] }} />
+                        <span className="text-sm text-gray-600 w-20 shrink-0">{name}</span>
+                        <div className="flex-1 bg-gray-100 rounded-full h-2">
+                          <div className="h-2 rounded-full" style={{ width: `${(value / (browserData[0]?.value || 1)) * 100}%`, background: COLORS[i % COLORS.length] }} />
+                        </div>
+                        <span className="text-sm font-semibold w-8 text-right" style={{ color: NAVY }}>{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
-            {/* Top countries bar */}
+            {/* Countries */}
             <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
               <h2 className="text-sm font-semibold mb-5" style={{ color: NAVY }}>Visitors by Country</h2>
               {countryData.length === 0 ? (
@@ -368,6 +567,119 @@ export default function AdminPage() {
                   ))}
                 </div>
               )}
+            </div>
+          </div>
+
+        ) : activeTab === "visitors" ? (
+          // ── Visitors deep-dive tab ──
+          <div className="space-y-6">
+            {/* OS + Timezones */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+                <h2 className="text-sm font-semibold mb-5" style={{ color: NAVY }}>Operating Systems</h2>
+                {osData.length === 0 ? (
+                  <p className="text-gray-400 text-sm">No data yet</p>
+                ) : (
+                  <div className="space-y-3">
+                    {osData.map(({ name, value }, i) => (
+                      <div key={name} className="flex items-center gap-3">
+                        <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: COLORS[i % COLORS.length] }} />
+                        <span className="text-sm text-gray-600 w-24 shrink-0">{name}</span>
+                        <div className="flex-1 bg-gray-100 rounded-full h-2">
+                          <div className="h-2 rounded-full" style={{ width: `${(value / (osData[0]?.value || 1)) * 100}%`, background: COLORS[i % COLORS.length] }} />
+                        </div>
+                        <span className="text-sm font-semibold w-8 text-right" style={{ color: NAVY }}>{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+                <h2 className="text-sm font-semibold mb-5" style={{ color: NAVY }}>Top Timezones</h2>
+                {timezoneData.length === 0 ? (
+                  <p className="text-gray-400 text-sm">No data yet</p>
+                ) : (
+                  <div className="space-y-3">
+                    {timezoneData.map(([tz, count], i) => (
+                      <div key={tz} className="flex items-center gap-3">
+                        <span className="text-sm text-gray-600 flex-1 truncate">{tz}</span>
+                        <div className="w-24 bg-gray-100 rounded-full h-2">
+                          <div className="h-2 rounded-full" style={{ width: `${(count / (timezoneData[0]?.[1] || 1)) * 100}%`, background: COLORS[i % COLORS.length] }} />
+                        </div>
+                        <span className="text-sm font-semibold w-8 text-right" style={{ color: NAVY }}>{count}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Referrers + UTM sources */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+                <h2 className="text-sm font-semibold mb-1" style={{ color: NAVY }}>Top Referrers</h2>
+                <p className="text-xs text-gray-400 mb-5">Where visitors came from</p>
+                {referrerData.length === 0 ? (
+                  <p className="text-gray-400 text-sm">No referrer data — most visitors came direct</p>
+                ) : (
+                  <div className="space-y-3">
+                    {referrerData.map(([ref, count], i) => (
+                      <div key={ref} className="flex items-center gap-3">
+                        <span className="text-sm text-gray-600 flex-1 truncate">{ref}</span>
+                        <div className="w-24 bg-gray-100 rounded-full h-2">
+                          <div className="h-2 rounded-full" style={{ width: `${(count / (referrerData[0]?.[1] || 1)) * 100}%`, background: GREEN }} />
+                        </div>
+                        <span className="text-sm font-semibold w-8 text-right" style={{ color: NAVY }}>{count}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+                <h2 className="text-sm font-semibold mb-1" style={{ color: NAVY }}>UTM Sources</h2>
+                <p className="text-xs text-gray-400 mb-5">Campaign traffic (e.g. ?utm_source=linkedin)</p>
+                {utmData.length === 0 ? (
+                  <p className="text-gray-400 text-sm">No UTM data yet — add ?utm_source= to your links</p>
+                ) : (
+                  <div className="space-y-3">
+                    {utmData.map(([src, count], i) => (
+                      <div key={src} className="flex items-center gap-3">
+                        <span className="text-sm text-gray-600 flex-1 truncate capitalize">{src}</span>
+                        <div className="w-24 bg-gray-100 rounded-full h-2">
+                          <div className="h-2 rounded-full" style={{ width: `${(count / (utmData[0]?.[1] || 1)) * 100}%`, background: "#60a5fa" }} />
+                        </div>
+                        <span className="text-sm font-semibold w-8 text-right" style={{ color: NAVY }}>{count}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Screen resolutions */}
+            <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+              <h2 className="text-sm font-semibold mb-5" style={{ color: NAVY }}>Screen Resolutions</h2>
+              {(() => {
+                const acc: Record<string, number> = {};
+                pageviewEvents.filter((e) => e.screen_width && e.screen_height).forEach((e) => {
+                  const key = `${e.screen_width} × ${e.screen_height}`;
+                  acc[key] = (acc[key] || 0) + 1;
+                });
+                const sorted = Object.entries(acc).sort((a, b) => b[1] - a[1]).slice(0, 8);
+                if (sorted.length === 0) return <p className="text-gray-400 text-sm">No data yet</p>;
+                return (
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    {sorted.map(([res, count]) => (
+                      <div key={res} className="bg-gray-50 rounded-xl px-4 py-3 flex justify-between items-center">
+                        <span className="text-xs text-gray-500 font-mono">{res}</span>
+                        <span className="text-sm font-bold ml-2" style={{ color: NAVY }}>{count}</span>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()}
             </div>
           </div>
 
@@ -395,7 +707,6 @@ export default function AdminPage() {
                 }
               </Geographies>
             </ComposableMap>
-            {/* Country list below map */}
             <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
               {countryData.slice(0, 8).map(([country, count]) => (
                 <div key={country} className="flex justify-between items-center bg-gray-50 rounded-xl px-4 py-2">
@@ -413,7 +724,7 @@ export default function AdminPage() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-gray-100 bg-gray-50">
-                    {["Type", "Page", "Detail", "Country", "Device", "Browser", "Time"].map((h) => (
+                    {["Type", "Page", "Detail", "Country", "Device", "Browser", "New?", "Scroll", "Time"].map((h) => (
                       <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide">{h}</th>
                     ))}
                   </tr>
@@ -422,15 +733,30 @@ export default function AdminPage() {
                   {events.slice(0, 200).map((e) => (
                     <tr key={e.id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
                       <td className="px-4 py-3">
-                        <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${e.event_type === "pageview" ? "bg-blue-50 text-blue-600" : e.event_type === "click" ? "bg-green-50 text-green-600" : "bg-purple-50 text-purple-600"}`}>
+                        <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                          e.event_type === "pageview" ? "bg-blue-50 text-blue-600"
+                          : e.event_type === "click" ? "bg-green-50 text-green-600"
+                          : e.event_type === "session_end" ? "bg-gray-100 text-gray-500"
+                          : "bg-purple-50 text-purple-600"
+                        }`}>
                           {e.event_type}
                         </span>
                       </td>
                       <td className="px-4 py-3 text-gray-500">{e.page_url || "—"}</td>
-                      <td className="px-4 py-3 text-gray-600 max-w-[180px] truncate">{e.section || e.element_label || "—"}</td>
+                      <td className="px-4 py-3 text-gray-600 max-w-[160px] truncate">{e.section || e.element_label || "—"}</td>
                       <td className="px-4 py-3 text-gray-600">{e.country || "—"}</td>
                       <td className="px-4 py-3 text-gray-600 capitalize">{e.device_type || "—"}</td>
                       <td className="px-4 py-3 text-gray-600">{e.browser || "—"}</td>
+                      <td className="px-4 py-3 text-xs">
+                        {e.is_new_user === true ? (
+                          <span className="bg-green-50 text-green-600 px-2 py-0.5 rounded-full font-medium">New</span>
+                        ) : e.is_new_user === false ? (
+                          <span className="bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-medium">Return</span>
+                        ) : "—"}
+                      </td>
+                      <td className="px-4 py-3 text-gray-500 text-xs">
+                        {e.scroll_depth != null ? `${e.scroll_depth}%` : "—"}
+                      </td>
                       <td className="px-4 py-3 text-gray-400 text-xs whitespace-nowrap">
                         {new Date(e.created_at).toLocaleString("en-GB", { dateStyle: "short", timeStyle: "short" })}
                       </td>
