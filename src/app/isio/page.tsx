@@ -354,18 +354,18 @@ export default function IsioPage() {
             How to install
           </a>
           <a
-            href="#uninstall"
-            className="text-sm font-medium transition-colors hover:opacity-80"
-            style={{ color: NAVY }}
-          >
-            Uninstall
-          </a>
-          <a
             href="#use"
             className="text-sm font-medium transition-colors hover:opacity-80"
             style={{ color: NAVY }}
           >
             How to use
+          </a>
+          <a
+            href="#uninstall"
+            className="text-sm font-medium transition-colors hover:opacity-80"
+            style={{ color: NAVY }}
+          >
+            Uninstall
           </a>
           <a
             href="mailto:jayvin@tlbr.io"
