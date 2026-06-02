@@ -11,18 +11,19 @@ const GREEN = "#94e561";
 const installSteps = [
   {
     number: "01",
-    title: "Download the ZIP file",
+    title: "Download the toolbar file",
     description:
-      "Open the email from the tlbr.io team and download the attached ZIP file. Save it somewhere easy to find — your Downloads folder is fine for now.",
+      "Click the button below to download the Isio tlbr.ppam file. Save it somewhere easy to find — your Downloads folder is fine for now.",
     note: null,
     image: null,
+    download: true,
   },
   {
     number: "02",
-    title: "Extract the ZIP file",
+    title: "Move the file to a permanent location",
     description:
-      "Right-click the downloaded ZIP file and select Extract All (Windows) or double-click it (Mac). Inside you will find a file called Isio tlbr.ppam — this is the toolbar file.",
-    note: "Important: Once installed, the .ppam file must not be renamed or moved. Choose a permanent home for it before you install — for example, a folder on your desktop or in your Documents.",
+      "Before installing, move the Isio tlbr.ppam file from your Downloads folder to somewhere permanent — for example, a folder on your desktop or in your Documents.",
+    note: "Important: Once installed, the .ppam file must not be renamed or moved. If it moves, PowerPoint will lose track of it and the toolbar will stop working.",
     image: null,
   },
   {
@@ -275,6 +276,20 @@ function StepCard({ step, isLast }: { step: typeof installSteps[0]; isLast: bool
           </div>
         )}
 
+        {step.download && (
+          <a
+            href="/isio/isio-tlbr-demo.ppam"
+            download="Isio tlbr.ppam"
+            className="inline-flex items-center gap-2 mt-4 px-5 py-3 rounded-full text-sm font-semibold transition-opacity hover:opacity-85"
+            style={{ background: NAVY, color: GREEN }}
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 1v9M4.5 6.5L8 10l3.5-3.5M2 13h12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Download Isio tlbr.ppam
+          </a>
+        )}
+
         {step.image && (
           <div className="mt-4 rounded-2xl overflow-hidden border border-gray-100 shadow-sm inline-block max-w-full">
             <Image
@@ -482,7 +497,7 @@ export default function IsioPage() {
               How to install the toolbar
             </h2>
             <p className="text-gray-700 mt-3 max-w-2xl text-base">
-              The toolbar arrives as a ZIP file in your email. Follow these steps to get it running in PowerPoint. This takes about 3 minutes and only needs to be done once.
+              Download the file below and follow these steps to get it running in PowerPoint. This takes about 3 minutes and only needs to be done once.
             </p>
           </div>
 
