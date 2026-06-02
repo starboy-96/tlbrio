@@ -557,17 +557,10 @@ export default function IsioPage() {
             </p>
           </motion.div>
 
-          <div className="xl:grid xl:grid-cols-2 xl:gap-x-16">
-            <div>
-              {installSteps.slice(0, 3).map((step, i) => (
-                <StepCard key={step.number} step={step} isLast={i === 2} />
-              ))}
-            </div>
-            <div>
-              {installSteps.slice(3).map((step, i) => (
-                <StepCard key={step.number} step={step} isLast={i === 2} />
-              ))}
-            </div>
+          <div>
+            {installSteps.map((step, i) => (
+              <StepCard key={step.number} step={step} isLast={i === installSteps.length - 1} />
+            ))}
           </div>
 
           {/* Troubleshooting callout */}
