@@ -1,7 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import Footer from "@/components/Footer";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
 
 const NAVY = "#0a1a2f";
 const GREEN = "#94e561";
@@ -13,7 +25,7 @@ const installSteps = [
     number: "01",
     title: "Download the toolbar file",
     description:
-      "Click the button below to download the Isio tlbr.ppam file. Save it somewhere easy to find — your Downloads folder is fine for now.",
+      "Click the button below to download the Isio tlbr.ppam file. Save it somewhere easy to find – your Downloads folder is fine for now.",
     note: null,
     image: null,
     download: true,
@@ -26,8 +38,9 @@ const installSteps = [
     note: null,
     image: "/isio/step-file-menu.png",
     imageAlt: "PowerPoint File menu with Options at the bottom",
-    imageWidth: 170,
-    imageHeight: 658,
+    imageWidth: 361,
+    imageHeight: 1706,
+    imageDisplayHeight: 600,
   },
   {
     number: "03",
@@ -37,8 +50,8 @@ const installSteps = [
     note: null,
     image: "/isio/step-addins-options.png",
     imageAlt: "PowerPoint Options window showing Add-ins section",
-    imageWidth: 820,
-    imageHeight: 673,
+    imageWidth: 1621,
+    imageHeight: 1326,
   },
   {
     number: "04",
@@ -48,19 +61,20 @@ const installSteps = [
     note: null,
     image: "/isio/step-addins-dialog.png",
     imageAlt: "Add-ins dialog with Add New button",
-    imageWidth: 386,
-    imageHeight: 354,
+    imageWidth: 899,
+    imageHeight: 843,
   },
   {
     number: "05",
     title: "Enable Macros",
     description:
-      "PowerPoint will show a security notice. Click Enable Macros to proceed. This is expected — the toolbar uses macros to run its tools.",
-    note: "If you see a warning about the file not being from a trusted source, that is normal. The toolbar is safe to use — it was built specifically for your team.",
-    image: "/isio/step-enable-macros.png",
+      "PowerPoint will show a security notice. Click Enable Macros to proceed. This is expected – the toolbar uses macros to run its tools.",
+    note: "If you see a warning about the file not being from a trusted source, that is normal. The toolbar is safe to use – it was built specifically for your team.",
+    image: "/isio/step-enable-macros-v2.png",
     imageAlt: "PowerPoint security notice with Enable Macros button",
-    imageWidth: 369,
-    imageHeight: 281,
+    imageWidth: 792,
+    imageHeight: 603,
+    imageDisplayHeight: 280,
   },
   {
     number: "06",
@@ -81,9 +95,9 @@ const toolbarSections = [
     icon: "⬜",
     description: "Open your Isio-branded slide templates directly from the toolbar.",
     tools: [
-      { name: "Widescreen", desc: "Opens the Widescreen template — use this when the presentation will be shown on a screen." },
-      { name: "A4 Landscape", desc: "Opens the A4 Landscape template — use for documents that will be printed on A4 paper." },
-      { name: "US Letter", desc: "Opens the US Letter template — use for documents printed in the US." },
+      { name: "Widescreen", desc: "Opens the Widescreen template – use this when the presentation will be shown on a screen." },
+      { name: "A4 Landscape", desc: "Opens the A4 Landscape template – use for documents that will be printed on A4 paper." },
+      { name: "US Letter", desc: "Opens the US Letter template – use for documents printed in the US." },
     ],
     note: "These buttons will be configured with your Isio templates once the full build is complete.",
   },
@@ -97,10 +111,10 @@ const toolbarSections = [
       { name: "Margin 0.1", desc: "Sets the internal text margin to 0.1 cm on all sides." },
       { name: "Margin 0.2", desc: "Sets the internal text margin to 0.2 cm on all sides." },
       { name: "Custom Margin", desc: "Opens a dialog where you can enter a specific margin value in cm, and choose which sides to apply it to." },
-      { name: "Line Space After 6pt", desc: "Sets the paragraph spacing after to 6pt — good for most body text." },
-      { name: "Line Space After 1pt", desc: "Sets the paragraph spacing after to 1pt — useful when tighter spacing is needed." },
+      { name: "Line Space After 6pt", desc: "Sets the paragraph spacing after to 6pt – good for most body text." },
+      { name: "Line Space After 1pt", desc: "Sets the paragraph spacing after to 1pt – useful when tighter spacing is needed." },
       { name: "Merge Text Boxes", desc: "Combines multiple selected text boxes into a single text box." },
-      { name: "Split Text Boxes", desc: "Splits a text box into separate text boxes — one per paragraph." },
+      { name: "Split Text Boxes", desc: "Splits a text box into separate text boxes – one per paragraph." },
       { name: "Toggle Wrap Text", desc: "Switches selected text boxes between wrapping text and not wrapping." },
       { name: "Toggle Resize", desc: "Switches between 'Do not autofit' and 'Resize shape to fit text' for selected shapes." },
     ],
@@ -174,7 +188,7 @@ const toolbarSections = [
         ],
       },
     ],
-    note: "For the Align, Size, and Space tools — always select the reference object first (the one you want others to match), then hold Shift and select the remaining objects.",
+    note: "For the Align, Size, and Space tools – always select the reference object first (the one you want others to match), then hold Shift and select the remaining objects.",
   },
   {
     id: "table",
@@ -183,9 +197,9 @@ const toolbarSections = [
     description: "Format and manage tables consistently across your presentation.",
     tools: [
       { name: "Format Table", desc: "Applies Isio brand formatting to selected tables. This will be configured to your exact brand guidelines." },
-      { name: "Table Text Formatter", desc: "Formats the text inside a selected table — opens a dialog to set a custom font size." },
+      { name: "Table Text Formatter", desc: "Formats the text inside a selected table – opens a dialog to set a custom font size." },
       { name: "Copy Column Widths", desc: "Copies the column widths from the selected table to memory." },
-      { name: "Apply Column Widths", desc: "Applies the stored column widths to any other selected tables — great for keeping tables consistent." },
+      { name: "Apply Column Widths", desc: "Applies the stored column widths to any other selected tables – great for keeping tables consistent." },
       { name: "Table Margin (0.15cm)", desc: "Sets 0.15 cm internal margins on all cells in selected tables." },
       { name: "Custom Table Margin", desc: "Opens a dialog to set a specific margin for selected table cells." },
       { name: "Copy Table Margin", desc: "Copies the margin settings from a selected table." },
@@ -200,8 +214,8 @@ const toolbarSections = [
     description: "Format and manage charts in your presentation.",
     tools: [
       { name: "Format Graph", desc: "Applies brand formatting to selected charts. This will be configured to your Isio colour palette." },
-      { name: "Chart Text Formatter", desc: "Formats text in selected charts — opens a dialog to choose a custom font size." },
-      { name: "Find Embedded Graphs", desc: "Scans the file and lists all charts that are embedded (not linked) — useful for auditing file size." },
+      { name: "Chart Text Formatter", desc: "Formats text in selected charts – opens a dialog to choose a custom font size." },
+      { name: "Find Embedded Graphs", desc: "Scans the file and lists all charts that are embedded (not linked) – useful for auditing file size." },
       { name: "Unembed Graph", desc: "Converts the selected embedded chart to an unlinked image to reduce file size." },
       { name: "Copy Graph Link", desc: "Shows and copies the file path of a selected linked chart." },
     ],
@@ -219,7 +233,7 @@ const toolbarSections = [
       { name: "Set Document Title", desc: "Sets the document's metadata title to match the file name." },
       { name: "Delete Comments", desc: "Removes all comments from every slide in the presentation." },
       { name: "Remove Slide Notes", desc: "Deletes all notes from every slide in the presentation." },
-      { name: "Find Large Images", desc: "Scans the file and lists all images — useful for identifying files that may be making the presentation slow." },
+      { name: "Find Large Images", desc: "Scans the file and lists all images – useful for identifying files that may be making the presentation slow." },
       { name: "Find Embedded Spreadsheets", desc: "Finds all Excel spreadsheets that are embedded into the presentation." },
       { name: "Break Table", desc: "Converts all cells in a selected table into individual text boxes." },
       { name: "Page Status → Ready for Design", desc: "Marks the slide as ready for the design team to work on (adds a visual indicator)." },
@@ -234,11 +248,17 @@ const toolbarSections = [
 
 function StepCard({ step, isLast }: { step: typeof installSteps[0]; isLast: boolean }) {
   return (
-    <div className="relative flex gap-6 md:gap-10">
+    <motion.div
+      className="relative flex gap-4 md:gap-8"
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-40px" }}
+    >
       {/* Number + connector line */}
       <div className="flex flex-col items-center shrink-0">
         <div
-          className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold shrink-0 z-10"
+          className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center text-xs md:text-sm font-bold shrink-0 z-10"
           style={{ background: NAVY, color: GREEN, fontFamily: '"General Sans", sans-serif' }}
         >
           {step.number}
@@ -249,18 +269,18 @@ function StepCard({ step, isLast }: { step: typeof installSteps[0]; isLast: bool
       </div>
 
       {/* Content */}
-      <div className="pb-10 flex-1 min-w-0">
+      <div className="pb-8 md:pb-10 flex-1 min-w-0">
         <h3
-          className="text-lg font-semibold mb-2"
+          className="text-base md:text-lg font-semibold mb-2"
           style={{ color: NAVY, fontFamily: '"General Sans", sans-serif' }}
         >
           {step.title}
         </h3>
-        <p className="text-gray-800 text-base leading-relaxed mb-3">{step.description}</p>
+        <p className="text-gray-800 text-sm md:text-base leading-relaxed mb-3">{step.description}</p>
 
         {step.note && (
           <div
-            className="rounded-xl px-4 py-3 text-base mb-4"
+            className="rounded-xl px-4 py-3 text-sm md:text-base mb-4"
             style={{ background: "rgba(148,229,97,0.12)", borderLeft: `3px solid ${GREEN}` }}
           >
             <span className="font-semibold" style={{ color: NAVY }}>Note: </span>
@@ -272,7 +292,7 @@ function StepCard({ step, isLast }: { step: typeof installSteps[0]; isLast: bool
           <a
             href="/isio/isio-tlbr-demo.ppam"
             download="Isio tlbr.ppam"
-            className="inline-flex items-center gap-2 mt-4 px-5 py-3 rounded-full text-sm font-semibold transition-opacity hover:opacity-85"
+            className="inline-flex items-center gap-2 mt-4 px-4 md:px-5 py-3 rounded-full text-sm font-semibold transition-opacity hover:opacity-85"
             style={{ background: NAVY, color: GREEN }}
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -289,12 +309,13 @@ function StepCard({ step, isLast }: { step: typeof installSteps[0]; isLast: bool
               alt={step.imageAlt || ""}
               width={step.imageWidth}
               height={step.imageHeight}
-              className="max-w-full h-auto"
+              className="block w-auto"
+              style={{ maxHeight: step.imageDisplayHeight ?? 420, height: step.imageDisplayHeight ?? 420, width: "auto" }}
             />
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -310,7 +331,7 @@ function SectionTab({
   return (
     <button
       onClick={onClick}
-      className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap"
+      className="px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-200 whitespace-nowrap"
       style={
         isActive
           ? { background: NAVY, color: GREEN, fontFamily: '"General Sans", sans-serif' }
@@ -327,6 +348,11 @@ function SectionTab({
 export default function IsioPage() {
   const [activeSection, setActiveSection] = useState("templates");
 
+  useEffect(() => {
+    history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+  }, []);
+
   const currentSection = toolbarSections.find((s) => s.id === activeSection)!;
 
   return (
@@ -334,49 +360,69 @@ export default function IsioPage() {
 
       {/* Hero */}
       <div
-        className="px-8 py-16 md:py-24"
+        className="px-4 md:px-8 py-12 md:py-24"
         style={{ background: NAVY }}
       >
-        <div className="max-w-3xl mx-auto">
-          <p className="text-xs uppercase tracking-widest mb-4" style={{ color: GREEN }}>
-            Isio · Powered by tlbr.io
-          </p>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-5 leading-tight">
+        <motion.div
+          className="max-w-7xl mx-auto"
+          variants={stagger}
+          initial="hidden"
+          animate="visible"
+        >
+          {/* Logos */}
+          <motion.div variants={fadeUp} className="flex items-center gap-4 md:gap-6 mb-8 md:mb-10">
+            <Image
+              src="/isio/isio-logo.svg"
+              alt="Isio"
+              width={120}
+              height={52}
+              style={{ objectFit: "contain", height: 28, width: "auto", filter: "brightness(0) invert(1)" }}
+            />
+            <div className="w-px h-6 bg-white/20" />
+            <Image
+              src="/logo-white.svg"
+              alt="tlbr.io"
+              width={140}
+              height={52}
+              style={{ objectFit: "contain", height: 28, width: "auto" }}
+            />
+          </motion.div>
+          <motion.h1 variants={fadeUp} className="text-3xl md:text-5xl xl:text-6xl font-bold mb-4 md:mb-5 leading-tight" style={{ color: "#ffffff" }}>
             Your PowerPoint toolbar guide
-          </h1>
-          <p className="text-white/80 text-lg max-w-xl">
-            Everything you need to install and use the Isio tlbr — your custom PowerPoint add-in for building faster, more consistent presentations.
-          </p>
-        </div>
+          </motion.h1>
+          <motion.p variants={fadeUp} className="text-white/80 text-base md:text-lg max-w-xl xl:max-w-2xl">
+            Everything you need to install and use the Isio tlbr – your custom PowerPoint add-in for building faster, more consistent presentations.
+          </motion.p>
+        </motion.div>
       </div>
 
       {/* Nav anchors */}
       <div className="sticky top-0 z-40 bg-white border-b border-gray-100 shadow-sm">
-        <div className="max-w-4xl mx-auto px-8 h-14 flex items-center gap-8">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 h-12 md:h-14 flex items-center gap-4 md:gap-8 overflow-x-auto">
           <a
             href="#install"
-            className="text-sm font-medium transition-colors hover:opacity-80"
+            className="text-xs md:text-sm font-medium transition-colors hover:opacity-80 whitespace-nowrap shrink-0"
             style={{ color: NAVY }}
           >
             How to install
           </a>
           <a
             href="#use"
-            className="text-sm font-medium transition-colors hover:opacity-80"
+            className="text-xs md:text-sm font-medium transition-colors hover:opacity-80 whitespace-nowrap shrink-0"
             style={{ color: NAVY }}
           >
             How to use
           </a>
           <a
             href="#uninstall"
-            className="text-sm font-medium transition-colors hover:opacity-80"
+            className="text-xs md:text-sm font-medium transition-colors hover:opacity-80 whitespace-nowrap shrink-0"
             style={{ color: NAVY }}
           >
             Uninstall
           </a>
           <a
             href="mailto:jayvin@tlbr.io"
-            className="ml-auto text-sm font-medium px-4 py-1.5 rounded-full text-white transition-opacity hover:opacity-80"
+            className="ml-auto text-xs md:text-sm font-medium px-3 md:px-4 py-1.5 rounded-full text-white transition-opacity hover:opacity-80 whitespace-nowrap shrink-0"
             style={{ background: NAVY }}
           >
             Get help
@@ -386,77 +432,89 @@ export default function IsioPage() {
 
       {/* ── Intro ── */}
       <div className="border-b border-gray-100" style={{ background: "#fafafa" }}>
-        <div className="max-w-4xl mx-auto px-6 md:px-8 py-16">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16">
 
-          <p className="text-base font-semibold mb-3 uppercase tracking-widest" style={{ color: GREEN }}>
-            Welcome to your demo
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-5 leading-tight" style={{ color: NAVY }}>
-            See what a bespoke PowerPoint<br className="hidden md:block" /> toolbar can do for your team
-          </h2>
-          <p className="text-gray-700 text-base leading-relaxed max-w-2xl mb-10">
-            This demo gives you a working taste of the Isio tlbr. Once installed, you have <span className="font-semibold" style={{ color: NAVY }}>two weeks to explore it freely</span> — no limitations, no paywalls. After that, just get in touch and we&apos;ll take it from there.
-          </p>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }}>
+            <p className="text-xs md:text-base font-semibold mb-3 uppercase tracking-widest" style={{ color: GREEN }}>
+              Welcome to your demo
+            </p>
+            <h2 className="text-2xl md:text-4xl font-bold mb-4 md:mb-5 leading-tight" style={{ color: NAVY }}>
+              See what a bespoke PowerPoint<br className="hidden md:block" /> toolbar can do for your team
+            </h2>
+            <p className="text-gray-700 text-sm md:text-base leading-relaxed max-w-2xl mb-8 md:mb-10">
+              This demo gives you a working taste of the Isio tlbr. Once installed, you have <span className="font-semibold" style={{ color: NAVY }}>two weeks to explore it freely</span> – no limitations, no paywalls. After that, just get in touch and we&apos;ll take it from there.
+            </p>
+          </motion.div>
 
           {/* Cards */}
-          <div className="grid md:grid-cols-3 gap-4">
+          <motion.div
+            className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-4 xl:gap-6"
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+          >
 
-            <div className="rounded-2xl p-6 border border-gray-200 bg-white">
+            <motion.div variants={fadeUp} className="rounded-2xl p-5 md:p-6 border border-gray-200 bg-white">
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4"
                 style={{ background: "rgba(148,229,97,0.15)" }}
               >
                 🧰
               </div>
-              <h3 className="font-semibold mb-2 text-base" style={{ color: NAVY }}>
+              <h3 className="font-semibold mb-2 text-sm md:text-base" style={{ color: NAVY }}>
                 Generic tools, ready to go
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
-                This demo includes a full set of formatting tools — margin controls, alignment, sizing, table and chart utilities — that work out of the box for any presentation.
+                This demo includes a full set of formatting tools – margin controls, alignment, sizing, table and chart utilities – that work out of the box for any presentation.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="rounded-2xl p-6 border border-gray-200 bg-white">
+            <motion.div variants={fadeUp} className="rounded-2xl p-5 md:p-6 border border-gray-200 bg-white">
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4"
                 style={{ background: "rgba(148,229,97,0.15)" }}
               >
                 🎨
               </div>
-              <h3 className="font-semibold mb-2 text-base" style={{ color: NAVY }}>
+              <h3 className="font-semibold mb-2 text-sm md:text-base" style={{ color: NAVY }}>
                 Bespoke tools are where it gets powerful
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
-                The real power comes from tools built around your brand — one-click table formatting, branded chart styles, and graph layouts that match your exact guidelines.
+                The real power comes from tools built around your brand – one-click table formatting, branded chart styles, and graph layouts that match your exact guidelines.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="rounded-2xl p-6 border border-gray-200 bg-white">
+            <motion.div variants={fadeUp} className="rounded-2xl p-5 md:p-6 border border-gray-200 bg-white sm:col-span-2 md:col-span-1">
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4"
                 style={{ background: "rgba(148,229,97,0.15)" }}
               >
                 ⚡
               </div>
-              <h3 className="font-semibold mb-2 text-base" style={{ color: NAVY }}>
+              <h3 className="font-semibold mb-2 text-sm md:text-base" style={{ color: NAVY }}>
                 Your elements, one click away
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
-                We can add your icons, images, and frequently used graphics directly into the toolbar — so anyone on the team can build on-brand slides without hunting through folders.
+                We can add your icons, images, and frequently used graphics directly into the toolbar – so anyone on the team can build on-brand slides without hunting through folders.
               </p>
-            </div>
+            </motion.div>
 
-          </div>
+          </motion.div>
 
           {/* Demo expiry notice */}
-          <div
-            className="mt-8 rounded-2xl px-6 py-4 flex flex-col md:flex-row md:items-center gap-4 justify-between"
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            className="mt-6 md:mt-8 rounded-2xl px-5 md:px-6 py-4 md:py-5 flex flex-col md:flex-row md:items-center gap-4 justify-between"
             style={{ background: NAVY }}
           >
             <div>
-              <p className="text-white font-semibold text-base">Your demo is active for 14 days from first use</p>
-              <p className="text-white/60 text-sm mt-0.5">
-                The clock starts the first time you click a button — not when you install it.
+              <p className="text-white font-semibold text-sm md:text-base">Your demo is active for 14 days from first use</p>
+              <p className="text-white/60 text-xs md:text-sm mt-0.5">
+                The clock starts the first time you click a button – not when you install it.
               </p>
             </div>
             <a
@@ -466,16 +524,22 @@ export default function IsioPage() {
             >
               Talk to us about the full version
             </a>
-          </div>
+          </motion.div>
 
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 md:px-8 py-16 space-y-24">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16 space-y-16 md:space-y-24">
 
         {/* ── Section 1: Install ── */}
-        <section id="install">
-          <div className="mb-12">
+        <section id="install" className="scroll-mt-20">
+          <motion.div
+            className="mb-8 md:mb-12"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+          >
             <span
               className="text-xs uppercase tracking-widest font-semibold"
               style={{ color: GREEN }}
@@ -483,46 +547,59 @@ export default function IsioPage() {
               Section 01
             </span>
             <h2
-              className="text-3xl font-bold mt-2"
+              className="text-2xl md:text-3xl font-bold mt-2"
               style={{ color: NAVY }}
             >
               How to install the toolbar
             </h2>
-            <p className="text-gray-700 mt-3 max-w-2xl text-base">
+            <p className="text-gray-700 mt-3 max-w-2xl text-sm md:text-base">
               Download the file below and follow these steps to get it running in PowerPoint. This takes about 3 minutes and only needs to be done once.
             </p>
-          </div>
+          </motion.div>
 
-          <div>
-            {installSteps.map((step, i) => (
-              <StepCard
-                key={step.number}
-                step={step}
-                isLast={i === installSteps.length - 1}
-              />
-            ))}
+          <div className="xl:grid xl:grid-cols-2 xl:gap-x-16">
+            <div>
+              {installSteps.slice(0, 3).map((step, i) => (
+                <StepCard key={step.number} step={step} isLast={i === 2} />
+              ))}
+            </div>
+            <div>
+              {installSteps.slice(3).map((step, i) => (
+                <StepCard key={step.number} step={step} isLast={i === 2} />
+              ))}
+            </div>
           </div>
 
           {/* Troubleshooting callout */}
-          <div
-            className="mt-8 rounded-2xl p-6 border"
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            className="mt-6 md:mt-8 rounded-2xl p-5 md:p-6 border"
             style={{ background: "#f8fafc", borderColor: "#e5e7eb" }}
           >
-            <h4 className="font-semibold mb-3 text-base" style={{ color: NAVY }}>
+            <h4 className="font-semibold mb-3 text-sm md:text-base" style={{ color: NAVY }}>
               Don&apos;t see the Isio tlbr tab after installing?
             </h4>
-            <ul className="text-base text-gray-700 space-y-2 list-disc list-inside">
+            <ul className="text-sm md:text-base text-gray-700 space-y-2 list-disc list-inside">
               <li>Make sure the .ppam file hasn&apos;t been moved or renamed since you installed it.</li>
               <li>Go back to File → Options → Add-ins → PowerPoint Add-ins → Go and check the Isio tlbr box is ticked.</li>
               <li>If it asks you to locate the file again, navigate to wherever you saved the .ppam file and re-select it.</li>
               <li>If the problem persists, email <a href="mailto:jayvin@tlbr.io" className="underline" style={{ color: NAVY }}>jayvin@tlbr.io</a>.</li>
             </ul>
-          </div>
+          </motion.div>
         </section>
 
         {/* ── Section 2: Use ── */}
-        <section id="use">
-          <div className="mb-12">
+        <section id="use" className="scroll-mt-20">
+          <motion.div
+            className="mb-8 md:mb-12"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+          >
             <span
               className="text-xs uppercase tracking-widest font-semibold"
               style={{ color: GREEN }}
@@ -530,18 +607,24 @@ export default function IsioPage() {
               Section 02
             </span>
             <h2
-              className="text-3xl font-bold mt-2"
+              className="text-2xl md:text-3xl font-bold mt-2"
               style={{ color: NAVY }}
             >
               How to use the toolbar
             </h2>
-            <p className="text-gray-700 mt-3 max-w-2xl text-base">
+            <p className="text-gray-700 mt-3 max-w-2xl text-sm md:text-base">
               The Isio tlbr tab sits in your PowerPoint ribbon and is split into 6 sections. Click a section below to explore what each tool does.
             </p>
-          </div>
+          </motion.div>
 
-          {/* Section tabs */}
-          <div className="flex flex-wrap gap-2 mb-8">
+          {/* Section tabs – scrollable on mobile */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            className="flex gap-2 mb-6 md:mb-8 overflow-x-auto pb-1"
+          >
             {toolbarSections.map((section) => (
               <SectionTab
                 key={section.id}
@@ -550,26 +633,30 @@ export default function IsioPage() {
                 onClick={() => setActiveSection(section.id)}
               />
             ))}
-          </div>
+          </motion.div>
 
           {/* Section content */}
-          <div
+          <motion.div
             key={currentSection.id}
-            className="rounded-3xl border border-gray-100 p-8 shadow-sm bg-white"
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="rounded-2xl md:rounded-3xl border border-gray-100 p-5 md:p-8 shadow-sm bg-white"
           >
-            <div className="mb-6">
+
+            <div className="mb-5 md:mb-6">
               <h3
-                className="text-xl font-bold"
+                className="text-lg md:text-xl font-bold"
                 style={{ color: NAVY }}
               >
                 {currentSection.label}
               </h3>
-              <p className="text-gray-700 mt-1 text-base">{currentSection.description}</p>
+              <p className="text-gray-700 mt-1 text-sm md:text-base">{currentSection.description}</p>
             </div>
 
             {/* Grouped tools (Object section) */}
             {"groups" in currentSection && currentSection.groups ? (
-              <div className="space-y-6">
+              <div className="space-y-5 md:space-y-6">
                 {currentSection.groups.map((group) => (
                   <div key={group.label}>
                     <p
@@ -578,7 +665,7 @@ export default function IsioPage() {
                     >
                       {group.label}
                     </p>
-                    <div className="grid md:grid-cols-2 gap-2">
+                    <div className="grid sm:grid-cols-2 gap-2">
                       {group.tools.map((tool) => (
                         <div
                           key={tool.name}
@@ -590,7 +677,7 @@ export default function IsioPage() {
                           />
                           <div>
                             <p className="text-sm font-semibold" style={{ color: NAVY }}>{tool.name}</p>
-                            <p className="text-sm text-gray-600 mt-0.5 leading-relaxed">{tool.desc}</p>
+                            <p className="text-xs md:text-sm text-gray-600 mt-0.5 leading-relaxed">{tool.desc}</p>
                           </div>
                         </div>
                       ))}
@@ -599,7 +686,7 @@ export default function IsioPage() {
                 ))}
               </div>
             ) : (
-              <div className="grid md:grid-cols-2 gap-2">
+              <div className="grid sm:grid-cols-2 gap-2">
                 {(currentSection.tools || []).map((tool) => (
                   <div
                     key={tool.name}
@@ -611,7 +698,7 @@ export default function IsioPage() {
                     />
                     <div>
                       <p className="text-sm font-semibold" style={{ color: NAVY }}>{tool.name}</p>
-                      <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{tool.desc}</p>
+                      <p className="text-xs md:text-sm text-gray-500 mt-0.5 leading-relaxed">{tool.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -620,31 +707,43 @@ export default function IsioPage() {
 
             {currentSection.note && (
               <div
-                className="mt-6 rounded-xl px-4 py-3 text-sm"
+                className="mt-5 md:mt-6 rounded-xl px-4 py-3 text-sm"
                 style={{ background: "rgba(148,229,97,0.12)", borderLeft: `3px solid ${GREEN}` }}
               >
                 <span className="font-semibold" style={{ color: NAVY }}>Tip: </span>
                 <span className="text-gray-700">{currentSection.note}</span>
               </div>
             )}
-          </div>
+          </motion.div>
         </section>
 
         {/* ── Section 3: Uninstall ── */}
-        <section id="uninstall">
-          <div className="mb-10">
+        <section id="uninstall" className="scroll-mt-20">
+          <motion.div
+            className="mb-8 md:mb-10"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+          >
             <span className="text-xs uppercase tracking-widest font-semibold" style={{ color: GREEN }}>
               Section 03
             </span>
-            <h2 className="text-3xl font-bold mt-2" style={{ color: NAVY }}>
+            <h2 className="text-2xl md:text-3xl font-bold mt-2" style={{ color: NAVY }}>
               How to uninstall the toolbar
             </h2>
-            <p className="text-gray-700 mt-3 max-w-2xl text-base">
+            <p className="text-gray-700 mt-3 max-w-2xl text-sm md:text-base">
               If you need to remove the toolbar, follow these steps. It takes less than a minute.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="rounded-3xl border border-gray-100 bg-white shadow-sm overflow-hidden">
+          <motion.div
+            className="rounded-2xl md:rounded-3xl border border-gray-100 bg-white shadow-sm overflow-hidden xl:grid xl:grid-cols-2"
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+          >
             {[
               {
                 n: "01",
@@ -667,44 +766,50 @@ export default function IsioPage() {
                 body: "If you want to fully remove it from your computer, navigate to the folder where you originally saved the Isio tlbr.ppam file and delete it.",
               },
             ].map((step, i, arr) => (
-              <div
+              <motion.div
                 key={step.n}
-                className={`flex gap-5 px-8 py-6 ${i < arr.length - 1 ? "border-b border-gray-100" : ""}`}
+                variants={fadeUp}
+                className={`flex gap-4 md:gap-5 px-5 md:px-8 py-5 md:py-6 border-b border-gray-100 last:border-b-0 xl:last:border-b xl:[&:nth-child(2)]:border-b xl:[&:nth-child(3)]:border-b-0`}
               >
                 <div
-                  className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0 mt-0.5"
+                  className="w-8 h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center text-xs md:text-sm font-bold shrink-0 mt-0.5"
                   style={{ background: "rgba(148,229,97,0.15)", color: NAVY }}
                 >
                   {step.n}
                 </div>
                 <div>
-                  <p className="font-semibold text-base mb-1" style={{ color: NAVY }}>{step.title}</p>
-                  <p className="text-gray-700 text-base leading-relaxed">{step.body}</p>
+                  <p className="font-semibold text-sm md:text-base mb-1" style={{ color: NAVY }}>{step.title}</p>
+                  <p className="text-gray-700 text-sm md:text-base leading-relaxed">{step.body}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         {/* Footer CTA */}
-        <div
-          className="rounded-3xl p-10 text-center"
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          className="rounded-2xl md:rounded-3xl p-6 md:p-10 text-center"
           style={{ background: NAVY }}
         >
-          <h3 className="text-2xl font-bold text-white mb-3">Need help or have questions?</h3>
-          <p className="text-white/60 mb-6 text-sm max-w-md mx-auto">
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-3">Need help or have questions?</h3>
+          <p className="text-white/60 mb-5 md:mb-6 text-sm max-w-md mx-auto">
             Reach out and the tlbr.io team will get back to you quickly.
           </p>
           <a
             href="mailto:jayvin@tlbr.io"
-            className="inline-block px-8 py-3 rounded-full text-sm font-semibold transition-opacity hover:opacity-85"
+            className="inline-block px-6 md:px-8 py-3 rounded-full text-sm font-semibold transition-opacity hover:opacity-85"
             style={{ background: GREEN, color: NAVY }}
           >
             Email jayvin@tlbr.io
           </a>
-        </div>
+        </motion.div>
 
       </div>
+      <Footer showDemo={false} />
     </main>
   );
 }

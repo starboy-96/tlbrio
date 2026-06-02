@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-export default function Footer() {
+export default function Footer({ showDemo = true }: { showDemo?: boolean }) {
   const year = new Date().getFullYear();
   const pathname = usePathname();
 
@@ -21,7 +21,7 @@ export default function Footer() {
       links: [
         { label: "About", href: "#about" },
         { label: "Blog", href: "/blog" },
-        { label: "Book a Demo", href: "#demo" },
+        ...(showDemo ? [{ label: "Book a Demo", href: "#demo" }] : []),
       ],
     },
   ];
@@ -64,14 +64,16 @@ export default function Footer() {
               Elevate every presentation. A bespoke PowerPoint add-in for teams who
               can&apos;t afford to look off-brand.
             </p>
-            <a
-              href="#demo"
-              className="inline-flex px-5 py-2.5 rounded-full text-sm font-medium bg-green text-navy hover:bg-green-light transition-colors duration-200 cursor-pointer"
-              style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 500 }}
-              onClick={(e) => { e.preventDefault(); handleScroll("#demo"); }}
-            >
-              Book a Demo
-            </a>
+            {showDemo && (
+              <a
+                href="#demo"
+                className="inline-flex px-5 py-2.5 rounded-full text-sm font-medium bg-green text-navy hover:bg-green-light transition-colors duration-200 cursor-pointer"
+                style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 500 }}
+                onClick={(e) => { e.preventDefault(); handleScroll("#demo"); }}
+              >
+                Book a Demo
+              </a>
+            )}
           </div>
 
           {/* Nav groups */}
