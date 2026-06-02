@@ -513,70 +513,14 @@ export default function IsioPage() {
           </div>
         </section>
 
-        {/* ── Section 2: Uninstall ── */}
-        <section id="uninstall">
-          <div className="mb-10">
-            <span className="text-xs uppercase tracking-widest font-semibold" style={{ color: GREEN }}>
-              Section 02
-            </span>
-            <h2 className="text-3xl font-bold mt-2" style={{ color: NAVY }}>
-              How to uninstall the toolbar
-            </h2>
-            <p className="text-gray-700 mt-3 max-w-2xl text-base">
-              If you need to remove the toolbar, follow these steps. It takes less than a minute.
-            </p>
-          </div>
-
-          <div className="rounded-3xl border border-gray-100 bg-white shadow-sm overflow-hidden">
-            {[
-              {
-                n: "01",
-                title: "Open PowerPoint Add-ins",
-                body: "In PowerPoint, click File → Options. In the left-hand list, click Add-ins. At the bottom of the window, set the dropdown to PowerPoint Add-ins and click Go.",
-              },
-              {
-                n: "02",
-                title: "Select the Isio tlbr",
-                body: "In the Add-ins window, click on Isio tlbr in the list to highlight it.",
-              },
-              {
-                n: "03",
-                title: "Remove it",
-                body: "Click Remove, then click Close. The Isio tlbr tab will disappear from your PowerPoint ribbon immediately.",
-              },
-              {
-                n: "04",
-                title: "Delete the file (optional)",
-                body: "If you want to fully remove it from your computer, navigate to the folder where you originally saved the Isio tlbr.ppam file and delete it.",
-              },
-            ].map((step, i, arr) => (
-              <div
-                key={step.n}
-                className={`flex gap-5 px-8 py-6 ${i < arr.length - 1 ? "border-b border-gray-100" : ""}`}
-              >
-                <div
-                  className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0 mt-0.5"
-                  style={{ background: "rgba(148,229,97,0.15)", color: NAVY }}
-                >
-                  {step.n}
-                </div>
-                <div>
-                  <p className="font-semibold text-base mb-1" style={{ color: NAVY }}>{step.title}</p>
-                  <p className="text-gray-700 text-base leading-relaxed">{step.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── Section 3: Use ── */}
+        {/* ── Section 2: Use ── */}
         <section id="use">
           <div className="mb-12">
             <span
               className="text-xs uppercase tracking-widest font-semibold"
               style={{ color: GREEN }}
             >
-              Section 03
+              Section 02
             </span>
             <h2
               className="text-3xl font-bold mt-2"
@@ -676,6 +620,62 @@ export default function IsioPage() {
                 <span className="text-gray-700">{currentSection.note}</span>
               </div>
             )}
+          </div>
+        </section>
+
+        {/* ── Section 3: Uninstall ── */}
+        <section id="uninstall">
+          <div className="mb-10">
+            <span className="text-xs uppercase tracking-widest font-semibold" style={{ color: GREEN }}>
+              Section 03
+            </span>
+            <h2 className="text-3xl font-bold mt-2" style={{ color: NAVY }}>
+              How to uninstall the toolbar
+            </h2>
+            <p className="text-gray-700 mt-3 max-w-2xl text-base">
+              If you need to remove the toolbar, follow these steps. It takes less than a minute.
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-gray-100 bg-white shadow-sm overflow-hidden">
+            {[
+              {
+                n: "01",
+                title: "Open PowerPoint Add-ins",
+                body: "In PowerPoint, click File → Options. In the left-hand list, click Add-ins. At the bottom of the window, set the dropdown to PowerPoint Add-ins and click Go.",
+              },
+              {
+                n: "02",
+                title: "Select the Isio tlbr",
+                body: "In the Add-ins window, click on Isio tlbr in the list to highlight it.",
+              },
+              {
+                n: "03",
+                title: "Remove it",
+                body: "Click Remove, then click Close. The Isio tlbr tab will disappear from your PowerPoint ribbon immediately.",
+              },
+              {
+                n: "04",
+                title: "Delete the file (optional)",
+                body: "If you want to fully remove it from your computer, navigate to the folder where you originally saved the Isio tlbr.ppam file and delete it.",
+              },
+            ].map((step, i, arr) => (
+              <div
+                key={step.n}
+                className={`flex gap-5 px-8 py-6 ${i < arr.length - 1 ? "border-b border-gray-100" : ""}`}
+              >
+                <div
+                  className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold shrink-0 mt-0.5"
+                  style={{ background: "rgba(148,229,97,0.15)", color: NAVY }}
+                >
+                  {step.n}
+                </div>
+                <div>
+                  <p className="font-semibold text-base mb-1" style={{ color: NAVY }}>{step.title}</p>
+                  <p className="text-gray-700 text-base leading-relaxed">{step.body}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
