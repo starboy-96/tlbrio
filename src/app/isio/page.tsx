@@ -283,7 +283,6 @@ function StepCard({ step, isLast }: { step: typeof installSteps[0]; isLast: bool
               width={step.imageWidth}
               height={step.imageHeight}
               className="max-w-full h-auto"
-              style={{ maxHeight: 340, width: "auto" }}
             />
           </div>
         )}
@@ -362,7 +361,7 @@ export default function IsioPage() {
             How to use
           </a>
           <a
-            href="mailto:jay@tlbr.io"
+            href="mailto:jayvin@tlbr.io"
             className="ml-auto text-sm font-medium px-4 py-1.5 rounded-full text-white transition-opacity hover:opacity-80"
             style={{ background: NAVY }}
           >
@@ -415,7 +414,7 @@ export default function IsioPage() {
               <li>Make sure the .ppam file hasn&apos;t been moved or renamed since you installed it.</li>
               <li>Go back to File → Options → Add-ins → PowerPoint Add-ins → Go and check the Isio tlbr box is ticked.</li>
               <li>If it asks you to locate the file again, navigate to wherever you saved the .ppam file and re-select it.</li>
-              <li>If the problem persists, email <a href="mailto:jay@tlbr.io" className="underline" style={{ color: NAVY }}>jay@tlbr.io</a>.</li>
+              <li>If the problem persists, email <a href="mailto:jayvin@tlbr.io" className="underline" style={{ color: NAVY }}>jayvin@tlbr.io</a>.</li>
             </ul>
           </div>
         </section>
@@ -540,11 +539,11 @@ export default function IsioPage() {
             Reach out and the tlbr.io team will get back to you quickly.
           </p>
           <a
-            href="mailto:jay@tlbr.io"
+            href="mailto:jayvin@tlbr.io"
             className="inline-block px-8 py-3 rounded-full text-sm font-semibold transition-opacity hover:opacity-85"
             style={{ background: GREEN, color: NAVY }}
           >
-            Email jay@tlbr.io
+            Email jayvin@tlbr.io
           </a>
         </div>
 
