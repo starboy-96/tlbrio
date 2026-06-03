@@ -92,7 +92,7 @@ type EventPayload = {
   session_duration_ms?: number;
 };
 
-async function trackEvent(event: EventPayload) {
+export async function trackEvent(event: EventPayload) {
   const { country, city } = await getLocation();
   await supabase.from("analytics_events").insert({
     ...event,

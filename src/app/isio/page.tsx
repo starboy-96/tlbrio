@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import Footer from "@/components/Footer";
+import Analytics, { trackEvent } from "@/components/Analytics";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -296,6 +297,7 @@ function StepCard({ step, isLast }: { step: typeof installSteps[0]; isLast: bool
               download="Isio tlbr.ppam"
               className="inline-flex items-center gap-2 mt-4 px-4 md:px-5 py-3 rounded-full text-sm font-semibold transition-opacity hover:opacity-85"
               style={{ background: NAVY, color: GREEN }}
+              onClick={() => trackEvent({ event_type: "download", element_label: "Download Isio tlbr.ppam", section: "install" })}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M8 1v9M4.5 6.5L8 10l3.5-3.5M2 13h12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
@@ -363,6 +365,7 @@ export default function IsioPage() {
 
   return (
     <main className="min-h-screen font-normal" style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400 }}>
+      <Analytics />
 
       {/* Hero */}
       <div
