@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /isio/headshots/
+Disallow: /isio/images/
+Disallow: /isio/files/
