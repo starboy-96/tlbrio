@@ -4,23 +4,9 @@ const nextConfig: NextConfig = {
   reactStrictMode: false,
   async headers() {
     return [
-      // Isio private assets — force download, no search engine indexing
+      // Private asset library — force download, no search engine indexing
       {
-        source: "/isio/headshots/:path*",
-        headers: [
-          { key: "X-Robots-Tag", value: "noindex, nofollow" },
-          { key: "Content-Disposition", value: "attachment" },
-        ],
-      },
-      {
-        source: "/isio/images/:path*",
-        headers: [
-          { key: "X-Robots-Tag", value: "noindex, nofollow" },
-          { key: "Content-Disposition", value: "attachment" },
-        ],
-      },
-      {
-        source: "/isio/files/:path*",
+        source: "/019826d5-72e3-74d5-a7d5-8d52f2c3d7c9/:path*",
         headers: [
           { key: "X-Robots-Tag", value: "noindex, nofollow" },
           { key: "Content-Disposition", value: "attachment" },

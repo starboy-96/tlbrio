@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
 
-Disallow: /isio/headshots/
-Disallow: /isio/images/
-Disallow: /isio/files/
+Disallow: /019826d5-72e3-74d5-a7d5-8d52f2c3d7c9/
