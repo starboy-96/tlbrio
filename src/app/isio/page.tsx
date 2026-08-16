@@ -74,6 +74,43 @@ const installSteps: InstallStep[] = [
 
 const toolbarSections = [
   {
+    id: "asset-library",
+    label: "Asset Library",
+    icon: "📁",
+    description: "Click Asset Library in the ribbon to open a side pane directly inside PowerPoint. Everything your team needs – templates, slides, graphics, images, and more – is organised in one place. No shared drives, no email threads, no excuses for going off brand.",
+    tools: [
+      {
+        name: "Templates",
+        desc: "Your branded presentation templates, ready to open in one click. Widescreen, A4 Landscape, and US Letter formats are all here – so every deck starts from the right file, every time. We can load in your exact Isio templates so there is no question about which file to use.",
+      },
+      {
+        name: "Layouts",
+        desc: "A library of pre-built branded slide layouts for every common page type – title slides, section dividers, content pages, and more. Drop one into your deck and it is already on brand, with the right fonts, colours, and spacing built in.",
+      },
+      {
+        name: "Slides",
+        desc: "Ready-made branded slides for the content types your team uses most – agendas, team pages, timelines, data slides, and more. Pick one, drop it into your presentation, and edit the content. The design is already done.",
+      },
+      {
+        name: "Graphics",
+        desc: "Branded shapes, diagrams, and visual elements available at a click. Pull any graphic onto a slide and adjust it to fit. Everything here matches your brand guidelines – no design software or separate asset folders needed.",
+      },
+      {
+        name: "Icons",
+        desc: "A curated set of on-brand icons, instantly accessible from the toolbar. No more trawling icon websites or worrying about whether a file is licensed correctly – every icon here is approved, consistent, and ready to use.",
+      },
+      {
+        name: "Images",
+        desc: "A library of pre-approved photography that fits your brand. All images are correctly licensed and selected to match your visual style – so your team never has to guess whether an image is right, or use something pulled from a Google search.",
+      },
+      {
+        name: "Headshots",
+        desc: "Team headshots stored directly in the toolbar. Always the latest version, always the right crop and style. One click to add a colleague's photo to any slide – no digging through shared folders or asking HR for the file again.",
+      },
+    ],
+    note: "Every file in the Asset Library is bespoke to your organisation. We load in your own templates, your own images, your own icons – so the toolbar becomes a single source of truth for your team. If it is in the toolbar, it is correct. No exceptions.",
+  },
+  {
     id: "templates",
     label: "Templates",
     icon: "⬜",
@@ -337,7 +374,7 @@ function SectionTab({
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function IsioPage() {
-  const [activeSection, setActiveSection] = useState("templates");
+  const [activeSection, setActiveSection] = useState("asset-library");
 
   useEffect(() => {
     history.scrollRestoration = "manual";
@@ -598,7 +635,7 @@ export default function IsioPage() {
               How to use the toolbar
             </h2>
             <p className="text-gray-700 mt-3 max-w-2xl text-sm md:text-base">
-              The Isio tlbr tab sits in your PowerPoint ribbon and is split into 6 sections. Click a section below to explore what each tool does.
+              The Isio tlbr tab sits in your PowerPoint ribbon and is split into 7 sections. Click a section below to explore what each one does.
             </p>
           </motion.div>
 
