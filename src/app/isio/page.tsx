@@ -24,65 +24,35 @@ const GREEN = "#94e561";
 const installSteps = [
   {
     number: "01",
-    title: "Download the toolbar file",
+    title: "Download the setup files",
     description:
-      "Click the button below to download the Isio tlbr.ppam file. Save it somewhere easy to find – your Downloads folder is fine for now.",
-    note: null,
+      "Click the button below to download the Isio tlbr setup package. Save it somewhere easy to find – your Downloads folder is fine.",
+    note: "This toolbar only works on Windows PC (64-bit). It will not run on Mac.",
     image: null,
     download: true,
   },
   {
     number: "02",
-    title: "Open PowerPoint Add-ins",
+    title: "Unzip the folder",
     description:
-      "Open PowerPoint. Click File in the top-left, then scroll down and click Options at the bottom of the left-hand menu.",
+      "Once downloaded, right-click the Isio-tlbr-Setup.zip file and select Extract All (or use your preferred unzip tool). Open the extracted folder – you will see two files inside: setup.exe and tlbr_Setup.msi.",
     note: null,
-    image: "/isio/step-file-menu.png",
-    imageAlt: "PowerPoint File menu with Options at the bottom",
-    imageWidth: 361,
-    imageHeight: 1706,
-    imageDisplayHeight: 600,
+    image: null,
   },
   {
     number: "03",
-    title: "Navigate to Add-ins",
+    title: "Run the installer",
     description:
-      "In the PowerPoint Options window, click Add-ins in the left-hand list. At the very bottom of the window, click the dropdown and select PowerPoint Add-ins, then click Go.",
+      "Double-click setup.exe to start the installation. Follow the on-screen steps. You do not need admin rights to install this.",
     note: null,
-    image: "/isio/step-addins-options.png",
-    imageAlt: "PowerPoint Options window showing Add-ins section",
-    imageWidth: 1621,
-    imageHeight: 1326,
+    image: null,
   },
   {
     number: "04",
-    title: "Add the toolbar file",
+    title: "Open PowerPoint",
     description:
-      "In the Add-ins window that opens, click Add New. Navigate to the folder where you saved the Isio tlbr.ppam file. Click on it to select it, then click Open.",
-    note: null,
-    image: "/isio/step-addins-dialog.png",
-    imageAlt: "Add-ins dialog with Add New button",
-    imageWidth: 899,
-    imageHeight: 843,
-  },
-  {
-    number: "05",
-    title: "Enable Macros",
-    description:
-      "PowerPoint will show a security notice. Click Enable Macros to proceed. This is expected – the toolbar uses macros to run its tools.",
-    note: "If you see a warning about the file not being from a trusted source, that is normal. The toolbar is safe to use – it was built specifically for your team.",
-    image: "/isio/step-enable-macros-v2.png",
-    imageAlt: "PowerPoint security notice with Enable Macros button",
-    imageWidth: 792,
-    imageHeight: 603,
-    imageDisplayHeight: 280,
-  },
-  {
-    number: "06",
-    title: "Confirm it is active",
-    description:
-      "Back in the Add-ins list, you should now see Isio tlbr listed. Make sure the checkbox next to it is ticked. Click Close.",
-    note: "The Isio tlbr tab will now appear in your PowerPoint ribbon at the top of the screen. You're ready to go.",
+      "Once installation is complete, open PowerPoint. The Isio tlbr tab will appear automatically in your ribbon at the top of the screen. You are ready to go.",
+    note: "If you already had PowerPoint open, close it fully and reopen it for the tab to appear.",
     image: null,
   },
 ];
@@ -293,16 +263,16 @@ function StepCard({ step, isLast }: { step: typeof installSteps[0]; isLast: bool
 
           {step.download && (
             <a
-              href="/isio/isio-tlbr-demo.ppam"
-              download="Isio tlbr.ppam"
+              href="/019826d5-72e3-74d5-a7d5-8d52f2c3d7c9/Isio-tlbr-Setup.zip"
+              download="Isio-tlbr-Setup.zip"
               className="inline-flex items-center gap-2 mt-4 px-4 md:px-5 py-3 rounded-full text-sm font-semibold transition-opacity hover:opacity-85"
               style={{ background: NAVY, color: GREEN }}
-              onClick={() => trackEvent({ event_type: "download", element_label: "Download Isio tlbr.ppam", section: "install" })}
+              onClick={() => trackEvent({ event_type: "download", element_label: "Download Isio tlbr Setup", section: "install" })}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M8 1v9M4.5 6.5L8 10l3.5-3.5M2 13h12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              Download Isio tlbr.ppam
+              Download Isio tlbr Setup
             </a>
           )}
         </div>
@@ -562,7 +532,7 @@ export default function IsioPage() {
               How to install the toolbar
             </h2>
             <p className="text-gray-700 mt-3 max-w-2xl text-sm md:text-base">
-              Download the file below and follow these steps to get it running in PowerPoint. This takes about 3 minutes and only needs to be done once.
+              Download the setup package below and follow these steps to get the toolbar running. This takes about 2 minutes and only needs to be done once. Windows PC (64-bit) only.
             </p>
           </motion.div>
 
@@ -585,9 +555,9 @@ export default function IsioPage() {
               Don&apos;t see the Isio tlbr tab after installing?
             </h4>
             <ul className="text-sm md:text-base text-gray-700 space-y-2 list-disc list-inside">
-              <li>Make sure the .ppam file hasn&apos;t been moved or renamed since you installed it.</li>
-              <li>Go back to File → Options → Add-ins → PowerPoint Add-ins → Go and check the Isio tlbr box is ticked.</li>
-              <li>If it asks you to locate the file again, navigate to wherever you saved the .ppam file and re-select it.</li>
+              <li>Make sure you ran setup.exe and completed all installation steps.</li>
+              <li>Close PowerPoint fully and reopen it — the tab should appear on restart.</li>
+              <li>Check that your machine is running Windows 64-bit. This toolbar does not support Mac or 32-bit Windows.</li>
               <li>If the problem persists, email <a href="mailto:jayvin@tlbr.io" className="underline" style={{ color: NAVY }}>jayvin@tlbr.io</a>.</li>
             </ul>
           </motion.div>
@@ -749,23 +719,23 @@ export default function IsioPage() {
             {[
               {
                 n: "01",
-                title: "Open PowerPoint Add-ins",
-                body: "In PowerPoint, click File → Options. In the left-hand list, click Add-ins. At the bottom of the window, set the dropdown to PowerPoint Add-ins and click Go.",
+                title: "Open Windows Settings",
+                body: "Click the Start button and open Settings (the gear icon), or press Windows + I on your keyboard.",
               },
               {
                 n: "02",
-                title: "Select the Isio tlbr",
-                body: "In the Add-ins window, click on Isio tlbr in the list to highlight it.",
+                title: "Go to Installed Apps",
+                body: "In Settings, click Apps in the left-hand menu, then select Installed Apps (on older Windows versions this may appear as Add or Remove Programs).",
               },
               {
                 n: "03",
-                title: "Remove it",
-                body: "Click Remove, then click Close. The Isio tlbr tab will disappear from your PowerPoint ribbon immediately.",
+                title: "Find Isio tlbr",
+                body: "Scroll through the list or use the search bar to find Isio tlbr.",
               },
               {
                 n: "04",
-                title: "Delete the file (optional)",
-                body: "If you want to fully remove it from your computer, navigate to the folder where you originally saved the Isio tlbr.ppam file and delete it.",
+                title: "Uninstall",
+                body: "Click on Isio tlbr and select Uninstall. Follow the on-screen prompts. The toolbar will be removed from PowerPoint immediately.",
               },
             ].map((step, i, arr) => (
               <motion.div
