@@ -4,7 +4,7 @@ description: "Large teams waste hours fixing the same presentation mistakes. The
 date: "2026-08-11"
 tags: ["presentation standards", "brand consistency", "PowerPoint templates"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&auto=format&q=80"
 ---
 
 # Stop the deck chaos — standardise your slides

@@ -4,7 +4,7 @@ description: "Marketing decks should do more than look good. Learn how PowerPoin
 date: "2026-08-06"
 tags: ["PowerPoint", "Marketing", "Brand consistency", "Presentation design"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&auto=format&q=80"
 ---
 
 # Stop wasting slides on your marketing team

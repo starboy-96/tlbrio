@@ -4,7 +4,7 @@ description: "When your presentations look inconsistent, clients notice and ques
 date: "2026-07-30"
 tags: ["brand consistency", "client trust", "presentation design", "PowerPoint"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1434626881859-194d67b2b86f?w=1200&auto=format&q=80"
 ---
 
 # Brand consistency builds client trust fast

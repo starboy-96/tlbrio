@@ -4,7 +4,7 @@ description: "Learn how to create a PowerPoint template that even your most enth
 date: "2026-07-02"
 tags: ["PowerPoint templates", "design systems", "brand consistency"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1200&auto=format&q=80"
 ---
 
 # Lock your PowerPoint template down tight

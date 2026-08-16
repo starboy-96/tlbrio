@@ -4,7 +4,7 @@ description: "Large teams waste hours fixing brand drift. Here’s a repeatable 
 date: "2026-08-04"
 tags: ["brand consistency", "presentation design", "PowerPoint", "enterprise teams"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1497215842964-222b430dc094?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&auto=format&q=80"
 ---
 
 # Brand standards in PowerPoint still feel like a fantasy in your 100-plus team?

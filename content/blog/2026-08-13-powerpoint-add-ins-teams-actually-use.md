@@ -4,7 +4,7 @@ description: "Learn what separates a PowerPoint add-in that gets adopted from on
 date: "2026-08-13"
 tags: ["PowerPoint", "add-in", "enterprise software", "IT deployment", "productivity tools"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&auto=format&q=80"
 ---
 
 # PowerPoint add-ins teams actually use

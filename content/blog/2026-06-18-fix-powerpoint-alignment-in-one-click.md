@@ -4,7 +4,7 @@ description: "Stop wasting time tweaking shapes and text boxes manually. Discove
 date: "2026-06-18"
 tags: ["PowerPoint", "alignment", "presentation design", "productivity", "brand consistency"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1200&auto=format&q=80"
 ---
 
 You’ve just spent 20 minutes tweaking a slide. The bullet points line up, the logo sits perfectly in the corner, and the chart snaps to the grid. Then you press F5, and everything is off. Again.

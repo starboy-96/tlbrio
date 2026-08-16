@@ -4,7 +4,7 @@ description: "Learn how finance teams can build trustworthy, professional presen
 date: "2026-07-23"
 tags: ["finance presentations", "presentation design", "corporate branding"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&auto=format&q=80"
 ---
 
 # Slide design for finance teams: clarity, consistency, credibility

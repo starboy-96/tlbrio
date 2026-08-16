@@ -4,7 +4,7 @@ description: "Why brand consistency trumps creative flair in high-stakes present
 date: "2026-06-25"
 tags: ["presentation design", "brand consistency", "PowerPoint"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&q=80"
 ---
 
 # Great slides come from consistency not creativity

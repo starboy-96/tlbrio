@@ -4,7 +4,7 @@ description: "Eight ways law firms can stop boring prospects with soulless slide
 date: "2026-06-11"
 tags: ["legal presentations", "pitch decks", "professional services", "PowerPoint design"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&auto=format&q=80"
 ---
 
 # Winning pitch decks for law firms

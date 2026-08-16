@@ -4,7 +4,7 @@ description: "A polished sales deck doesn’t just look good—it quietly disqua
 date: "2026-06-04"
 tags: ["sales decks", "presentation design", "brand consistency"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&auto=format&q=80"
 ---
 
 # Your sales deck is killing deals before you even speak

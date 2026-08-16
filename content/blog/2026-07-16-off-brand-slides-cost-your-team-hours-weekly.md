@@ -4,7 +4,7 @@ description: "Teams waste 30–60 minutes daily fixing off-brand formatting — 
 date: "2026-07-16"
 tags: ["PowerPoint", "brand consistency", "time management", "presentation design"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&auto=format&q=80"
 ---
 
 # Off-brand slides cost your team hours weekly

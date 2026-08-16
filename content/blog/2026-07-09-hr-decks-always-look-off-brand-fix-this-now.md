@@ -4,7 +4,7 @@ description: "HR teams struggle to keep slides on-brand — here’s why and how
 date: "2026-07-09"
 tags: ["HR presentations", "brand consistency", "PowerPoint templates"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1590402494682-cd3fb53b1f70?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1497366754035-f200968a7ebe?w=1200&auto=format&q=80"
 ---
 
 # HR decks always look off-brand — fix this now

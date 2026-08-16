@@ -4,7 +4,7 @@ description: "Your design team wastes hours fixing messy slides because others l
 date: "2026-07-28"
 tags: ["PowerPoint", "presentation design", "brand consistency", "design efficiency"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=1200&auto=format&q=80"
 ---
 
 # Why your design team is spending too much time fixing other people's slides
