@@ -19,9 +19,22 @@ const stagger: Variants = {
 const NAVY = "#0a1a2f";
 const GREEN = "#94e561";
 
+type InstallStep = {
+  number: string;
+  title: string;
+  description: string;
+  note: string | null;
+  image?: string | null;
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageDisplayHeight?: number;
+  download?: boolean;
+};
+
 // ─── Install steps ────────────────────────────────────────────────────────────
 
-const installSteps = [
+const installSteps: InstallStep[] = [
   {
     number: "01",
     title: "Download the setup files",
@@ -217,7 +230,7 @@ const toolbarSections = [
 
 // ─── Components ───────────────────────────────────────────────────────────────
 
-function StepCard({ step, isLast }: { step: typeof installSteps[0]; isLast: boolean }) {
+function StepCard({ step, isLast }: { step: InstallStep; isLast: boolean }) {
   return (
     <motion.div
       className="relative flex gap-4 md:gap-8"
