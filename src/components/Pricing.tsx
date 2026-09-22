@@ -22,7 +22,7 @@ export default function Pricing() {
       id="pricing"
       className="py-28 px-6"
       aria-label="Pricing"
-      style={{ background: NAVY }}
+      style={{ background: "#f4f4f2" }}
     >
       <div className="max-w-5xl mx-auto">
 
@@ -33,7 +33,7 @@ export default function Pricing() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.4 }}
           className="section-label mb-4"
-          style={{ color: GREEN }}
+          style={{ color: NAVY, opacity: 0.45 }}
         >
           Pricing
         </motion.p>
@@ -44,11 +44,11 @@ export default function Pricing() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.55, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-          className="text-5xl md:text-6xl leading-[1.05] text-white mb-6 max-w-2xl"
-          style={{ fontFamily: '"Cal Sans", sans-serif' }}
+          className="text-5xl md:text-6xl leading-[1.05] mb-6 max-w-2xl"
+          style={{ fontFamily: '"Cal Sans", sans-serif', color: NAVY }}
         >
           Built for your team.{" "}
-          <span style={{ color: GREEN }}>Priced accordingly.</span>
+          <span className="gradient-text">Priced accordingly.</span>
         </motion.h2>
 
         {/* Body copy */}
@@ -61,7 +61,7 @@ export default function Pricing() {
           style={{
             fontFamily: '"General Sans", sans-serif',
             fontWeight: 400,
-            color: "rgba(255,255,255,0.65)",
+            color: "rgba(10,26,47,0.65)",
           }}
         >
           tlbr.io is not off-the-shelf software. Every deployment is configured
@@ -84,8 +84,9 @@ export default function Pricing() {
               style={{
                 fontFamily: '"General Sans", sans-serif',
                 fontWeight: 500,
-                borderColor: "rgba(148,229,97,0.25)",
-                color: "rgba(255,255,255,0.7)",
+                borderColor: "rgba(10,26,47,0.12)",
+                color: "rgba(10,26,47,0.6)",
+                background: "rgba(10,26,47,0.04)",
               }}
             >
               {p}
@@ -106,8 +107,8 @@ export default function Pricing() {
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-semibold transition-all duration-200 hover:opacity-90 hover:scale-[1.02]"
             style={{
               fontFamily: '"General Sans", sans-serif',
-              background: GREEN,
-              color: NAVY,
+              background: NAVY,
+              color: "#fff",
             }}
           >
             Get in touch
@@ -120,7 +121,7 @@ export default function Pricing() {
             style={{
               fontFamily: '"General Sans", sans-serif',
               fontWeight: 400,
-              color: "rgba(255,255,255,0.4)",
+              color: "rgba(10,26,47,0.4)",
             }}
           >
             hello@tlbr.io · we respond within one business day
