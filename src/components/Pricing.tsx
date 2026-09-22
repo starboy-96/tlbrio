@@ -103,7 +103,7 @@ export default function Pricing() {
           className="flex flex-col sm:flex-row items-start sm:items-center gap-5"
         >
           <a
-            href="mailto:hello@tlbr.io"
+            href={`mailto:jayvin@tlbr.io?subject=${encodeURIComponent("Pricing enquiry")}&body=${encodeURIComponent("Hi Jayvin,\n\nI'd like to find out more about tlbr.io pricing for our team.\n\nCompany: \nTeam size: \nAnything else you'd like us to know: \n\nBest regards,\n")}`}
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-semibold transition-all duration-200 hover:opacity-90 hover:scale-[1.02]"
             style={{
               fontFamily: '"General Sans", sans-serif',
@@ -124,7 +124,7 @@ export default function Pricing() {
               color: "rgba(10,26,47,0.4)",
             }}
           >
-            hello@tlbr.io · we respond within one business day
+            We respond within one business day
           </span>
         </motion.div>
 
