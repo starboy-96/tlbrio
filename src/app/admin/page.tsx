@@ -128,6 +128,7 @@ export default function AdminPage() {
     supabase
       .from("analytics_events")
       .select("*")
+      .eq("site", "tlbr.io") // the table is shared with PitchX and Boulevard Construction
       .order("created_at", { ascending: false })
       .limit(5000)
       .then(({ data }) => { setAllEvents(data || []); setLoading(false); });
