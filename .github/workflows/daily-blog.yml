@@ -132,6 +132,12 @@ jobs:
           echo "Post written to $FILE_PATH"
           head -10 "$FILE_PATH"
 
+          # Export variables for the Beehiiv step
+          echo "BLOG_FILE_PATH=$FILE_PATH" >> $GITHUB_ENV
+          echo "BLOG_TITLE=$TITLE" >> $GITHUB_ENV
+          echo "BLOG_SLUG=$SLUG" >> $GITHUB_ENV
+          echo "BLOG_IMAGE_URL=$IMAGE_URL" >> $GITHUB_ENV
+
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
@@ -145,4 +151,62 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
           npx vercel --prod --yes --token=$VERCEL_TOKEN --scope=starboy-96s-projects
+
+      - name: Publish to Beehiiv newsletter
+        if: env.BLOG_FILE_PATH != ''
+        env:
+          BEEHIIV_API_KEY: ${{ secrets.BEEHIIV_API_KEY }}
+        run: |
+          PUB_ID="pub_84a313c7-0485-4292-8e00-3205a1352a6e"
+
+          # Extract description from frontmatter
+          DESCRIPTION=$(grep -m1 '^description:' "$BLOG_FILE_PATH" | sed 's/^description: *//' | tr -d '"')
+
+          # Strip frontmatter — get everything after the second ---
+          BODY=$(awk '/^---$/{if(++n==2){found=1;next}} found' "$BLOG_FILE_PATH")
+
+          # Convert markdown to HTML
+          HTML_BODY=$(echo "$BODY" | pandoc -f markdown -t html)
+
+          # Append a "Read on tlbr.io" button
+          BLOG_URL="https://tlbr.io/blog/$BLOG_SLUG"
+          HTML_BODY="${HTML_BODY}
+          <p style=\"text-align:center;margin-top:32px\">
+            <a href=\"${BLOG_URL}\" style=\"display:inline-block;background:#0a1a2f;color:#94e561;padding:14px 28px;border-radius:999px;text-decoration:none;font-weight:600;font-family:sans-serif\">
+              Read on tlbr.io &rarr;
+            </a>
+          </p>"
+
+          # Create and send post via Beehiiv API
+          RESPONSE=$(curl -s -X POST \
+            "https://api.beehiiv.com/v2/publications/${PUB_ID}/posts" \
+            -H "Authorization: Bearer $BEEHIIV_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "$(jq -n \
+              --arg title "$BLOG_TITLE" \
+              --arg subtitle "$DESCRIPTION" \
+              --arg body "$HTML_BODY" \
+              --arg img "$BLOG_IMAGE_URL" \
+              --arg subject "$BLOG_TITLE" \
+              --arg preview "$DESCRIPTION" \
+              '{
+                title: $title,
+                subtitle: $subtitle,
+                body_content: $body,
+                status: "confirmed",
+                thumbnail_image_url: $img,
+                email_settings: {
+                  email_subject_line: $subject,
+                  email_preview_text: $preview
+                }
+              }'
+            )")
+
+          echo "Beehiiv response: $RESPONSE"
+          POST_ID=$(echo "$RESPONSE" | jq -r '.data.id // empty')
+          if [ -z "$POST_ID" ]; then
+            echo "Warning: Failed to publish to Beehiiv — check the response above"
+          else
+            echo "Published to Beehiiv: $POST_ID"
+          fi
 
