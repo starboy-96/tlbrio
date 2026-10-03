@@ -76,7 +76,7 @@ function renderMarkdown(content: string): string {
     // Unordered lists
     .replace(/^- (.+)$/gm, '<li class="flex gap-2"><span class="text-green mt-0.5">•</span><span>$1</span></li>')
     // Wrap list items
-    .replace(/(<li[^>]*>.*<\/li>\n?)+/g, (m) => `<ul class="space-y-2 my-4 text-navy/65">${m}</ul>`)
+    .replace(/(<li[^>]*>.*<\/li>\n?)+/g, (m) => `<ul class="space-y-2 my-4 text-navy/85">${m}</ul>`)
     // Code blocks
     .replace(/```[\w]*\n([\s\S]*?)```/g, '<pre class="bg-navy/4 rounded-xl p-4 overflow-x-auto my-6 text-sm font-mono"><code>$1</code></pre>')
     // Inline code
@@ -84,7 +84,7 @@ function renderMarkdown(content: string): string {
     // Blockquote
     .replace(/^> (.+)$/gm, '<blockquote class="border-l-2 border-green pl-4 my-4 text-navy/60 italic">$1</blockquote>')
     // Paragraphs (lines not already wrapped)
-    .replace(/^(?!<[a-z]|$)(.+)$/gm, '<p class="mb-4 text-navy/65 leading-relaxed">$1</p>')
+    .replace(/^(?!<[a-z]|$)(.+)$/gm, '<p class="mb-4 text-navy/85 leading-relaxed">$1</p>')
     // Horizontal rule
     .replace(/^---$/gm, '<hr class="border-navy/10 my-8"/>');
 }
@@ -186,7 +186,7 @@ export default async function BlogPostPage({ params }: Props) {
           {/* Content */}
           <article
             className="prose-tlbr"
-            style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 300 }}
+            style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400 }}
             dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content) }}
           />
 
