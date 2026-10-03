@@ -21,26 +21,57 @@ async function sendWelcomeEmail(email: string) {
       from: FROM,
       to: email,
       subject: "Your slides are about to get a lot better",
-      html: `
-        <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:32px 24px;background:#fff;">
-          <div style="background:#0a1a2f;border-radius:16px;padding:32px;margin-bottom:28px;">
-            <p style="color:#94e561;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin:0 0 8px;">tlbr.io</p>
-            <h1 style="color:#fff;font-size:28px;margin:0;line-height:1.2;">Your slides are about to get a lot better</h1>
-          </div>
-          <p style="color:#333;font-size:16px;line-height:1.7;">Hey,</p>
-          <p style="color:#333;font-size:16px;line-height:1.7;">Thanks for signing up — welcome to the tlbr.io newsletter.</p>
-          <p style="color:#333;font-size:16px;line-height:1.7;">PowerPoint gets a bad reputation. Cluttered decks, off-brand fonts, that one colleague who somehow makes every slide look worse than a blank one.</p>
-          <p style="color:#333;font-size:16px;line-height:1.7;">But here's the thing — PowerPoint isn't the problem. The way most teams use it is.</p>
-          <p style="color:#333;font-size:16px;line-height:1.7;">That's exactly why tlbr.io exists. We build bespoke toolbars that live right inside PowerPoint, giving your team instant access to brand colours, layouts, templates, and formatting tools — all in one click. No more hunting through menus. No more fixing someone else's slides at 11pm.</p>
-          <p style="color:#333;font-size:16px;line-height:1.7;">Every Tuesday, we'll land in your inbox with one practical tip on presentation design, brand consistency, and getting more out of PowerPoint. No fluff, no filler — just things you can actually use.</p>
-          <p style="color:#333;font-size:16px;line-height:1.7;">We're glad you're here.</p>
-          <p style="color:#333;font-size:16px;line-height:1.7;font-weight:600;">The tlbr.io team</p>
-          <hr style="border:none;border-top:1px solid #eee;margin:32px 0;" />
-          <p style="color:#999;font-size:12px;text-align:center;">
-            You're receiving this because you signed up at <a href="https://tlbr.io" style="color:#0a1a2f;">tlbr.io</a>.
-          </p>
-        </div>
-      `,
+      html: `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="color-scheme" content="light" />
+<meta name="supported-color-schemes" content="light" />
+</head>
+<body style="margin:0;padding:0;background:#f4f4f2;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f2;padding:40px 16px;">
+  <tr><td align="center">
+    <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+
+      <!-- Header -->
+      <tr><td style="background:#0a1a2f;border-radius:16px 16px 0 0;padding:40px 40px 36px;">
+        <p style="margin:0 0 12px;color:#94e561;font-family:sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">tlbr.io newsletter</p>
+        <h1 style="margin:0;color:#ffffff;font-family:sans-serif;font-size:30px;font-weight:700;line-height:1.25;">Your slides are about<br/>to get a lot better</h1>
+      </td></tr>
+
+      <!-- Body -->
+      <tr><td style="background:#ffffff;padding:40px;">
+        <p style="margin:0 0 20px;color:#1a1a1a;font-family:sans-serif;font-size:16px;line-height:1.75;">Hey,</p>
+        <p style="margin:0 0 20px;color:#1a1a1a;font-family:sans-serif;font-size:16px;line-height:1.75;">Thanks for signing up — welcome to the tlbr.io newsletter.</p>
+        <p style="margin:0 0 20px;color:#1a1a1a;font-family:sans-serif;font-size:16px;line-height:1.75;">PowerPoint gets a bad reputation. Cluttered decks, off-brand fonts, that one colleague who somehow makes every slide look worse than a blank one.</p>
+        <p style="margin:0 0 20px;color:#1a1a1a;font-family:sans-serif;font-size:16px;line-height:1.75;">But here's the thing — PowerPoint isn't the problem. The way most teams use it is.</p>
+        <p style="margin:0 0 20px;color:#1a1a1a;font-family:sans-serif;font-size:16px;line-height:1.75;">That's exactly why tlbr.io exists. We build bespoke toolbars that live right inside PowerPoint, giving your team instant access to brand colours, layouts, templates, and formatting tools — all in one click. No more hunting through menus. No more fixing someone else's slides at 11pm.</p>
+        <p style="margin:0 0 20px;color:#1a1a1a;font-family:sans-serif;font-size:16px;line-height:1.75;">Every Tuesday, we'll land in your inbox with one practical tip on presentation design, brand consistency, and getting more out of PowerPoint. No fluff, no filler — just things you can actually use.</p>
+        <p style="margin:0 0 32px;color:#1a1a1a;font-family:sans-serif;font-size:16px;line-height:1.75;">We're glad you're here.</p>
+
+        <!-- CTA -->
+        <table cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
+          <tr><td style="background:#0a1a2f;border-radius:999px;padding:14px 28px;">
+            <a href="https://tlbr.io" style="color:#94e561;font-family:sans-serif;font-size:15px;font-weight:600;text-decoration:none;display:block;">Visit tlbr.io &rarr;</a>
+          </td></tr>
+        </table>
+
+        <p style="margin:0;color:#1a1a1a;font-family:sans-serif;font-size:16px;line-height:1.75;font-weight:600;">The tlbr.io team</p>
+      </td></tr>
+
+      <!-- Footer -->
+      <tr><td style="background:#f4f4f2;border-radius:0 0 16px 16px;padding:24px 40px;border-top:1px solid #e8e8e6;">
+        <p style="margin:0;color:#999;font-family:sans-serif;font-size:12px;text-align:center;line-height:1.6;">
+          You're receiving this because you subscribed at <a href="https://tlbr.io" style="color:#0a1a2f;text-decoration:underline;">tlbr.io</a>.<br/>
+          &copy; 2025 tlbr.io. All rights reserved.
+        </p>
+      </td></tr>
+
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>`,
     }),
   });
 }
