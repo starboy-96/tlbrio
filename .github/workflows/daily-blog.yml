@@ -194,6 +194,9 @@ jobs:
             IMAGE_BLOCK=""
           fi
 
+          # Export vars so the Python script can read them via os.environ
+          export IMAGE_BLOCK HTML_BODY BLOG_URL
+
           # Build base email from template file — substitute shared values with python
           EMAIL_HTML_BASE=$(python3 scripts/build-email.py)
 
