@@ -1,9 +1,14 @@
 name: Weekly Blog Post
 
 on:
-  # Triggered by EasyCron on Tuesday and Thursday at 8am UTC
+  # Triggered by EasyCron on Tuesday at 8am UTC
   # Do not add a schedule here — EasyCron is the only trigger
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'Skip the Tuesday day check (for testing)'
+        required: false
+        default: 'false'
 
 jobs:
   generate-post:
@@ -23,7 +28,7 @@ jobs:
 
           # Only post on Tuesdays (2) — protects against backup cron running on other days
           DAY_OF_WEEK=$(date +%u)
-          if [ "$DAY_OF_WEEK" != "2" ]; then
+          if [ "$DAY_OF_WEEK" != "2" ] && [ "${{ github.event.inputs.force }}" != "true" ]; then
             echo "Today is not Tuesday (day $DAY_OF_WEEK) — skipping post."
             exit 0
           fi
