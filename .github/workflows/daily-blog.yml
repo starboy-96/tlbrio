@@ -21,10 +21,10 @@ jobs:
         run: |
           TODAY=$(date +%Y-%m-%d)
 
-          # Only post on Tuesdays (2) and Thursdays (4) — protects against backup cron running on other days
+          # Only post on Tuesdays (2) — protects against backup cron running on other days
           DAY_OF_WEEK=$(date +%u)
-          if [ "$DAY_OF_WEEK" != "2" ] && [ "$DAY_OF_WEEK" != "4" ]; then
-            echo "Today is not Tuesday or Thursday (day $DAY_OF_WEEK) — skipping post."
+          if [ "$DAY_OF_WEEK" != "2" ]; then
+            echo "Today is not Tuesday (day $DAY_OF_WEEK) — skipping post."
             exit 0
           fi
 
