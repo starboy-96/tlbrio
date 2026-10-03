@@ -8,6 +8,7 @@ import Pricing from "@/components/Pricing";
 import About from "@/components/About";
 import WhoItsFor from "@/components/WhoItsFor";
 import FAQ from "@/components/FAQ";
+import Newsletter from "@/components/Newsletter";
 import Demo from "@/components/Demo";
 import Footer from "@/components/Footer";
 
@@ -69,6 +70,7 @@ export default function Home() {
         <About />
         <WhoItsFor />
         <FAQ />
+        <Newsletter />
         <Demo />
       </main>
       <Footer />
