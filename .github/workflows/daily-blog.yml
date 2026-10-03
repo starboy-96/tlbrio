@@ -164,6 +164,9 @@ jobs:
         run: |
           PUB_ID="pub_84a313c7-0485-4292-8e00-3205a1352a6e"
 
+          # Install pandoc
+          sudo apt-get install -y pandoc -q
+
           # Extract description from frontmatter
           DESCRIPTION=$(grep -m1 '^description:' "$BLOG_FILE_PATH" | sed 's/^description: *//' | tr -d '"')
 
