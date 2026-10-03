@@ -6,7 +6,6 @@ import { useMounted } from "@/hooks/useMounted";
 
 const NAVY = "#0a1a2f";
 const GREEN = "#94e561";
-const PUB_ID = "pub_84a313c7-0485-4292-8e00-3205a1352a6e";
 
 export default function Newsletter() {
   const mounted = useMounted();
@@ -18,10 +17,10 @@ export default function Newsletter() {
     if (!email || status === "loading") return;
     setStatus("loading");
     try {
-      const res = await fetch(`https://api.beehiiv.com/v2/publications/${PUB_ID}/subscriptions`, {
+      const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, reactivate_existing: true, send_welcome_email: true }),
+        body: JSON.stringify({ email }),
       });
       if (!res.ok) throw new Error();
       setStatus("success");
