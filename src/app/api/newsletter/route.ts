@@ -1,3 +1,4 @@
+import { createHmac } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
@@ -10,7 +11,15 @@ function supabaseAdmin() {
   );
 }
 
+function unsubscribeLink(email: string): string {
+  const token = createHmac("sha256", process.env.UNSUBSCRIBE_SECRET!)
+    .update(email)
+    .digest("hex");
+  return `https://tlbr.io/api/unsubscribe?email=${encodeURIComponent(email)}&token=${token}`;
+}
+
 async function sendWelcomeEmail(email: string) {
+  const unsub = unsubscribeLink(email);
   await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -28,42 +37,47 @@ async function sendWelcomeEmail(email: string) {
 <meta name="color-scheme" content="light" />
 <meta name="supported-color-schemes" content="light" />
 </head>
-<body style="margin:0;padding:0;background:#f4f4f2;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f2;padding:40px 16px;">
+<body style="margin:0;padding:0;background:#f0f0ee;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f0ee;padding:40px 16px;">
   <tr><td align="center">
-    <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
+    <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
 
       <!-- Header -->
-      <tr><td style="background:#0a1a2f;border-radius:16px 16px 0 0;padding:40px 40px 36px;">
-        <p style="margin:0 0 12px;color:#94e561;font-family:sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">tlbr.io newsletter</p>
-        <h1 style="margin:0;color:#ffffff;font-family:sans-serif;font-size:30px;font-weight:700;line-height:1.25;">Your slides are about<br/>to get a lot better</h1>
+      <tr><td style="background:#0a1a2f;padding:36px 40px 32px;">
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+            <td>
+              <p style="margin:0 0 16px;color:#94e561;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;">tlbr.io newsletter</p>
+              <h1 style="margin:0;color:#ffffff;font-family:Georgia,serif;font-size:28px;font-weight:700;line-height:1.3;">Your slides are about<br/>to get a lot better</h1>
+            </td>
+          </tr>
+        </table>
       </td></tr>
 
       <!-- Body -->
-      <tr><td style="background:#ffffff;padding:40px;">
-        <p style="margin:0 0 20px;color:#1a1a1a;font-family:sans-serif;font-size:16px;line-height:1.75;">Hey,</p>
-        <p style="margin:0 0 20px;color:#1a1a1a;font-family:sans-serif;font-size:16px;line-height:1.75;">Thanks for signing up — welcome to the tlbr.io newsletter.</p>
-        <p style="margin:0 0 20px;color:#1a1a1a;font-family:sans-serif;font-size:16px;line-height:1.75;">PowerPoint gets a bad reputation. Cluttered decks, off-brand fonts, that one colleague who somehow makes every slide look worse than a blank one.</p>
-        <p style="margin:0 0 20px;color:#1a1a1a;font-family:sans-serif;font-size:16px;line-height:1.75;">But here's the thing — PowerPoint isn't the problem. The way most teams use it is.</p>
-        <p style="margin:0 0 20px;color:#1a1a1a;font-family:sans-serif;font-size:16px;line-height:1.75;">That's exactly why tlbr.io exists. We build bespoke toolbars that live right inside PowerPoint, giving your team instant access to brand colours, layouts, templates, and formatting tools — all in one click. No more hunting through menus. No more fixing someone else's slides at 11pm.</p>
-        <p style="margin:0 0 20px;color:#1a1a1a;font-family:sans-serif;font-size:16px;line-height:1.75;">Every Tuesday, we'll land in your inbox with one practical tip on presentation design, brand consistency, and getting more out of PowerPoint. No fluff, no filler — just things you can actually use.</p>
-        <p style="margin:0 0 32px;color:#1a1a1a;font-family:sans-serif;font-size:16px;line-height:1.75;">We're glad you're here.</p>
+      <tr><td style="background:#ffffff;padding:36px 40px 32px;">
+        <p style="margin:0 0 18px;color:#0a1a2f;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;">Hey,</p>
+        <p style="margin:0 0 18px;color:#0a1a2f;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;">Thanks for signing up — welcome to the tlbr.io newsletter.</p>
+        <p style="margin:0 0 18px;color:#0a1a2f;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;">PowerPoint gets a bad reputation. Cluttered decks, off-brand fonts, that one colleague who somehow makes every slide look worse than a blank one.</p>
+        <p style="margin:0 0 18px;color:#0a1a2f;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;">But PowerPoint is not the problem. The way most teams use it is.</p>
+        <p style="margin:0 0 18px;color:#0a1a2f;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;">That is exactly why tlbr.io exists. We build bespoke toolbars that live right inside PowerPoint, giving your team instant access to brand colours, layouts, templates, and formatting tools — all in one click.</p>
+        <p style="margin:0 0 32px;color:#0a1a2f;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;">Every Tuesday we will land in your inbox with one practical tip on presentation design and brand consistency. No fluff — just things you can actually use.</p>
 
         <!-- CTA -->
         <table cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
           <tr><td style="background:#0a1a2f;border-radius:999px;padding:14px 28px;">
-            <a href="https://tlbr.io" style="color:#94e561;font-family:sans-serif;font-size:15px;font-weight:600;text-decoration:none;display:block;">Visit tlbr.io &rarr;</a>
+            <a href="https://tlbr.io" style="color:#94e561;font-family:Arial,sans-serif;font-size:15px;font-weight:700;text-decoration:none;display:block;white-space:nowrap;">Visit tlbr.io &rarr;</a>
           </td></tr>
         </table>
 
-        <p style="margin:0;color:#1a1a1a;font-family:sans-serif;font-size:16px;line-height:1.75;font-weight:600;">The tlbr.io team</p>
+        <p style="margin:0;color:#0a1a2f;font-family:Arial,sans-serif;font-size:15px;line-height:1.8;font-weight:700;">The tlbr.io team</p>
       </td></tr>
 
       <!-- Footer -->
-      <tr><td style="background:#f4f4f2;border-radius:0 0 16px 16px;padding:24px 40px;border-top:1px solid #e8e8e6;">
-        <p style="margin:0;color:#999;font-family:sans-serif;font-size:12px;text-align:center;line-height:1.6;">
-          You're receiving this because you subscribed at <a href="https://tlbr.io" style="color:#0a1a2f;text-decoration:underline;">tlbr.io</a>.<br/>
-          &copy; 2025 tlbr.io. All rights reserved.
+      <tr><td style="background:#f0f0ee;padding:20px 40px;border-top:1px solid #e4e4e2;">
+        <p style="margin:0;color:#999;font-family:Arial,sans-serif;font-size:12px;text-align:center;line-height:1.7;">
+          You subscribed at <a href="https://tlbr.io" style="color:#0a1a2f;text-decoration:underline;">tlbr.io</a>. &nbsp;&bull;&nbsp;
+          <a href="${unsub}" style="color:#999;text-decoration:underline;">Unsubscribe</a>
         </p>
       </td></tr>
 
