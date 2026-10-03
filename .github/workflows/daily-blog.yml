@@ -24,6 +24,7 @@ jobs:
       - name: Generate blog post with AI
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
         run: |
           TODAY=$(date +%Y-%m-%d)
 
@@ -58,28 +59,8 @@ jobs:
           TOPIC_INDEX=$(( (10#$DAY_OF_YEAR_TOPIC - 1) % ${#TOPICS[@]} ))
           TOPIC="${TOPICS[$TOPIC_INDEX]}"
 
-          # Curated Unsplash images — dynamic, high-energy visuals for each post
-          IMAGES=(
-            "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1497215842964-222b430dc094?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1590402494682-cd3fb53b1f70?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=1200&auto=format&q=80"
-            "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?w=1200&auto=format&q=80"
-          )
-          # Use day-of-year so every post gets a different image
-          DAY_OF_YEAR=$(date +%j)
-          IMAGE_INDEX=$(( (10#$DAY_OF_YEAR - 1) % ${#IMAGES[@]} ))
-          IMAGE_URL="${IMAGES[$IMAGE_INDEX]}"
+          # Fallback image if Unsplash search fails
+          FALLBACK_IMAGE="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&auto=format&q=80"
 
           # Fetch recent news headlines related to presentations/PowerPoint for context
           NEWS_HEADLINES=$(curl -s --max-time 10 \
@@ -134,6 +115,21 @@ jobs:
           TITLE_SLUG="${TITLE_SLUG%-}" # remove trailing hyphen if truncated
           SLUG="${TODAY}-${TITLE_SLUG}"
           FILE_PATH="content/blog/${SLUG}.md"
+
+          # Search Unsplash for an image that matches the post title
+          SEARCH_QUERY=$(jq -rn --arg t "$TITLE" '$t | @uri')
+          UNSPLASH_RESPONSE=$(curl -s --max-time 10 \
+            "https://api.unsplash.com/search/photos?query=${SEARCH_QUERY}&per_page=5&orientation=landscape&content_filter=high" \
+            -H "Authorization: Client-ID $UNSPLASH_ACCESS_KEY")
+          IMAGE_URL=$(echo "$UNSPLASH_RESPONSE" | jq -r '.results[0].urls.regular // empty')
+          if [ -z "$IMAGE_URL" ]; then
+            echo "Unsplash search failed — using fallback image"
+            IMAGE_URL="$FALLBACK_IMAGE"
+          else
+            # Ensure consistent sizing params
+            IMAGE_URL="${IMAGE_URL%%\?*}?w=1200&auto=format&q=80"
+            echo "Unsplash image selected: $IMAGE_URL"
+          fi
 
           # Force correct date in frontmatter in case AI generated a wrong one
           POST_CONTENT=$(echo "$POST_CONTENT" | sed "s/^date: .*/date: \"$TODAY\"/m")
