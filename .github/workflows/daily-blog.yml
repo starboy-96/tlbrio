@@ -157,13 +157,13 @@ jobs:
         run: |
           npx vercel --prod --yes --token=$VERCEL_TOKEN --scope=starboy-96s-projects
 
-      - name: Publish to Beehiiv newsletter
+      - name: Send newsletter via Resend
         if: env.BLOG_FILE_PATH != ''
         env:
-          BEEHIIV_API_KEY: ${{ secrets.BEEHIIV_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
-          PUB_ID="pub_84a313c7-0485-4292-8e00-3205a1352a6e"
-
           # Install pandoc
           sudo apt-get install -y pandoc -q
 
@@ -176,45 +176,58 @@ jobs:
           # Convert markdown to HTML
           HTML_BODY=$(echo "$BODY" | pandoc -f markdown -t html)
 
-          # Append a "Read on tlbr.io" button
+          # Wrap in email template with "Read on tlbr.io" button
           BLOG_URL="https://tlbr.io/blog/$BLOG_SLUG"
-          HTML_BODY="${HTML_BODY}
-          <p style=\"text-align:center;margin-top:32px\">
-            <a href=\"${BLOG_URL}\" style=\"display:inline-block;background:#0a1a2f;color:#94e561;padding:14px 28px;border-radius:999px;text-decoration:none;font-weight:600;font-family:sans-serif\">
-              Read on tlbr.io &rarr;
-            </a>
-          </p>"
+          EMAIL_HTML="<div style=\"font-family:sans-serif;max-width:600px;margin:0 auto;padding:32px 24px;background:#fff;\">
+            <div style=\"background:#0a1a2f;border-radius:16px;padding:24px 32px;margin-bottom:28px;\">
+              <p style=\"color:#94e561;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin:0 0 8px;\">tlbr.io</p>
+              <h1 style=\"color:#fff;font-size:24px;margin:0;line-height:1.3;\">$BLOG_TITLE</h1>
+            </div>
+            <div style=\"color:#333;font-size:16px;line-height:1.7;\">$HTML_BODY</div>
+            <p style=\"text-align:center;margin-top:36px;\">
+              <a href=\"$BLOG_URL\" style=\"display:inline-block;background:#0a1a2f;color:#94e561;padding:14px 28px;border-radius:999px;text-decoration:none;font-weight:600;font-family:sans-serif;\">
+                Read on tlbr.io &rarr;
+              </a>
+            </p>
+            <hr style=\"border:none;border-top:1px solid #eee;margin:32px 0;\" />
+            <p style=\"color:#999;font-size:12px;text-align:center;\">You're receiving this because you subscribed at <a href=\"https://tlbr.io\" style=\"color:#0a1a2f;\">tlbr.io</a>.</p>
+          </div>"
 
-          # Create and send post via Beehiiv API
-          RESPONSE=$(curl -s -X POST \
-            "https://api.beehiiv.com/v2/publications/${PUB_ID}/posts" \
-            -H "Authorization: Bearer $BEEHIIV_API_KEY" \
-            -H "Content-Type: application/json" \
-            -d "$(jq -n \
-              --arg title "$BLOG_TITLE" \
-              --arg subtitle "$DESCRIPTION" \
-              --arg body "$HTML_BODY" \
-              --arg img "$BLOG_IMAGE_URL" \
-              --arg subject "$BLOG_TITLE" \
-              --arg preview "$DESCRIPTION" \
-              '{
-                title: $title,
-                subtitle: $subtitle,
-                body_content: $body,
-                status: "confirmed",
-                thumbnail_image_url: $img,
-                email_settings: {
-                  email_subject_line: $subject,
-                  email_preview_text: $preview
-                }
-              }'
-            )")
+          # Fetch all subscribers from Supabase
+          SUBSCRIBERS=$(curl -s \
+            "${SUPABASE_URL}/rest/v1/newsletter_subscribers?select=email" \
+            -H "apikey: $SUPABASE_SERVICE_ROLE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY")
 
-          echo "Beehiiv response: $RESPONSE"
-          POST_ID=$(echo "$RESPONSE" | jq -r '.data.id // empty')
-          if [ -z "$POST_ID" ]; then
-            echo "Warning: Failed to publish to Beehiiv — check the response above"
-          else
-            echo "Published to Beehiiv: $POST_ID"
+          echo "Subscribers: $SUBSCRIBERS"
+          EMAILS=$(echo "$SUBSCRIBERS" | jq -r '.[].email')
+
+          if [ -z "$EMAILS" ]; then
+            echo "No subscribers found — skipping send."
+            exit 0
           fi
+
+          # Send to each subscriber via Resend
+          SUCCESS=0
+          FAIL=0
+          while IFS= read -r EMAIL; do
+            RESPONSE=$(curl -s -X POST "https://api.resend.com/emails" \
+              -H "Authorization: Bearer $RESEND_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d "$(jq -n \
+                --arg to "$EMAIL" \
+                --arg subject "$BLOG_TITLE" \
+                --arg html "$EMAIL_HTML" \
+                '{from:"tlbr.io <hello@newsletter.tlbr.io>",to:[$to],subject:$subject,html:$html}'
+              )")
+            ID=$(echo "$RESPONSE" | jq -r '.id // empty')
+            if [ -n "$ID" ]; then
+              SUCCESS=$((SUCCESS + 1))
+            else
+              FAIL=$((FAIL + 1))
+              echo "Failed for $EMAIL: $RESPONSE"
+            fi
+          done <<< "$EMAILS"
+
+          echo "Newsletter sent: $SUCCESS success, $FAIL failed"
 
