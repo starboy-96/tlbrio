@@ -52,7 +52,7 @@ export default function Newsletter() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className="text-4xl md:text-5xl leading-[1.1] text-white mb-4"
+              className="text-3xl md:text-4xl leading-snug text-white mb-4"
               style={{ fontFamily: '"Cal Sans", sans-serif' }}
             >
               Presentation tips,{" "}
