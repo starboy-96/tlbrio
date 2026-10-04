@@ -27,6 +27,7 @@ jobs:
           UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
         run: |
           TODAY=$(date +%Y-%m-%d)
+          export TODAY
 
           # Only post on Tuesdays (2) — protects against backup cron running on other days
           DAY_OF_WEEK=$(date +%u)
@@ -35,118 +36,59 @@ jobs:
             exit 0
           fi
 
-          # Topics to rotate through so posts stay varied
-          TOPICS=(
-            "Why brand consistency in presentations directly impacts client trust and how to enforce it without a design team"
-            "The hidden cost of off-brand slides: how much time your team wastes fixing formatting"
-            "How to build a PowerPoint template that non-designers can't break"
-            "5 alignment mistakes everyone makes in PowerPoint and how to fix them in one click"
-            "Why your sales deck is losing deals before you even speak"
-            "How to maintain brand standards across a team of 100+ people in PowerPoint"
-            "The case for a bespoke PowerPoint toolbar: why generic tools fall short for enterprise teams"
-            "How to make PowerPoint work harder for your marketing team"
-            "Slide design for finance teams: clarity, consistency, and credibility"
-            "Why HR decks are always off-brand and what to do about it"
-            "The difference between a good slide and a great one: it's not creativity, it's consistency"
-            "How law firms and professional services can elevate their pitch decks"
-            "From chaos to consistency: standardising presentations across a large organisation"
-            "Why your design team is spending too much time fixing other people's slides"
-            "What makes a PowerPoint add-in actually worth deploying company-wide"
-          )
-
-          # Pick a topic based on day of year so each post gets a different topic
-          DAY_OF_YEAR_TOPIC=$(date +%j)
-          TOPIC_INDEX=$(( (10#$DAY_OF_YEAR_TOPIC - 1) % ${#TOPICS[@]} ))
-          TOPIC="${TOPICS[$TOPIC_INDEX]}"
-
-          # Fallback image if Unsplash search fails
-          FALLBACK_IMAGE="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&auto=format&q=80"
-
-          # Fetch recent news headlines related to presentations/PowerPoint for context
+          # Fetch recent news headlines for optional context
           NEWS_HEADLINES=$(curl -s --max-time 10 \
             "https://news.google.com/rss/search?q=powerpoint+presentations+workplace+design&hl=en-GB&gl=GB&ceid=GB:en" \
             | grep -oP '(?<=<title>)[^<]+' \
-            | sed '1d' \
-            | head -5 \
-            | tr '\n' '|' \
-            | sed 's/|$//' \
-            | sed 's/|/ | /g') || NEWS_HEADLINES=""
-
-          echo "Generating post on topic: $TOPIC"
+            | sed '1d' | head -5 \
+            | tr '\n' '|' | sed 's/|$//' | sed 's/|/ | /g') || NEWS_HEADLINES=""
+          export NEWS_HEADLINES
           echo "News context: $NEWS_HEADLINES"
 
-          RESPONSE=$(curl -s "https://api.anthropic.com/v1/messages" \
-            -H "content-type: application/json" \
-            -H "x-api-key: $ANTHROPIC_API_KEY" \
-            -H "anthropic-version: 2023-06-01" \
-            -d "$(jq -n \
-              --arg system "You are a content writer for tlbr.io, a bespoke PowerPoint add-in for enterprise teams. You write practical, opinionated blog posts about presentation design, brand consistency, and working in PowerPoint. You write like a sharp senior consultant who has fixed hundreds of bad decks. You speak directly to the reader. You have a point of view. Always write in British English.\n\nVOICE AND STYLE RULES (follow strictly):\n- Write like a real person talking to a colleague, not a textbook or a press release\n- Use short sentences. Mix them with longer ones for rhythm.\n- Use \"you\" and \"your\" throughout. Address the reader directly.\n- Start sentences with And, But, or So when it feels natural\n- One-sentence paragraphs are fine and encouraged for emphasis\n- Active voice only. The subject does the action.\n- Use specific, concrete examples. Never vague generalities.\n- Vary sentence length and structure so it does not feel robotic\n\nTHINGS TO NEVER DO:\n- Never use em dashes. Use commas, full stops, or rewrite the sentence.\n- Never start a sentence with However, Moreover, Furthermore, Nevertheless, or Therefore\n- Never use filler phrases: in today's world, it is important to note, it goes without saying, in light of, one must consider, delve into, navigate the landscape, leverage, utilise (use use instead)\n- Never use the not only X but also Y construction\n- Never write a generic opener that could apply to any topic. Start with something specific and sharp.\n- Never use passive voice\n- Never sound promotional or salesy. Be useful first." \
-              --arg topic "$TOPIC" \
-              --arg today "$TODAY" \
-              --arg news "$NEWS_HEADLINES" \
-              '{
-                model: "claude-haiku-4-5-20251001",
-                max_tokens: 1200,
-                system: $system,
-                messages: [
-                  { role: "user", content: ("Write a blog post on this topic: " + $topic + "\n\nReturn ONLY valid markdown starting with YAML frontmatter in this exact format (no code fences, no extra text before or after):\n\n---\ntitle: \"The title here — maximum 8 words\"\ndescription: \"A compelling one-sentence meta description that summarises the post and why it matters, between 120 and 155 characters — never shorter than 100 characters\"\ndate: \"" + $today + "\"\ntags: [\"tag1\", \"tag2\", \"tag3\"]\nauthor: \"tlbr.io team\"\n---\n\nThen the blog post content in markdown. Requirements:\n- 300-400 words total (a 2-minute read — do not exceed this)\n- Title must be 8 words or fewer\n- Open with a sharp, specific first sentence that hooks the reader. Not a broad statement about the industry.\n- Use ## for ONE section heading only if it genuinely helps structure the post. Keep it punchy.\n- Use bullet points only where a list genuinely helps. Not as a crutch.\n- End with a clear, practical takeaway the reader can act on today\n- Do not mention competitors by name\n- Do not use the phrase in conclusion\n- Do not use em dashes anywhere in the post\n- SEO: include the primary keyword naturally in the first paragraph and use keyword variations throughout\n- Internal links: include 1-2 links to tlbr.io pages using this format: [link text](https://tlbr.io/#features), [link text](https://tlbr.io/#pricing), [link text](https://tlbr.io/#demo), or [link text](https://tlbr.io/blog). Choose whichever are most relevant to the content.\n- External links: include 1 link to an authoritative external source that supports a specific claim in the post\n- News context (optional): if any of these recent headlines are genuinely relevant to your topic, weave a brief reference in naturally — do not force it if it does not fit: " + $news) }
-                ]
-              }' \
-            )"
-          )
+          # Generate post using the editorial brief script
+          POST_JSON=$(python3 scripts/generate-post.py)
+          STATUS=$(echo "$POST_JSON" | jq -r '.status')
 
-          # Extract the content from the API response
-          POST_CONTENT=$(echo "$RESPONSE" | jq -r '.content[0].text')
-
-          if [ -z "$POST_CONTENT" ] || [ "$POST_CONTENT" = "null" ]; then
-            echo "Error: No content returned from OpenAI"
-            echo "Response: $RESPONSE"
-            exit 1
+          if [ "$STATUS" = "HOLD" ]; then
+            echo "Post generation returned HOLD — skipping this run."
+            echo "$POST_JSON" | jq -r '.reason'
+            exit 0
           fi
 
-          # Derive a clean slug from the generated title, always prefixed with date for uniqueness
-          TITLE=$(echo "$POST_CONTENT" | grep -m1 '^title:' | sed 's/^title: *//' | tr -d '"' | tr -d "'")
+          TITLE=$(echo "$POST_JSON" | jq -r '.title')
+          DESCRIPTION=$(echo "$POST_JSON" | jq -r '.description')
+          BODY=$(echo "$POST_JSON" | jq -r '.body')
+          TAGS_JSON=$(echo "$POST_JSON" | jq -c '.tags')
+
+          echo "Title: $TITLE"
+
+          # Derive slug from title
           TITLE_SLUG=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/-\+/-/g' | sed 's/^-//;s/-$//')
-          if [ -z "$TITLE_SLUG" ]; then
-            TITLE_SLUG="post-${TOPIC_INDEX}"
-          fi
-          # Truncate title slug to 50 chars to keep URLs short
           TITLE_SLUG="${TITLE_SLUG:0:50}"
-          TITLE_SLUG="${TITLE_SLUG%-}" # remove trailing hyphen if truncated
+          TITLE_SLUG="${TITLE_SLUG%-}"
           SLUG="${TODAY}-${TITLE_SLUG}"
           FILE_PATH="content/blog/${SLUG}.md"
 
-          # Search Unsplash for an image that matches the post title
+          # Search Unsplash for an image matching the post title
+          FALLBACK_IMAGE="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&auto=format&q=80"
           SEARCH_QUERY=$(jq -rn --arg t "$TITLE" '$t | @uri')
           UNSPLASH_RESPONSE=$(curl -s --max-time 10 \
             "https://api.unsplash.com/search/photos?query=${SEARCH_QUERY}&per_page=5&orientation=landscape&content_filter=high" \
             -H "Authorization: Client-ID $UNSPLASH_ACCESS_KEY")
           IMAGE_URL=$(echo "$UNSPLASH_RESPONSE" | jq -r '.results[0].urls.regular // empty')
           if [ -z "$IMAGE_URL" ]; then
-            echo "Unsplash search failed — using fallback image"
             IMAGE_URL="$FALLBACK_IMAGE"
+            echo "Unsplash search failed — using fallback image"
           else
-            # Ensure consistent sizing params
             IMAGE_URL="${IMAGE_URL%%\?*}?w=1200&auto=format&q=80"
-            echo "Unsplash image selected: $IMAGE_URL"
+            echo "Unsplash image: $IMAGE_URL"
           fi
 
-          # Force correct date in frontmatter in case AI generated a wrong one
-          POST_CONTENT=$(echo "$POST_CONTENT" | sed "s/^date: .*/date: \"$TODAY\"/m")
-
-          # Inject the image field into the frontmatter (before the closing ---)
-          MODIFIED_CONTENT=$(echo "$POST_CONTENT" | awk -v img="$IMAGE_URL" '
-            BEGIN { count=0 }
-            /^---$/ { count++ }
-            count==2 && /^---$/ { print "image: \"" img "\"" }
-            { print }
-          ')
-
-          echo "$MODIFIED_CONTENT" > "$FILE_PATH"
-          echo "Post written to $FILE_PATH"
+          # Write the markdown file (using Python to avoid YAML/heredoc conflicts)
+          export TITLE DESCRIPTION TODAY TAGS_JSON IMAGE_URL BODY FILE_PATH
+          python3 scripts/write-post.py
           head -10 "$FILE_PATH"
 
-          # Export variables for the Beehiiv step
           echo "BLOG_FILE_PATH=$FILE_PATH" >> $GITHUB_ENV
           echo "BLOG_TITLE=$TITLE" >> $GITHUB_ENV
           echo "BLOG_SLUG=$SLUG" >> $GITHUB_ENV
@@ -157,7 +99,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add content/blog/
-          git diff --staged --quiet || git commit -m "chore: add weekly blog post for $(date +%Y-%m-%d)"
+          git diff --staged --quiet || git commit -m "chore: add weekly blog post for $(date +%Y-%m-%d) [editorial-brief]"
           git push
 
       - name: Deploy to Vercel
