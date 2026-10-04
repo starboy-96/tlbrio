@@ -4,7 +4,7 @@ description: "Professional services win more pitches with decks that stop client
 date: "2026-08-25"
 tags: ["law firm decks", "professional services", "pitch deck design"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1630265927428-a62b061a5270?w=1200&auto=format&q=80"
 ---
 
 # Pitch decks that win legal clients

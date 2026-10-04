@@ -4,7 +4,7 @@ description: "Off-brand PowerPoint decks waste hours every week. See how formatt
 date: "2026-09-29"
 tags: ["brand consistency", "PowerPoint productivity", "presentation design"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1606857521015-7f9fcf423740?w=1200&auto=format&q=80"
 ---
 
 Your finance team just spent three hours reformatting a deck that should have taken one.

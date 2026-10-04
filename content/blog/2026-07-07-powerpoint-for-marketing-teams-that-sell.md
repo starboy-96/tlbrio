@@ -4,7 +4,7 @@ description: "Your slide decks should double as demand-gen engines. Stop wasting
 date: "2026-07-07"
 tags: ["PowerPoint", "marketing", "sales enablement", "brand consistency"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&auto=format&q=80"
 ---
 
 # PowerPoint for marketing teams that sell

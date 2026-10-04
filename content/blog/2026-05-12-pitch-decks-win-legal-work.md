@@ -4,7 +4,7 @@ description: "Professional services firms waste tens of thousands on forgettable
 date: "2026-05-12"
 tags: ["pitch decks", "brand consistency", "professional services"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1758518731462-d091b0b4ed0d?w=1200&auto=format&q=80"
 ---
 
 # Pitch decks win legal work

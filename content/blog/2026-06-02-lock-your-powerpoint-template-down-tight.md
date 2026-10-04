@@ -4,7 +4,7 @@ description: "Turn your PowerPoint template into a foolproof system so non-desig
 date: "2026-06-02"
 tags: ["PowerPoint", "template design", "brand consistency"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1555529902-5261145633bf?w=1200&auto=format&q=80"
 ---
 
 Lock your PowerPoint template down tight

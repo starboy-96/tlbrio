@@ -4,7 +4,7 @@ description: "Every misaligned font or wrong colour costs your team minutes or h
 date: "2026-06-16"
 tags: ["brand consistency", "PowerPoint productivity", "team collaboration"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1542744094-3a31f272c490?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1590098563734-bcea80ce34c7?w=1200&auto=format&q=80"
 ---
 
 Off-brand slides don’t just look bad—they steal time, breed frustration, and turn your team into a formatting police force.

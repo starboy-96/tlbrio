@@ -4,7 +4,7 @@ description: "HR presentations repeatedly break brand rules despite design teams
 date: "2026-06-09"
 tags: ["PowerPoint", "HR presentations", "brand consistency"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1590402494682-cd3fb53b1f70?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1200&auto=format&q=80"
 ---
 
 # HR decks always miss the brand mark

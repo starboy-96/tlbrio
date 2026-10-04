@@ -4,7 +4,7 @@ description: "These five PowerPoint alignment mistakes waste minutes every time 
 date: "2026-09-01"
 tags: ["PowerPoint", "presentation design", "alignment", "brand consistency"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1666148610265-5e64d889574b?w=1200&auto=format&q=80"
 ---
 
 ## Slide titles that look drunk

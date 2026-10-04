@@ -4,7 +4,7 @@ description: "Poor brand consistency in client presentations erodes trust and co
 date: "2026-06-30"
 tags: ["brand consistency", "client trust", "presentation design", "PowerPoint"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1656646549633-80ad4bd2ab40?w=1200&auto=format&q=80"
 ---
 
 # Your presentation is your brand in action

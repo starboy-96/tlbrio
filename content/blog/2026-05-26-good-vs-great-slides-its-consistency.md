@@ -4,7 +4,7 @@ description: "Stop chasing creativity. Consistent design builds brand trust fast
 date: "2026-05-26"
 tags: ["presentation design", "brand consistency", "PowerPoint"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1691293882027-177e51726845?w=1200&auto=format&q=80"
 ---
 
 # Good vs great slides: it's consistency

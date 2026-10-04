@@ -4,7 +4,7 @@ description: "How to design finance presentation slides that look professional, 
 date: "2026-06-23"
 tags: ["finance presentations", "presentation design", "brand consistency"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1579758300918-333e43ba760d?w=1200&auto=format&q=80"
 ---
 
 Clean finance slides that win trust

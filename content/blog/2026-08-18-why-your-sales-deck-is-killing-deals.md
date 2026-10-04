@@ -4,7 +4,7 @@ description: "A poorly designed sales deck can cost you deals before you even op
 date: "2026-08-18"
 tags: ["sales decks", "presentation design", "brand consistency"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1642543348745-03b1219733d9?w=1200&auto=format&q=80"
 ---
 
 Your sales deck just cost you a seven-figure deal. Not because your numbers were wrong or your case studies weak, but because the client’s eyes glazed over slide three and never came back. That’s what happens when your deck does more harm than good.

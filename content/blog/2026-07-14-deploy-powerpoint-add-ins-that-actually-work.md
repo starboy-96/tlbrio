@@ -4,7 +4,7 @@ description: "How to separate PowerPoint add-ins that boost productivity from th
 date: "2026-07-14"
 tags: ["PowerPoint add-ins", "enterprise software", "PowerPoint productivity", "brand consistency"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1762330470070-249e7c23c8c0?w=1200&auto=format&q=80"
 ---
 
 You spent £50k on a PowerPoint add-in three years ago and not a single team uses it today. That’s not a one-off. Most enterprise add-ins die silently on the IT shelf because they ignore the people who actually build decks.
