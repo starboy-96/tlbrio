@@ -101,15 +101,15 @@ Count the final words. Revise anything exceeding 400 words.
 If the draft repeats previous coverage, select another idea. If a central claim cannot be verified and no alternative works, return HOLD with a brief explanation.
 
 OUTPUT
-Return two clearly separated parts.
+Return exactly two sections in this order. Do not include any analysis, brainstorming, candidate review or selection reasoning outside these two sections.
 
 A. PUBLISHABLE ARTICLE
-Include:
+Start your response with the heading "A. PUBLISHABLE ARTICLE" on its own line, followed immediately by the article. Include:
 - A specific, descriptive title (one line, no heading marker needed).
 - A short one-sentence summary (the meta description, 120–155 characters).
 - The finished article body in markdown.
 
-All of this must fit within the 400-word maximum. Do not include brainstorming or editorial commentary here.
+All of this must fit within the 400-word maximum. Do not include brainstorming, candidate analysis or editorial commentary in this section or before it.
 
 B. INTERNAL EDITORIAL RECORD — DO NOT PUBLISH
 Use these fields exactly:
@@ -255,8 +255,10 @@ def parse_response(raw):
             break
 
     # If the AI put analysis + article in section_a, extract just the article part.
-    # Look for an "# ARTICLE" or "A. PUBLISHABLE ARTICLE" sub-section header.
-    article_m = re.search(r"\n#+\s*ARTICLE\s*\n", section_a, re.I)
+    # Catches: "# A. PUBLISHABLE ARTICLE", "# PUBLISHABLE ARTICLE", "# ARTICLE", "A. PUBLISHABLE ARTICLE"
+    article_m = re.search(r"\n#+\s*(?:A\.\s+)?PUBLISHABLE ARTICLE\s*\n", section_a, re.I)
+    if not article_m:
+        article_m = re.search(r"\n#+\s*ARTICLE\s*\n", section_a, re.I)
     if not article_m:
         article_m = re.search(r"\nA\.\s*PUBLISHABLE ARTICLE\s*\n", section_a, re.I)
     if article_m:
