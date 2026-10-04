@@ -103,6 +103,7 @@ Use these fields exactly:
 - Publication date:
 - Title:
 - Meta description (120–155 characters, for SEO):
+- LinkedIn post (3–4 short sentences, conversational tone, no hashtags, no emojis, ends with "Read it here:"):
 - Primary reader:
 - Creative discipline:
 - Platform or company, if relevant:
@@ -305,6 +306,8 @@ def extract_editorial_fields(section_b):
         "Title:": "title",
         "Meta description (120–155 characters, for SEO):": "meta_description",
         "Meta description:": "meta_description",
+        "LinkedIn post (3–4 short sentences, conversational tone, no hashtags, no emojis, ends with \"Read it here:\"):": "linkedin_intro",
+        "LinkedIn post:": "linkedin_intro",
         "Primary reader:": "primary_reader",
         "Creative discipline:": "creative_discipline",
         "Subject area:": "subject_area",
@@ -451,7 +454,8 @@ Please generate a blog post following the editorial brief."""
         json.dump(record_data, fp, indent=2)
     print(f"Editorial record saved: {record_path}", file=sys.stderr)
 
-    print(json.dumps({"status": "READY", "title": title, "description": description, "tags": tags, "body": body}))
+    linkedin_intro = editorial.get("linkedin_intro", "")
+    print(json.dumps({"status": "READY", "title": title, "description": description, "tags": tags, "body": body, "linkedin_intro": linkedin_intro}))
 
 
 if __name__ == "__main__":

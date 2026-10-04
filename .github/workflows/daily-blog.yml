@@ -59,6 +59,7 @@ jobs:
           DESCRIPTION=$(echo "$POST_JSON" | jq -r '.description')
           BODY=$(echo "$POST_JSON" | jq -r '.body')
           TAGS_JSON=$(echo "$POST_JSON" | jq -c '.tags')
+          LINKEDIN_INTRO=$(echo "$POST_JSON" | jq -r '.linkedin_intro // ""')
 
           echo "Title: $TITLE"
 
@@ -93,6 +94,8 @@ jobs:
           echo "BLOG_TITLE=$TITLE" >> $GITHUB_ENV
           echo "BLOG_SLUG=$SLUG" >> $GITHUB_ENV
           echo "BLOG_IMAGE_URL=$IMAGE_URL" >> $GITHUB_ENV
+          # Store linkedin_intro safely (multiline-safe via base64)
+          echo "BLOG_LINKEDIN_INTRO=$(printf '%s' "$LINKEDIN_INTRO" | base64 -w 0)" >> $GITHUB_ENV
 
       - name: Commit and push
         run: |
@@ -180,4 +183,64 @@ jobs:
           done <<< "$EMAILS"
 
           echo "Newsletter sent: $SUCCESS success, $FAIL failed"
+
+      - name: Post to LinkedIn
+        if: env.BLOG_FILE_PATH != ''
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_ORG_ID: ${{ secrets.LINKEDIN_ORG_ID }}
+        run: |
+          BLOG_URL="https://tlbr.io/blog/$BLOG_SLUG"
+
+          # Decode the linkedin intro (stored as base64 to survive GITHUB_ENV multiline limits)
+          LINKEDIN_INTRO=$(echo "$BLOG_LINKEDIN_INTRO" | base64 -d)
+
+          # Fall back to title + description if AI didn't generate an intro
+          if [ -z "$LINKEDIN_INTRO" ]; then
+            LINKEDIN_INTRO="${BLOG_TITLE} — Read it here:"
+          fi
+
+          # Append the URL on a new line
+          LINKEDIN_TEXT="${LINKEDIN_INTRO}
+
+${BLOG_URL}"
+
+          # Post to LinkedIn company page via UGC Posts API
+          RESPONSE=$(curl -s -X POST "https://api.linkedin.com/v2/ugcPosts" \
+            -H "Authorization: Bearer $LINKEDIN_ACCESS_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "$(jq -n \
+              --arg org "urn:li:organization:$LINKEDIN_ORG_ID" \
+              --arg text "$LINKEDIN_TEXT" \
+              --arg url "$BLOG_URL" \
+              --arg title "$BLOG_TITLE" \
+              --arg desc "$BLOG_TITLE" \
+              '{
+                author: $org,
+                lifecycleState: "PUBLISHED",
+                specificContent: {
+                  "com.linkedin.ugc.ShareContent": {
+                    shareCommentary: {text: $text},
+                    shareMediaCategory: "ARTICLE",
+                    media: [{
+                      status: "READY",
+                      description: {text: $desc},
+                      originalUrl: $url,
+                      title: {text: $title}
+                    }]
+                  }
+                },
+                visibility: {
+                  "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"
+                }
+              }'
+            )")
+
+          POST_ID=$(echo "$RESPONSE" | jq -r '.id // empty')
+          if [ -n "$POST_ID" ]; then
+            echo "LinkedIn post published: $POST_ID"
+          else
+            echo "LinkedIn post failed: $RESPONSE"
+            exit 1
+          fi
 
