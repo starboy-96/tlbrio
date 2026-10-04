@@ -200,10 +200,8 @@ jobs:
             LINKEDIN_INTRO="${BLOG_TITLE} — Read it here:"
           fi
 
-          # Append the URL on a new line
-          LINKEDIN_TEXT="${LINKEDIN_INTRO}
-
-${BLOG_URL}"
+          # Append the URL on a new line (printf avoids YAML indentation issues)
+          LINKEDIN_TEXT=$(printf '%s\n\n%s' "$LINKEDIN_INTRO" "$BLOG_URL")
 
           # Post to LinkedIn company page via UGC Posts API
           RESPONSE=$(curl -s -X POST "https://api.linkedin.com/v2/ugcPosts" \
