@@ -94,6 +94,7 @@ jobs:
           echo "BLOG_TITLE=$TITLE" >> $GITHUB_ENV
           echo "BLOG_SLUG=$SLUG" >> $GITHUB_ENV
           echo "BLOG_IMAGE_URL=$IMAGE_URL" >> $GITHUB_ENV
+          echo "BLOG_DESCRIPTION=$DESCRIPTION" >> $GITHUB_ENV
           # Store linkedin_intro safely (multiline-safe via base64)
           echo "BLOG_LINKEDIN_INTRO=$(printf '%s' "$LINKEDIN_INTRO" | base64 -w 0)" >> $GITHUB_ENV
 
@@ -127,6 +128,7 @@ jobs:
           HTML_BODY=$(echo "$BODY" | pandoc -f markdown -t html)
 
           BLOG_URL="https://tlbr.io/blog/$BLOG_SLUG"
+          DATE_LABEL=$(date +"%B %-d, %Y")
 
           # Build image block if we have an image
           if [ -n "$BLOG_IMAGE_URL" ]; then
@@ -136,7 +138,8 @@ jobs:
           fi
 
           # Export vars so the Python script can read them via os.environ
-          export IMAGE_BLOCK HTML_BODY BLOG_URL
+          export IMAGE_BLOCK HTML_BODY BLOG_URL DATE_LABEL
+          export BLOG_DESCRIPTION="$BLOG_DESCRIPTION"
 
           # Build base email from template file — substitute shared values with python
           EMAIL_HTML_BASE=$(python3 scripts/build-email.py)
@@ -184,30 +187,36 @@ jobs:
 
           echo "Newsletter sent: $SUCCESS success, $FAIL failed"
 
-      - name: Post to LinkedIn via Zapier
+      - name: Email LinkedIn post to editor
         if: env.BLOG_FILE_PATH != ''
         env:
-          ZAPIER_WEBHOOK_URL: ${{ secrets.ZAPIER_WEBHOOK_URL }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
         run: |
           BLOG_URL="https://tlbr.io/blog/$BLOG_SLUG"
 
-          # Decode the linkedin intro (base64-encoded to survive GITHUB_ENV multiline limits)
           LINKEDIN_INTRO=$(echo "$BLOG_LINKEDIN_INTRO" | base64 -d)
-
           if [ -z "$LINKEDIN_INTRO" ]; then
             LINKEDIN_INTRO="${BLOG_TITLE} — Read it here:"
           fi
-
           LINKEDIN_TEXT=$(printf '%s\n\n%s' "$LINKEDIN_INTRO" "$BLOG_URL")
 
-          RESPONSE=$(curl -s -X POST "$ZAPIER_WEBHOOK_URL" \
+          EMAIL_HTML=$(jq -rn --arg title "$BLOG_TITLE" --arg text "$LINKEDIN_TEXT" --arg url "$BLOG_URL" '
+            "<div style=\"font-family:Arial,sans-serif;max-width:560px;margin:0 auto;padding:32px 24px;\">
+              <p style=\"margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#94e561;background:#0a1a2f;display:inline-block;padding:4px 10px;border-radius:4px;\">&#9670; New Post Live</p>
+              <h2 style=\"margin:16px 0 24px;font-size:20px;color:#0a1a2f;\">" + $title + "</h2>
+              <p style=\"margin:0 0 12px;font-size:13px;font-weight:700;color:#666;letter-spacing:0.1em;text-transform:uppercase;\">Your LinkedIn post — copy &amp; paste:</p>
+              <div style=\"background:#f5f5f3;border-left:4px solid #94e561;border-radius:4px;padding:20px 20px;font-size:15px;line-height:1.7;color:#0a1a2f;white-space:pre-wrap;\">" + $text + "</div>
+              <p style=\"margin:24px 0 0;\"><a href=\"" + $url + "\" style=\"color:#0a1a2f;font-size:13px;\">View post on tlbr.io &#8594;</a></p>
+            </div>"
+          ')
+
+          curl -s -X POST "https://api.resend.com/emails" \
+            -H "Authorization: Bearer $RESEND_API_KEY" \
             -H "Content-Type: application/json" \
             -d "$(jq -n \
-              --arg title "$BLOG_TITLE" \
-              --arg url "$BLOG_URL" \
-              --arg text "$LINKEDIN_TEXT" \
-              '{title: $title, url: $url, linkedin_text: $text}'
-            )")
-
-          echo "Zapier webhook response: $RESPONSE"
+              --arg html "$EMAIL_HTML" \
+              --arg subject "LinkedIn post ready · $BLOG_TITLE" \
+              '{from:"tlbr.io <hello@newsletter.tlbr.io>",to:["jayvin.sudra@gmail.com"],subject:$subject,html:$html}'
+            )"
+          echo "LinkedIn draft emailed to editor."
 
