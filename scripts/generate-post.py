@@ -102,6 +102,7 @@ B. INTERNAL EDITORIAL RECORD — DO NOT PUBLISH
 Use these fields exactly:
 - Publication date:
 - Title:
+- Meta description (120–155 characters, for SEO):
 - Primary reader:
 - Creative discipline:
 - Platform or company, if relevant:
@@ -246,59 +247,64 @@ def parse_response(raw):
             section_b = raw[m.start() :].strip()
             break
 
-    # If the AI put analysis + article in section_a, extract just the article part.
-    # Catches: "# A. PUBLISHABLE ARTICLE", "# PUBLISHABLE ARTICLE", "# ARTICLE", "A. PUBLISHABLE ARTICLE"
-    article_m = re.search(r"\n#+\s*(?:A\.\s+)?PUBLISHABLE ARTICLE\s*\n", section_a, re.I)
-    if not article_m:
-        article_m = re.search(r"\n#+\s*ARTICLE\s*\n", section_a, re.I)
-    if not article_m:
-        article_m = re.search(r"\nA\.\s*PUBLISHABLE ARTICLE\s*\n", section_a, re.I)
-    if article_m:
-        section_a = section_a[article_m.end():].strip()
+    # Normalise: add a leading newline so start-of-string patterns can use \n prefix
+    search_text = "\n" + section_a
 
-    # Strip any remaining section header lines at the top
-    section_a = re.sub(r"^#+\s*A\.\s*PUBLISHABLE ARTICLE\s*\n+", "", section_a, flags=re.I).strip()
-    section_a = re.sub(r"^A\.\s*PUBLISHABLE ARTICLE\s*\n+", "", section_a, flags=re.I).strip()
+    # Find the "A. PUBLISHABLE ARTICLE" sub-section if the AI included analysis before it.
+    # Catches: "# A. PUBLISHABLE ARTICLE", "# PUBLISHABLE ARTICLE", "# ARTICLE", plain "A. PUBLISHABLE ARTICLE"
+    article_m = re.search(r"\n#+\s*(?:A\.\s+)?PUBLISHABLE ARTICLE\s*\n", search_text, re.I)
+    if not article_m:
+        article_m = re.search(r"\n#+\s*ARTICLE\s*\n", search_text, re.I)
+    if not article_m:
+        article_m = re.search(r"\nA\.\s*PUBLISHABLE ARTICLE\s*[-—]*\s*\n", search_text, re.I)
+    if article_m:
+        # +1 to skip the synthetic leading \n we added
+        section_a = search_text[article_m.end():].strip()
+
+    # Strip any lingering section header at the very top (after the splice above)
+    section_a = re.sub(r"^#+\s*(?:A\.\s+)?PUBLISHABLE ARTICLE\s*[-—]*\s*\n+", "", section_a, flags=re.I).strip()
+    section_a = re.sub(r"^A\.\s*PUBLISHABLE ARTICLE\s*[-—]*\s*\n+", "", section_a, flags=re.I).strip()
+    # Strip any leading horizontal rule the AI uses as a separator
+    section_a = re.sub(r"^[-*_]{3,}\s*\n+", "", section_a).strip()
 
     return section_a, section_b
 
 
 def extract_post_fields(section_a):
-    """Pull title, description and body out of the publishable section."""
+    """Pull title and body out of the publishable section."""
     lines = section_a.split("\n")
-    title = description = ""
+    title = ""
     i = 0
 
-    # Skip leading blank lines
-    while i < len(lines) and not lines[i].strip():
-        i += 1
+    # Skip leading blank lines and horizontal rules (--- / *** / ___)
+    while i < len(lines):
+        line = lines[i].strip()
+        if not line or re.match(r"^[-*_]{3,}$", line):
+            i += 1
+        else:
+            break
 
-    # Title: first non-empty line (strip heading marker if present)
+    # Title: first meaningful non-empty line (strip heading marker if present)
     if i < len(lines):
         line = lines[i].strip()
         heading_m = re.match(r"^#{1,3}\s+(.+)", line)
-        title = heading_m.group(1) if heading_m else line.strip("*_")
+        title = heading_m.group(1).strip() if heading_m else line.strip("*_")
         i += 1
 
-    # Skip blank lines
+    # Skip blank lines after title
     while i < len(lines) and not lines[i].strip():
         i += 1
 
-    # Description: next non-empty line if it looks like a summary sentence
-    if i < len(lines):
-        candidate = lines[i].strip()
-        if not re.match(r"^#{1,3}\s", candidate) and not candidate.startswith(("-", "*", "1.")):
-            description = candidate.strip("*_")
-            i += 1
-
     body = "\n".join(lines[i:]).strip()
-    return title, description, body
+    return title, body
 
 
 def extract_editorial_fields(section_b):
     field_map = {
         "Publication date:": "date",
         "Title:": "title",
+        "Meta description (120–155 characters, for SEO):": "meta_description",
+        "Meta description:": "meta_description",
         "Primary reader:": "primary_reader",
         "Creative discipline:": "creative_discipline",
         "Subject area:": "subject_area",
@@ -427,8 +433,13 @@ Please generate a blog post following the editorial brief."""
         print(json.dumps({"status": "HOLD", "reason": (section_b or section_a)[:600]}))
         return
 
-    title, description, body = extract_post_fields(section_a)
+    title, body = extract_post_fields(section_a)
     editorial = extract_editorial_fields(section_b)
+    # Meta description comes from section B; fall back to first sentence of body
+    description = editorial.get("meta_description", "")
+    if not description and body:
+        first_sent = re.split(r"(?<=[.!?])\s", body.replace("\n", " "))[0]
+        description = first_sent[:155]
     tags = derive_tags(title, section_b)
 
     # Save editorial record for future runs
