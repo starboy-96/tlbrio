@@ -229,24 +229,43 @@ def call_anthropic(user_msg, api_key):
 
 
 def parse_response(raw):
-    """Split response into (section_a, section_b)."""
-    markers = [
-        "\nB. INTERNAL EDITORIAL RECORD",
-        "\n## B. INTERNAL EDITORIAL RECORD",
-        "\n**B. INTERNAL EDITORIAL RECORD",
-        "\nB. Internal Editorial Record",
+    """Split response into (section_a, section_b).
+
+    Handles several output shapes the AI produces:
+      - A. PUBLISHABLE ARTICLE ... B. INTERNAL EDITORIAL RECORD ...
+      - # ARTICLE ... # INTERNAL EDITORIAL RECORD ...
+      - Just the article followed by the record under any heading variant
+    """
+    # Patterns that mark the start of the editorial record
+    record_patterns = [
+        r"\n#+\s*(?:B\.\s*)?INTERNAL EDITORIAL RECORD",
+        r"\nB\.\s*INTERNAL EDITORIAL RECORD",
+        r"\n\*\*(?:B\.\s*)?INTERNAL EDITORIAL RECORD",
+        r"\nINTERNAL EDITORIAL RECORD",
     ]
-    section_a, section_b = raw, ""
-    for m in markers:
-        if m in raw:
-            idx = raw.index(m)
-            section_a = raw[:idx].strip()
-            section_b = raw[idx + len(m) :].strip()
+
+    section_b = ""
+    section_a = raw
+
+    for pattern in record_patterns:
+        m = re.search(pattern, raw, re.I)
+        if m:
+            section_a = raw[: m.start()].strip()
+            section_b = raw[m.start() :].strip()
             break
 
-    # Strip the "A. PUBLISHABLE ARTICLE" header if present
+    # If the AI put analysis + article in section_a, extract just the article part.
+    # Look for an "# ARTICLE" or "A. PUBLISHABLE ARTICLE" sub-section header.
+    article_m = re.search(r"\n#+\s*ARTICLE\s*\n", section_a, re.I)
+    if not article_m:
+        article_m = re.search(r"\nA\.\s*PUBLISHABLE ARTICLE\s*\n", section_a, re.I)
+    if article_m:
+        section_a = section_a[article_m.end():].strip()
+
+    # Strip any remaining section header lines at the top
     section_a = re.sub(r"^#+\s*A\.\s*PUBLISHABLE ARTICLE\s*\n+", "", section_a, flags=re.I).strip()
     section_a = re.sub(r"^A\.\s*PUBLISHABLE ARTICLE\s*\n+", "", section_a, flags=re.I).strip()
+
     return section_a, section_b
 
 
