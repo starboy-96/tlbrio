@@ -103,7 +103,7 @@ Use these fields exactly:
 - Publication date:
 - Title:
 - Meta description (120–155 characters, for SEO):
-- LinkedIn post (3–4 short sentences, conversational tone, no hashtags, no emojis, ends with "Read it here:"):
+- LinkedIn post (start with a fresh, upbeat Tuesday greeting — vary it every week, e.g. "Happy Tuesday!", "It's Tuesday — your weekly read is here.", "Tuesday drop:", "Good Tuesday everyone." — never repeat the same opener. Then 2–3 short sentences about the post. Conversational tone. No hashtags, no emojis, no em dashes. Ends with "Read it here:"):
 - Primary reader:
 - Creative discipline:
 - Platform or company, if relevant:
