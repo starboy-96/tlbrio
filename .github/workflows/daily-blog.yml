@@ -220,3 +220,24 @@ jobs:
             )"
           echo "LinkedIn draft emailed to editor."
 
+      - name: Post to LinkedIn via Make
+        if: env.BLOG_FILE_PATH != ''
+        env:
+          ZAPIER_WEBHOOK_URL: ${{ secrets.ZAPIER_WEBHOOK_URL }}
+        run: |
+          BLOG_URL="https://tlbr.io/blog/$BLOG_SLUG"
+          LINKEDIN_INTRO=$(echo "$BLOG_LINKEDIN_INTRO" | base64 -d)
+          if [ -z "$LINKEDIN_INTRO" ]; then
+            LINKEDIN_INTRO="${BLOG_TITLE} — Read it here:"
+          fi
+          LINKEDIN_TEXT=$(printf '%s\n\n%s' "$LINKEDIN_INTRO" "$BLOG_URL")
+          RESPONSE=$(curl -s -X POST "$ZAPIER_WEBHOOK_URL" \
+            -H "Content-Type: application/json" \
+            -d "$(jq -n \
+              --arg title "$BLOG_TITLE" \
+              --arg url "$BLOG_URL" \
+              --arg text "$LINKEDIN_TEXT" \
+              '{title: $title, url: $url, linkedin_text: $text}'
+            )")
+          echo "Make webhook response: $RESPONSE"
+
