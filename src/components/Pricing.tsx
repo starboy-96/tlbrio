@@ -93,6 +93,17 @@ export default function Pricing() {
           — get in touch and we will put together a proposal within one business day.
         </motion.p>
 
+        <motion.p
+          initial={mounted ? { opacity: 0, y: 10 } : false}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.4, delay: 0.14 }}
+          className="text-sm mb-10 -mt-6"
+          style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400, color: "rgba(10,26,47,0.5)" }}
+        >
+          Want to test it first? Ask about a 90-day departmental pilot.
+        </motion.p>
+
         {/* Pillars */}
         <motion.div
           initial={mounted ? { opacity: 0, y: 16 } : false}

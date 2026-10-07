@@ -11,7 +11,7 @@ export default function About() {
   const quoteInView = useInView(quoteRef, { once: true, margin: "-60px" });
 
   const bodyParagraphs = [
-    "Most companies over 100 people have the same problem: too many people making slides, not enough time to do it properly, and no design team big enough to fix everything before it goes out the door.",
+    "Most professional services firms have the same problem: too many people making slides, not enough time to do it properly, and no design team big enough to fix everything before it goes out the door.",
     "tlbr.io fixes that at the source. Every button, template, and asset in the toolbar is configured specifically to your organisation's brand – not a generic starting point, but your exact colours, fonts, and design standards, built in from day one.",
     "And we're not stopping at PowerPoint. Word and Excel toolbars are in development – so your team will have the same consistency and speed across every Microsoft Office document they create.",
   ];
@@ -43,7 +43,7 @@ export default function About() {
                 className="text-5xl md:text-6xl mb-8 leading-[1.05]"
                 style={{ fontFamily: '"Cal Sans", sans-serif' }}
               >
-                Built for teams who{" "}
+                Built for firms who{" "}
                 <span className="gradient-text">{"can't afford to"}</span>{" "}
                 look off-brand
               </motion.h2>
@@ -131,34 +131,6 @@ export default function About() {
               </p>
             </motion.blockquote>
 
-            {/* Stats cards */}
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { value: "2×", label: "faster slide creation on average" },
-                { value: "£8k", label: "one-off setup – then it pays for itself" },
-              ].map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={quoteInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.35 + i * 0.1 }}
-                  className="p-5 rounded-2xl bg-white border border-navy/6"
-                >
-                  <span
-                    className="block text-3xl text-green mb-1"
-                    style={{ fontFamily: '"Cal Sans", sans-serif' }}
-                  >
-                    {item.value}
-                  </span>
-                  <span
-                    className="text-xs text-navy/50 leading-snug"
-                    style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400 }}
-                  >
-                    {item.label}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </div>
       </div>

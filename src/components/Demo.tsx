@@ -221,7 +221,7 @@ export default function Demo() {
             className="text-5xl md:text-6xl text-white mb-4"
             style={{ fontFamily: '"Cal Sans", sans-serif', fontWeight: 700, color: "white" }}
           >
-            See tlbr.io inside your PowerPoint
+            See tlbr.io in your firm&apos;s brand
           </motion.h2>
 
           <motion.p
@@ -231,7 +231,7 @@ export default function Demo() {
             className="text-base mb-10"
             style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400, color: "rgba(255,255,255,0.72)" }}
           >
-            {"We'll walk you through the toolbar using a pre-loaded brand, so you can see exactly what it could look like for your team – in under 30 minutes."}
+            {"Send us your brand guidelines or a recent deck and we'll mock up the toolbar in your colours and templates before the call. 30 minutes, no hard sell."}
           </motion.p>
         </div>
 

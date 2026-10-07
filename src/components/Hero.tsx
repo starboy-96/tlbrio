@@ -12,7 +12,7 @@ const GRAVITY_CONFIG = { x: 0, y: 0.9 };
 const gravityPills = [
   { label: "Align & distribute", bg: "#0A1A2F", text: "#94E561", x: "42%", y: "3%",  angle: -8 },
   { label: "Brand colours",      bg: "#94E561", text: "#0A1A2F", x: "65%", y: "5%",  angle:  6 },
-  { label: "2× faster",          bg: "#0A1A2F", text: "#94E561", x: "85%", y: "8%",  angle: -4 },
+  { label: "On-brand in a click",          bg: "#0A1A2F", text: "#94E561", x: "85%", y: "8%",  angle: -4 },
   { label: "Templates",          bg: "#C9F5A6", text: "#0A1A2F", x: "55%", y: "3%",  angle:  5 },
   { label: "Asset library",      bg: "#0A1A2F", text: "white",   x: "75%", y: "5%",  angle: -6 },
   { label: "100% on-brand",      bg: "#94E561", text: "#0A1A2F", x: "50%", y: "10%", angle:  3 },
@@ -203,7 +203,7 @@ export default function Hero() {
           >
             <span className="w-2 h-2 rounded-full bg-green animate-glow" aria-hidden="true" />
             <span className="section-label" style={{ color: "#0a1a2f", opacity: 0.7, fontSize: "clamp(0.58rem, 1.8vw, 0.72rem)", letterSpacing: "0.1em" }}>
-              Bespoke PowerPoint add-in for everyone
+              The bespoke PowerPoint toolbar for accountancy and law firms
             </span>
           </motion.div>
 
@@ -257,9 +257,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="text-lg md:text-xl text-navy/65 max-w-lg mb-10 leading-relaxed"
           >
-            tlbr.io is a toolbar that lives inside PowerPoint. It gives every person on
-            your team – designer or not – the tools to format, align, and brand slides
-            correctly, without the guesswork.
+            tlbr.io puts your firm&apos;s templates, brand colours and approved assets inside the PowerPoint ribbon, so every pitch, proposal and client report goes out on-brand without your marketing team fixing it first.
           </motion.p>
 
           {/* CTAs */}
@@ -293,8 +291,27 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* RIGHT – empty spacer so left column stays at 56% */}
-        <div className="hidden lg:block lg:w-[44%]" />
+        {/* RIGHT – hero video placeholder */}
+        <div className="hidden lg:flex lg:w-[44%] items-center justify-center pr-12 pt-24 pb-12">
+          <div className="relative w-full max-w-md aspect-video rounded-2xl overflow-hidden bg-navy/5 border border-navy/10 flex items-center justify-center">
+            <div className="absolute inset-0 bg-gradient-to-br from-navy/4 to-transparent" />
+            <div className="text-center px-8">
+              <div
+                className="w-14 h-14 rounded-full bg-navy flex items-center justify-center mx-auto mb-4 shadow-lg"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <polygon points="5 3 19 12 5 21 5 3" fill="#94E561"/>
+                </svg>
+              </div>
+              <p
+                className="text-sm text-navy/40"
+                style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400 }}
+              >
+                15-second demo
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

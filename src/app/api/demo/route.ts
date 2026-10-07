@@ -147,7 +147,7 @@ export async function POST(req: NextRequest) {
               <tr><td style="padding: 5px 0;"><p style="margin: 0; color: rgba(255,255,255,0.8); font-size: 0.85rem;">&#10003;&nbsp; Brand asset library</p></td></tr>
               <tr><td style="padding: 5px 0;"><p style="margin: 0; color: rgba(255,255,255,0.8); font-size: 0.85rem;">&#10003;&nbsp; Layout &amp; spacing tools</p></td></tr>
               <tr><td style="padding: 5px 0;"><p style="margin: 0; color: rgba(255,255,255,0.8); font-size: 0.85rem;">&#10003;&nbsp; Edit graphs &amp; tables</p></td></tr>
-              <tr><td style="padding: 8px 0 0;"><p style="margin: 0; color: #94E561; font-size: 0.85rem; font-weight: 600;">Result: on-brand decks, 2x faster for everyone on your team.</p></td></tr>
+              <tr><td style="padding: 8px 0 0;"><p style="margin: 0; color: #94E561; font-size: 0.85rem; font-weight: 600;">Result: every pitch, proposal and report going out on-brand.</p></td></tr>
             </table>
           </div>
 

@@ -13,20 +13,20 @@ export const metadata: Metadata = {
     apple: { url: "/favicon.svg", type: "image/svg+xml" },
   },
   title: {
-    default: "tlbr.io – Elevate Every Presentation",
+    default: "tlbr.io – The PowerPoint Toolbar for Accountancy and Law Firms",
     template: "%s | tlbr.io",
   },
   description:
-    "A bespoke PowerPoint add-in helping designers and non-designers build high-impact, on-brand decks – 2× faster. Trusted by teams from 10 to 2,000+ users.",
+    "A bespoke PowerPoint toolbar for accountancy, law and professional services firms. Your templates, brand colours and approved assets, one click away inside the ribbon.",
   keywords: [
-    "PowerPoint add-in",
-    "presentation tool",
-    "brand consistency",
-    "slide design",
     "PowerPoint toolbar",
-    "presentation software",
+    "PowerPoint add-in",
+    "accountancy firm presentation",
+    "law firm PowerPoint",
+    "brand consistency",
+    "professional services presentation",
     "on-brand presentations",
-    "PowerPoint automation",
+    "PowerPoint branding",
   ],
   authors: [{ name: "tlbr.io" }],
   creator: "tlbr.io",
@@ -35,23 +35,23 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: "https://tlbr.io",
     siteName: "tlbr.io",
-    title: "tlbr.io – Elevate Every Presentation",
+    title: "tlbr.io – The PowerPoint Toolbar for Accountancy and Law Firms",
     description:
-      "A bespoke PowerPoint add-in helping designers and non-designers build high-impact, on-brand decks – 2× faster.",
+      "A bespoke PowerPoint toolbar for accountancy, law and professional services firms. Your templates, brand colours and approved assets, one click away.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "tlbr.io – Elevate Every Presentation",
+        alt: "tlbr.io – The PowerPoint Toolbar for Accountancy and Law Firms",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "tlbr.io – Elevate Every Presentation",
+    title: "tlbr.io – The PowerPoint Toolbar for Accountancy and Law Firms",
     description:
-      "A bespoke PowerPoint add-in helping designers and non-designers build high-impact, on-brand decks – 2× faster.",
+      "A bespoke PowerPoint toolbar for accountancy, law and professional services firms. Your templates, brand colours and approved assets, one click away.",
     images: ["/og-image.png"],
   },
   robots: {

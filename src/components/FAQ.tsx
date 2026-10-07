@@ -10,7 +10,7 @@ const faqs = [
   },
   {
     q: "How long does setup and onboarding take?",
-    a: "Onboarding typically takes around 4 weeks. That time is spent configuring the toolbar specifically to your organisation – importing your brand colours, fonts, templates, and assets so everything is built in from day one.",
+    a: "Onboarding typically takes around 4 weeks. That time is spent configuring the toolbar specifically to your firm – importing your brand colours, fonts, templates, and assets so everything is built in from day one.",
   },
   {
     q: "Does our IT team need to be involved?",
@@ -18,23 +18,23 @@ const faqs = [
   },
   {
     q: "Is there a minimum number of users?",
-    a: "There's no minimum user count. The £8,000 setup fee applies regardless of team size, as it covers the work required to make the toolbar bespoke to your organisation.",
+    a: "There's no minimum user count. The setup fee applies regardless of firm size, as it covers the work required to make the toolbar bespoke to your organisation.",
   },
   {
     q: "Can we try tlbr.io before committing?",
-    a: "We're currently working on a general version of tlbr.io available for a one-week trial. Note that this won't include the bespoke features – custom templates, your brand colours, fonts, and asset library – which are what make the toolbar truly powerful for most teams.",
+    a: "Yes. We offer a 90-day departmental pilot so you can prove the value within one team before rolling out firm-wide. Get in touch to discuss how that works for your firm.",
   },
   {
     q: "How does pricing and billing work?",
-    a: "Contracts are annual. You're billed monthly based on the number of users who actually logged in and used the toolbar that month – if no one uses it, there's no charge. The minimum billing period is one month.",
-  },
-  {
-    q: "Can the £8,000 setup fee be waived?",
-    a: "No – the setup fee covers the work of making the toolbar bespoke to your organisation. It's what separates tlbr.io from a generic tool, and it's the foundation of why it's so effective. Without it, the toolbar simply wouldn't be configured to your brand.",
+    a: "tlbr.io is priced as a one-off setup fee to configure the toolbar to your brand, plus an annual firm-wide licence. Because every deployment is bespoke, pricing is tailored to your firm – get in touch and we will put together a proposal within one business day.",
   },
   {
     q: "What happens if our brand guidelines change?",
-    a: "If your brand is updated and the toolbar needs to be reconfigured, we can make those changes for a fee of £5,000. This covers updating your colours, fonts, templates, and any other affected elements.",
+    a: "When your brand evolves, we update the toolbar as part of the service. Templates, colours and assets stay current without your team needing to manage it.",
+  },
+  {
+    q: "We already have think-cell or Copilot. Do we need this?",
+    a: "They do different jobs. think-cell builds charts and Copilot drafts content. Neither knows your brand guidelines, your approved assets or which template is current. tlbr.io works alongside both.",
   },
   {
     q: "Is our slide content processed or stored anywhere?",

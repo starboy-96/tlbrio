@@ -8,14 +8,14 @@ import Pricing from "@/components/Pricing";
 import About from "@/components/About";
 import WhoItsFor from "@/components/WhoItsFor";
 import FAQ from "@/components/FAQ";
-import Newsletter from "@/components/Newsletter";
+import WhyTemplatesDontStick from "@/components/WhyTemplatesDontStick";
 import Demo from "@/components/Demo";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "tlbr.io – Elevate Every Presentation",
+  title: "tlbr.io – The PowerPoint Toolbar for Accountancy and Law Firms",
   description:
-    "A bespoke PowerPoint add-in helping designers and non-designers build high-impact, on-brand decks – 2× faster. Trusted by teams from 10 to 2,000+ users.",
+    "A bespoke PowerPoint toolbar for accountancy, law and professional services firms. Your templates, brand colours and approved assets, one click away inside the ribbon.",
   alternates: {
     canonical: "https://tlbr.io",
   },
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "tlbr.io – Elevate Every Presentation",
+        alt: "tlbr.io – The PowerPoint Toolbar for Accountancy and Law Firms",
       },
     ],
   },
@@ -39,7 +39,7 @@ const jsonLd = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Windows",
   description:
-    "A bespoke PowerPoint add-in helping designers and non-designers build high-impact, on-brand decks – 2× faster. A toolbar that lives inside PowerPoint giving teams instant access to brand-compliant formatting tools, templates, and assets.",
+    "A bespoke PowerPoint toolbar for accountancy, law and professional services firms. Templates, brand colours and approved assets built into the PowerPoint ribbon.",
   url: "https://tlbr.io",
   featureList: [
     "Align & distribute objects in one click",
@@ -66,11 +66,11 @@ export default function Home() {
         <Stats />
         <Features />
         <HowItWorks />
+        <WhyTemplatesDontStick />
         <Pricing />
         <About />
         <WhoItsFor />
         <FAQ />
-        <Newsletter />
         <Demo />
       </main>
       <Footer />

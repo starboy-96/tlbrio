@@ -5,28 +5,8 @@ import { motion, useInView } from "framer-motion";
 
 const teams = [
   {
-    name: "Sales",
-    description: "Pitch decks that close deals",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
-        <polyline points="16 7 22 7 22 13"/>
-      </svg>
-    ),
-  },
-  {
-    name: "Marketing",
-    description: "On-brand campaigns, every time",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/>
-      </svg>
-    ),
-  },
-  {
-    name: "Brand",
-    description: "Consistency at every touchpoint",
+    name: "Marketing & brand",
+    description: "Consistency across every client-facing deck",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
@@ -36,8 +16,18 @@ const teams = [
     ),
   },
   {
-    name: "HR & People",
-    description: "Internal comms that look polished",
+    name: "Bids & pursuits",
+    description: "On-brand proposals that win work",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+        <polyline points="16 7 22 7 22 13"/>
+      </svg>
+    ),
+  },
+  {
+    name: "Partners & fee earners",
+    description: "Client materials that look the part",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -48,64 +38,21 @@ const teams = [
     ),
   },
   {
-    name: "Finance",
-    description: "Reports and models that impress",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="11" width="5" height="9" rx="1"/>
-        <rect x="9.5" y="6" width="5" height="14" rx="1"/>
-        <rect x="17" y="2" width="5" height="18" rx="1"/>
-        <line x1="2" y1="22" x2="22" y2="22"/>
-      </svg>
-    ),
-  },
-  {
-    name: "Strategy",
-    description: "Exec-ready decks, built faster",
+    name: "Creative services",
+    description: "Fewer fix-up requests from the business",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
       </svg>
     ),
   },
-  {
-    name: "Operations",
-    description: "Standardised docs across the business",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="3"/>
-        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
-        <path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 8.46a5 5 0 0 0 0 7.07"/>
-      </svg>
-    ),
-  },
-  {
-    name: "Executive",
-    description: "Leadership materials that command the room",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-        <polyline points="9 22 9 12 15 12 15 22"/>
-      </svg>
-    ),
-  },
 ];
 
 const industries = [
-  "Financial Services",
-  "Law & Legal",
-  "Management Consulting",
-  "Accounting",
-  "Investment Banking",
-  "Private Equity",
-  "Insurance",
-  "Real Estate",
-  "Healthcare",
-  "Technology",
-  "Professional Services",
-  "Education",
-  "Retail & Consumer",
-  "Energy",
+  "Accountancy",
+  "Law",
+  "Consulting",
+  "Financial advisory",
 ];
 
 export default function WhoItsFor() {
@@ -137,8 +84,8 @@ export default function WhoItsFor() {
             className="text-5xl md:text-6xl mb-4 leading-[1.05]"
             style={{ fontFamily: '"Cal Sans", sans-serif' }}
           >
-            If your team uses PowerPoint,<br />
-            <span className="gradient-text">tlbr.io is for you</span>
+            Built for accountancy, law<br />
+            <span className="gradient-text">and professional services</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -147,9 +94,8 @@ export default function WhoItsFor() {
             className="text-lg text-navy/65 max-w-2xl"
             style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400 }}
           >
-            It doesn&apos;t matter if your team is 5 people or 5,000. Any team that
-            creates presentations can work faster, look more professional, and stay
-            on-brand – <span className="whitespace-nowrap">every time.</span>
+            Firms between 100 and 1,500 people where brand consistency matters and
+            the marketing team can&apos;t be in every deck.
           </motion.p>
         </div>
 
@@ -166,7 +112,7 @@ export default function WhoItsFor() {
         </motion.p>
 
         {/* Teams grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-12">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-12">
           {teams.map((team, i) => (
             <motion.div
               key={i}
