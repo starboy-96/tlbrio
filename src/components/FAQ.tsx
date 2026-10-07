@@ -5,44 +5,28 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const faqs = [
   {
-    q: "Which version of PowerPoint does tlbr.io work with?",
-    a: "tlbr.io works with all versions of PowerPoint on Windows desktop. It does not currently support PowerPoint Online (the browser version) or PowerPoint on Mac.",
+    q: "How does pricing work?",
+    a: "tlbr.io is a one-off setup fee to configure the toolbar to your brand, plus an annual firm-wide licence. Because every deployment is bespoke, pricing is tailored to your firm — get in touch and we will put together a proposal within one business day.",
   },
   {
-    q: "How long does setup and onboarding take?",
-    a: "Onboarding typically takes around 4 weeks. That time is spent configuring the toolbar specifically to your firm – importing your brand colours, fonts, templates, and assets so everything is built in from day one.",
-  },
-  {
-    q: "Does our IT team need to be involved?",
-    a: "Yes. tlbr.io requires admin rights to install, so your IT team will need to run the package installer across your users' machines. They'll also need to be involved for any future updates.",
-  },
-  {
-    q: "Is there a minimum number of users?",
-    a: "There's no minimum user count. The setup fee applies regardless of firm size, as it covers the work required to make the toolbar bespoke to your organisation.",
-  },
-  {
-    q: "Can we try tlbr.io before committing?",
+    q: "Can we try it before committing?",
     a: "Yes. We offer a 90-day departmental pilot so you can prove the value within one team before rolling out firm-wide. Get in touch to discuss how that works for your firm.",
   },
   {
-    q: "How does pricing and billing work?",
-    a: "tlbr.io is priced as a one-off setup fee to configure the toolbar to your brand, plus an annual firm-wide licence. Because every deployment is bespoke, pricing is tailored to your firm – get in touch and we will put together a proposal within one business day.",
+    q: "How long does setup take?",
+    a: "Around 4 weeks. That time is spent configuring the toolbar to your firm — importing your brand colours, fonts, templates and assets so everything is built in from day one.",
   },
   {
-    q: "What happens if our brand guidelines change?",
-    a: "When your brand evolves, we update the toolbar as part of the service. Templates, colours and assets stay current without your team needing to manage it.",
+    q: "Does our IT team need to be involved?",
+    a: "Yes. tlbr.io requires admin rights to install, so your IT team will need to run the package installer across your users' machines.",
   },
   {
-    q: "We already have think-cell or Copilot. Do we need this?",
+    q: "We already have think-cell or Copilot — do we need this?",
     a: "They do different jobs. think-cell builds charts and Copilot drafts content. Neither knows your brand guidelines, your approved assets or which template is current. tlbr.io works alongside both.",
   },
   {
     q: "Is our slide content processed or stored anywhere?",
-    a: "No. tlbr.io runs entirely locally on your users' machines. No slide content is ever sent to or processed by our servers. Your data stays within your organisation's environment.",
-  },
-  {
-    q: "What does ongoing support look like?",
-    a: "Every client gets a dedicated point of contact who can help troubleshoot issues and answer questions. You won't be dealing with a generic helpdesk.",
+    a: "No. tlbr.io runs entirely locally on your users' machines. No slide content is ever sent to or processed by our servers.",
   },
 ];
 
