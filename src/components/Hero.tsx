@@ -1,117 +1,27 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Gravity, MatterBody } from "@/components/ui/gravity";
-
-// Stable constant — defined outside component so it never gets a new
-// object reference on re-render, which would restart the physics engine.
-const GRAVITY_CONFIG = { x: 0, y: 0.9 };
-
-// Pills positioned relative to the full hero canvas width
-const gravityPills = [
-  { label: "Align & distribute", bg: "#0A1A2F", text: "#94E561", x: "42%", y: "3%",  angle: -8 },
-  { label: "Brand colours",      bg: "#94E561", text: "#0A1A2F", x: "65%", y: "5%",  angle:  6 },
-  { label: "On-brand in a click",          bg: "#0A1A2F", text: "#94E561", x: "85%", y: "8%",  angle: -4 },
-  { label: "Templates",          bg: "#C9F5A6", text: "#0A1A2F", x: "55%", y: "3%",  angle:  5 },
-  { label: "Asset library",      bg: "#0A1A2F", text: "white",   x: "75%", y: "5%",  angle: -6 },
-  { label: "100% on-brand",      bg: "#94E561", text: "#0A1A2F", x: "50%", y: "10%", angle:  3 },
-  { label: "PowerPoint",         bg: "#F2F7EF", text: "#0A1A2F", x: "38%", y: "8%",  angle:  8 },
-  { label: "No guesswork",       bg: "#0A1A2F", text: "#C9F5A6", x: "80%", y: "15%", angle: -5 },
-  { label: "Resize & scale",     bg: "#C9F5A6", text: "#0A1A2F", x: "60%", y: "3%",  angle:  7 },
-  { label: "Fewer clicks",       bg: "#94E561", text: "#0A1A2F", x: "70%", y: "10%", angle: -3 },
-];
 
 export default function Hero() {
-  // Lazy initialiser reads localStorage synchronously on first client render
-  // so the floor is correct before the physics engine ever starts — no
-  // extra re-render, no restart of the physics simulation.
-  const [floorOffset, setFloorOffset] = useState<number>(() => {
-    if (typeof window === "undefined") return 0;
-    return localStorage.getItem("cookie-consent") ? 0 : window.innerHeight * 0.1;
-  });
+  const [email, setEmail] = useState("");
+  const [subStatus, setSubStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [focused, setFocused] = useState(false);
 
-  // Keep a stable ref so the event listener never closes over a stale value.
-  const floorOffsetRef = useRef(floorOffset);
-
-  useEffect(() => {
-    const onResolved = () => {
-      floorOffsetRef.current = 0;
-      setFloorOffset(0);
-    };
-    window.addEventListener("tlbr:cookie-resolved", onResolved);
-    return () => window.removeEventListener("tlbr:cookie-resolved", onResolved);
-  }, []);
-
-  // Treat as mobile if: touchscreen device OR viewport narrower than the lg:
-  // breakpoint (1024px) — keeps JS behaviour aligned with CSS layout switching.
-  const isMobile = useRef(
-    typeof window !== "undefined" &&
-      (window.matchMedia("(pointer: coarse)").matches ||
-        window.matchMedia("(max-width: 1023px)").matches)
-  );
-
-  // iOS 13+ requires explicit permission for DeviceOrientationEvent.
-  // "unknown"      = first visit, show the button
-  // "granted"      = active this session
-  // "silent"       = returning user — silently re-request on first touch, no button
-  // "denied"       = user refused, don't ask again
-  const [gyroPermission, setGyroPermission] = useState<"unknown" | "granted" | "silent" | "denied">(
-    "unknown"
-  );
-
-  useEffect(() => {
-    if (!isMobile.current) return;
-
-    type DOE = { requestPermission?: () => Promise<string> };
-    const needsPermission =
-      typeof DeviceOrientationEvent !== "undefined" &&
-      typeof (DeviceOrientationEvent as unknown as DOE).requestPermission === "function";
-
-    if (!needsPermission) {
-      // Android / non-iOS — events fire without any permission call
-      setGyroPermission("granted");
-      return;
-    }
-
-    // iOS 13+: check localStorage for a previous grant
-    const stored = localStorage.getItem("gyro-permission");
-
-    if (stored === "granted") {
-      // Returning user — silently re-request on their first touch
-      setGyroPermission("silent");
-      const silentRequest = async () => {
-        try {
-          const result = await (
-            DeviceOrientationEvent as unknown as { requestPermission: () => Promise<string> }
-          ).requestPermission();
-          setGyroPermission(result === "granted" ? "granted" : "denied");
-        } catch {
-          setGyroPermission("denied");
-        }
-      };
-      // { once: true } auto-removes the listener after the first event
-      window.addEventListener("touchstart", silentRequest, { once: true, passive: true });
-      window.addEventListener("click",      silentRequest, { once: true });
-    }
-    // No stored value (first visit or previously denied) — leave as "unknown"
-    // so the button renders and the user gets another chance
-  }, []);
-
-  async function requestGyroPermission() {
+  async function handleSubscribe(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email || subStatus === "loading") return;
+    setSubStatus("loading");
     try {
-      const result = await (
-        DeviceOrientationEvent as unknown as { requestPermission: () => Promise<string> }
-      ).requestPermission();
-      if (result === "granted") {
-        localStorage.setItem("gyro-permission", "granted");
-        setGyroPermission("granted");
-      } else {
-        // Don't save denial — button will reappear on next visit
-        setGyroPermission("denied");
-      }
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) throw new Error();
+      setSubStatus("success");
     } catch {
-      setGyroPermission("denied");
+      setSubStatus("error");
     }
   }
 
@@ -131,95 +41,22 @@ export default function Hero() {
         />
       </div>
 
-      {/* ── Physics — full hero canvas ── */}
-      {/*
-        Mobile:  always pointer-events-none so page scroll is never blocked.
-                 Gravity is driven by the gyroscope, not touch.
-        Desktop: pointer-events-none only while cookie banner is up (z-[65])
-                 so banner buttons remain clickable. After banner: z-[1] so
-                 pills are draggable and navbar/buttons get clicks normally.
-      */}
-      <div
-        className={`absolute inset-0 ${
-          floorOffset > 0
-            ? "z-[65] pointer-events-none"
-            : isMobile.current
-            ? "z-[1] pointer-events-none"
-            : "z-[1]"
-        }`}
-        aria-hidden="true"
-      >
-        <Gravity
-          gravity={GRAVITY_CONFIG}
-          grabCursor={!isMobile.current}
-          addTopWall={false}
-          autoStart
-          floorAtViewport
-          floorOffset={floorOffset}
-          enableGyroscope={isMobile.current}
-          resetOnResize={!isMobile.current}
-          className="w-full h-full absolute inset-0"
-        >
-          {gravityPills.map((pill, i) => (
-            <MatterBody
-              key={i}
-              x={pill.x}
-              y={pill.y}
-              angle={pill.angle}
-              matterBodyOptions={{ friction: 0.3, restitution: 0.25, density: 0.002 }}
-            >
-              <div
-                className="px-4 py-2 md:px-6 md:py-3 lg:px-9 lg:py-4 rounded-full font-medium whitespace-nowrap select-none shadow-md"
-                style={{
-                  backgroundColor: pill.bg,
-                  color: pill.text,
-                  fontFamily: '"General Sans", sans-serif',
-                  fontWeight: 500,
-                  fontSize: "clamp(0.7rem, 1.2vw, 1.15rem)",
-                  border:
-                    pill.bg === "#F2F7EF" || pill.bg === "#C9F5A6"
-                      ? "1px solid rgba(10,26,47,0.08)"
-                      : "none",
-                }}
-              >
-                {pill.label}
-              </div>
-            </MatterBody>
-          ))}
-        </Gravity>
-      </div>
-
-
-      {/* ── Foreground content ── */}
+      {/* ── Content ── */}
       <div className="flex-1 flex flex-col lg:flex-row">
-        {/* LEFT – text (z-10 so it sits above the physics canvas) */}
-        <div className="relative z-10 flex flex-col justify-center pl-8 md:pl-14 lg:pl-20 pr-8 pt-28 pb-12 w-full lg:w-[56%] pointer-events-none">
+        {/* LEFT – text */}
+        <div className="relative z-10 flex flex-col justify-center pl-8 md:pl-14 lg:pl-20 pr-8 pt-28 pb-12 w-full lg:w-[56%]">
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4 border border-green/30 bg-green-xlight w-fit pointer-events-auto"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4 border border-green/30 bg-green-xlight w-fit"
           >
             <span className="w-2 h-2 rounded-full bg-green animate-glow" aria-hidden="true" />
             <span className="section-label" style={{ color: "#0a1a2f", opacity: 0.7, fontSize: "clamp(0.58rem, 1.8vw, 0.72rem)", letterSpacing: "0.1em" }}>
               The bespoke PowerPoint toolbar for accountancy and law firms
             </span>
           </motion.div>
-
-          {/* iOS gyroscope permission — shown only on first visit until granted */}
-          {isMobile.current && gyroPermission === "unknown" && (
-            <motion.button
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              onClick={requestGyroPermission}
-              className="flex items-center gap-2 mb-6 px-4 py-2 rounded-full w-fit pointer-events-auto border border-navy/15 bg-navy/5 text-navy/60 text-xs cursor-pointer"
-              style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 500 }}
-            >
-              Tap to enable tilt interaction
-            </motion.button>
-          )}
 
           {/* Headline */}
           <h1
@@ -265,7 +102,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col sm:flex-row items-start gap-4 pointer-events-auto"
+            className="flex flex-col sm:flex-row items-start gap-4"
           >
             <a
               href="#demo"
@@ -291,26 +128,105 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* RIGHT – hero video placeholder */}
-        <div className="hidden lg:flex lg:w-[44%] items-center justify-center pr-12 pt-24 pb-12">
-          <div className="relative w-full max-w-md aspect-video rounded-2xl overflow-hidden bg-navy/5 border border-navy/10 flex items-center justify-center">
-            <div className="absolute inset-0 bg-gradient-to-br from-navy/4 to-transparent" />
-            <div className="text-center px-8">
-              <div
-                className="w-14 h-14 rounded-full bg-navy flex items-center justify-center mx-auto mb-4 shadow-lg"
+        {/* RIGHT – newsletter signup */}
+        <div className="flex lg:w-[44%] items-center justify-center px-8 lg:pr-16 lg:pl-8 pt-8 pb-16 lg:pt-24 lg:pb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 24, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.65, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="w-full max-w-sm rounded-3xl p-8 md:p-10"
+            style={{ background: "#0A1A2F" }}
+          >
+            {/* Top accent */}
+            <div className="flex items-center gap-2 mb-6">
+              <span
+                className="inline-block px-3 py-1 rounded-full text-[10px] uppercase tracking-widest border"
+                style={{
+                  fontFamily: '"General Sans", sans-serif',
+                  borderColor: "rgba(148,229,97,0.3)",
+                  color: "rgba(148,229,97,0.8)",
+                }}
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <polygon points="5 3 19 12 5 21 5 3" fill="#94E561"/>
-                </svg>
-              </div>
-              <p
-                className="text-sm text-navy/40"
-                style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400 }}
-              >
-                15-second demo
-              </p>
+                Newsletter
+              </span>
             </div>
-          </div>
+
+            <p
+              className="text-2xl md:text-3xl leading-snug mb-2"
+              style={{ fontFamily: '"Cal Sans", sans-serif', fontWeight: 700, color: "#fff" }}
+            >
+              Presentation tips,{" "}
+              <span style={{ color: "#94E561" }}>every Tuesday.</span>
+            </p>
+            <p
+              className="text-sm mb-8 leading-relaxed"
+              style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400, color: "rgba(255,255,255,0.5)" }}
+            >
+              One email a week. Practical advice on presentation design, brand consistency and getting more out of PowerPoint. No fluff.
+            </p>
+
+            {subStatus === "success" ? (
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ background: "#94E561" }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8l3.5 3.5L13 5" stroke="#0A1A2F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-white" style={{ fontFamily: '"General Sans", sans-serif' }}>
+                    You&apos;re in.
+                  </p>
+                  <p className="text-xs" style={{ fontFamily: '"General Sans", sans-serif', color: "rgba(255,255,255,0.45)" }}>
+                    Every Tuesday, no spam.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex flex-col gap-3">
+                <div
+                  className={`flex items-center gap-2 p-1.5 rounded-full border transition-all duration-300 ${
+                    focused ? "border-green/40 bg-white/8" : "border-white/10 bg-white/5"
+                  }`}
+                >
+                  <input
+                    type="email"
+                    required
+                    placeholder="Work email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    onFocus={() => setFocused(true)}
+                    onBlur={() => setFocused(false)}
+                    className="flex-1 bg-transparent px-4 py-2 text-sm text-white placeholder:text-white/30 outline-none min-w-0"
+                    style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400 }}
+                  />
+                  <button
+                    type="submit"
+                    disabled={subStatus === "loading"}
+                    className="flex-shrink-0 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 hover:bg-green-light disabled:opacity-60 cursor-pointer whitespace-nowrap"
+                    style={{
+                      fontFamily: '"General Sans", sans-serif',
+                      fontWeight: 500,
+                      background: "#94E561",
+                      color: "#0A1A2F",
+                    }}
+                  >
+                    {subStatus === "loading" ? "…" : "Subscribe"}
+                  </button>
+                </div>
+                {subStatus === "error" && (
+                  <p className="text-xs text-center" style={{ color: "rgba(255,255,255,0.4)", fontFamily: '"General Sans", sans-serif' }}>
+                    Something went wrong — please try again.
+                  </p>
+                )}
+                <p className="text-xs text-center" style={{ color: "rgba(255,255,255,0.25)", fontFamily: '"General Sans", sans-serif' }}>
+                  No spam. Unsubscribe any time.
+                </p>
+              </form>
+            )}
+          </motion.div>
         </div>
       </div>
     </section>
