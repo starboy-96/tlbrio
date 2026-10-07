@@ -231,7 +231,7 @@ export default function Demo() {
             className="text-base mb-10"
             style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400, color: "rgba(255,255,255,0.72)" }}
           >
-            {"Send us your brand guidelines or a recent deck and we'll mock up the toolbar in your colours and templates before the call. 30 minutes, no hard sell."}
+{"We'll walk you through the toolbar and answer your questions. If it's a fit, we'll talk about a 90-day pilot in your firm's brand. 30 minutes, no hard sell."}
           </motion.p>
         </div>
 
