@@ -129,38 +129,66 @@ export default function Footer({ showDemo = true }: { showDemo?: boolean }) {
         </div>
 
         {/* Newsletter */}
-        <div className="mb-10 pt-10 border-t border-white/8">
-          <p
-            className="text-xs uppercase tracking-widest mb-3"
-            style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 500, color: "rgba(255,255,255,0.3)" }}
-          >
-            Weekly insights
-          </p>
-          {subStatus === "done" ? (
-            <p className="text-sm" style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400, color: "rgba(255,255,255,0.45)" }}>
-              You&apos;re on the list. Every Tuesday.
+        <div className="mb-10 pt-10 border-t border-white/8 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-12">
+          {/* Left: label + heading */}
+          <div className="flex-shrink-0">
+            <p
+              className="text-[10px] uppercase tracking-widest mb-1.5"
+              style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 500, color: "rgba(148,229,97,0.6)" }}
+            >
+              Weekly insights
             </p>
-          ) : (
-            <form onSubmit={handleSubscribe} className="flex gap-2 max-w-sm">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Work email"
-                required
-                className="flex-1 px-4 py-2.5 rounded-full text-sm bg-white/8 border border-white/10 text-white placeholder:text-white/30 outline-none focus:border-green/40 transition-colors min-w-0"
-                style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400 }}
-              />
-              <button
-                type="submit"
-                disabled={subStatus === "loading"}
-                className="flex-shrink-0 px-5 py-2.5 rounded-full text-sm font-medium bg-green text-navy hover:bg-green-light transition-colors duration-200 disabled:opacity-60"
-                style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 500 }}
-              >
-                {subStatus === "loading" ? "…" : "Subscribe"}
-              </button>
-            </form>
-          )}
+            <p
+              className="text-base leading-snug"
+              style={{ fontFamily: '"Cal Sans", sans-serif', fontWeight: 700, color: "#fff" }}
+            >
+              Presentation tips,{" "}
+              <span style={{ color: "#94E561" }}>every Tuesday.</span>
+            </p>
+          </div>
+
+          {/* Right: form */}
+          <div className="flex-1 min-w-0">
+            {subStatus === "done" ? (
+              <div className="flex items-center gap-2">
+                <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#94E561" }}>
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 6l3 3 5-5" stroke="#0A1A2F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <p className="text-sm" style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400, color: "rgba(255,255,255,0.5)" }}>
+                  You&apos;re on the list. See you Tuesday.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex gap-2 max-w-md">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Work email"
+                  required
+                  className="flex-1 px-4 py-2.5 rounded-full text-sm border text-white placeholder:text-white/30 outline-none transition-colors duration-200 min-w-0"
+                  style={{
+                    fontFamily: '"General Sans", sans-serif',
+                    fontWeight: 400,
+                    background: "rgba(255,255,255,0.06)",
+                    borderColor: "rgba(255,255,255,0.1)",
+                  }}
+                  onFocus={(e) => (e.target.style.borderColor = "rgba(148,229,97,0.4)")}
+                  onBlur={(e) => (e.target.style.borderColor = "rgba(255,255,255,0.1)")}
+                />
+                <button
+                  type="submit"
+                  disabled={subStatus === "loading"}
+                  className="flex-shrink-0 px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-200 hover:bg-green-light disabled:opacity-60 cursor-pointer"
+                  style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 500, background: "#94E561", color: "#0A1A2F" }}
+                >
+                  {subStatus === "loading" ? "…" : "Subscribe"}
+                </button>
+              </form>
+            )}
+          </div>
         </div>
 
         {/* Bottom bar */}
