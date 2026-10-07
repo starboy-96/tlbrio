@@ -181,8 +181,8 @@ export default function Footer({ showDemo = true }: { showDemo?: boolean }) {
                 <button
                   type="submit"
                   disabled={subStatus === "loading"}
-                  className="flex-shrink-0 px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-200 hover:bg-green-light disabled:opacity-60 cursor-pointer"
-                  style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 500, background: "#94E561", color: "#0A1A2F" }}
+                  className="flex-shrink-0 px-5 py-2.5 rounded-full text-sm font-medium border transition-colors duration-200 hover:bg-white hover:text-navy disabled:opacity-60 cursor-pointer"
+                  style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 500, background: "transparent", color: "rgba(255,255,255,0.8)", borderColor: "rgba(255,255,255,0.2)" }}
                 >
                   {subStatus === "loading" ? "…" : "Subscribe"}
                 </button>
