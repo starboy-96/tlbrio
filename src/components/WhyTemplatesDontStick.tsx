@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
+import Ambient from "@/components/Ambient";
 import { useRef } from "react";
 
 export default function WhyTemplatesDontStick() {
@@ -13,6 +14,10 @@ export default function WhyTemplatesDontStick() {
       className="relative py-28 md:py-36 px-6 bg-white overflow-hidden"
       aria-label="Why templates alone don't stick"
     >
+      <Ambient blobs={[
+        { color: "rgba(148,229,97,0.42)", size: "48vw", bottom: "-30%", right: "0%" },
+        { color: "rgba(90,150,255,0.26)", size: "42vw", top: "-20%", left: "30%", drift: "b" },
+      ]} />
       {/* Faint large background text — editorial texture */}
       <div
         aria-hidden="true"
@@ -92,7 +97,7 @@ export default function WhyTemplatesDontStick() {
             {/* Visual: the old way vs new */}
             <div className="flex flex-col gap-3">
               <div
-                className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#fafafa] border border-navy/6"
+                className="flex items-center gap-3 px-4 py-3 glass rounded-xl"
                 style={{ fontFamily: '"General Sans", sans-serif', fontSize: "0.82rem" }}
               >
                 <span className="text-navy/25 font-mono line-through text-xs">
@@ -103,7 +108,7 @@ export default function WhyTemplatesDontStick() {
                 </span>
               </div>
               <div
-                className="flex items-center gap-3 px-4 py-3 rounded-xl border border-green/30 bg-green/[0.06]"
+                className="flex items-center gap-3 px-4 py-3 glass rounded-xl !border-green/50"
                 style={{ fontFamily: '"General Sans", sans-serif', fontSize: "0.82rem" }}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-green flex-shrink-0" />

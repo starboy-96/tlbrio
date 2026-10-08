@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Ambient from "@/components/Ambient";
 
 const teams = [
   {
@@ -57,10 +58,14 @@ export default function WhoItsFor() {
   return (
     <section
       id="who-its-for"
-      className="py-28 px-6 bg-white"
+      className="relative py-28 px-6 bg-white overflow-hidden"
       aria-label="Who tlbr.io is for"
     >
-      <div className="max-w-6xl mx-auto">
+      <Ambient blobs={[
+        { color: "rgba(148,229,97,0.42)", size: "48vw", top: "-10%", right: "-10%" },
+        { color: "rgba(90,150,255,0.26)", size: "42vw", bottom: "0%", left: "-15%", drift: "b" },
+      ]} />
+      <div className="relative max-w-6xl mx-auto">
 
         {/* Header — two-column on desktop */}
         <div ref={headingRef} className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-20">
@@ -104,7 +109,7 @@ export default function WhoItsFor() {
           >
             Teams that benefit
           </p>
-          <div className="divide-y divide-navy/6">
+          <div className="glass rounded-2xl px-5 md:px-7 divide-y divide-navy/6">
             {teams.map((team, i) => (
               <motion.div
                 key={i}
@@ -161,7 +166,7 @@ export default function WhoItsFor() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: i * 0.06 }}
-                  className="px-4 py-1.5 rounded-full text-sm text-navy/75 border border-navy/10 bg-[#fafafa] hover:bg-navy hover:text-white hover:border-navy transition-all duration-200 cursor-default"
+                  className="px-4 py-1.5 rounded-full text-sm text-navy/75 glass hover:[background:#0a1a2f] hover:text-white hover:border-navy transition-all duration-200 cursor-default"
                   style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400 }}
                 >
                   {industry}

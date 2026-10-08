@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
+import Ambient from "@/components/Ambient";
 
 const NAVY = "#0A1A2F";
 const GREEN = "#94E561";
@@ -336,9 +337,13 @@ export default function Features() {
       id="features"
       ref={sectionRef}
       aria-label="Features"
-      className="relative px-6 md:px-12 py-24 md:py-32 bg-[#fafafa]"
+      className="relative px-6 md:px-12 py-24 md:py-32 bg-[#fafafa] overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto">
+      <Ambient blobs={[
+        { color: "rgba(148,229,97,0.42)", size: "48vw", top: "20%", right: "-12%" },
+        { color: "rgba(90,150,255,0.26)", size: "42vw", bottom: "-10%", left: "-12%", drift: "b" },
+      ]} />
+      <div className="relative max-w-6xl mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14 md:mb-16">
           <div>
             <motion.p
@@ -374,7 +379,7 @@ export default function Features() {
           initial={{ opacity: 0, y: 32 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.25, ease }}
-          className="rounded-xl border border-navy/[0.09] bg-white overflow-hidden"
+          className="glass rounded-2xl overflow-hidden"
           style={{ boxShadow: "0 30px 80px -40px rgba(10,26,47,0.35)" }}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
@@ -382,7 +387,7 @@ export default function Features() {
           onBlurCapture={() => setPaused(false)}
         >
           {/* Ribbon */}
-          <div className="border-b border-navy/[0.08] bg-[#f6f7f8]">
+          <div className="border-b border-navy/[0.08] bg-white/30">
             <div className="flex items-center gap-5 px-5 pt-2.5 text-[11px] text-navy/40" aria-hidden="true">
               <span>Home</span><span>Insert</span><span className="hidden sm:inline">Design</span><span className="hidden sm:inline">Review</span>
               <span className="relative text-navy font-semibold pb-1.5 -mb-px">
@@ -394,7 +399,7 @@ export default function Features() {
               role="tablist"
               aria-label="tlbr.io tools"
               onKeyDown={onKeyDown}
-              className="flex overflow-x-auto mobile-carousel border-t border-navy/[0.06] bg-white px-2 sm:px-3"
+              className="flex overflow-x-auto mobile-carousel border-t border-navy/[0.06] bg-white/45 px-2 sm:px-3"
               style={{ scrollbarWidth: "none" }}
             >
               {features.map((feat, i) => {
@@ -482,7 +487,7 @@ export default function Features() {
               </div>
             </div>
 
-            <div className="order-1 lg:order-2 relative bg-[#eef1f4] p-5 sm:p-8 lg:p-12 flex items-center justify-center overflow-hidden">
+            <div className="order-1 lg:order-2 relative bg-navy/[0.035] p-5 sm:p-8 lg:p-12 flex items-center justify-center overflow-hidden">
               <div
                 className="absolute inset-0 pointer-events-none opacity-60"
                 style={{ backgroundImage: "radial-gradient(circle, rgba(10,26,47,0.08) 1px, transparent 1px)", backgroundSize: "18px 18px" }}

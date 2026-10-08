@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
+import Ambient from "@/components/Ambient";
 import { useRef } from "react";
 
 const facts = [
@@ -31,12 +32,16 @@ export default function Stats() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} aria-label="Key benefits" className="bg-[#fafafa] px-6 md:px-12 pb-20 md:pb-28">
+    <section ref={ref} aria-label="Key benefits" className="relative bg-[#fafafa] px-6 md:px-12 pt-14 pb-20 md:pb-28">
+      <Ambient blobs={[
+        { color: "rgba(148,229,97,0.42)", size: "48vw", top: "-30%", left: "-10%" },
+        { color: "rgba(90,150,255,0.26)", size: "42vw", top: "-10%", right: "-8%", drift: "b" },
+      ]} />
       <motion.div
         initial={{ opacity: 0, y: 32 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-6xl mx-auto border border-navy/8 rounded-2xl overflow-hidden"
+        className="glass relative max-w-6xl mx-auto rounded-2xl overflow-hidden"
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 divide-navy/8 lg:divide-x lg:divide-y-0 sm:[&>*:nth-child(odd)]:border-r sm:[&>*:nth-child(odd)]:border-navy/8">
           {facts.map((fact, i) => (

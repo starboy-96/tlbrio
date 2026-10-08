@@ -90,10 +90,10 @@ export default function Navbar() {
     <motion.header
       animate={{ y: hidden && !menuOpen ? -HEADER_H - 8 : 0 }}
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 border-b transition-[background-color,border-color] duration-500 backdrop-blur-xl ${
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-500 backdrop-blur-2xl backdrop-saturate-[1.8] ${
         onDark
-          ? scrolled ? "bg-navy/80 border-white/[0.06]" : "bg-transparent border-transparent"
-          : "bg-[#fafafa]/85 border-navy/[0.07]"
+          ? scrolled ? "bg-navy/45 border-white/[0.08]" : "bg-transparent border-transparent"
+          : "bg-white/55 border-white/70 shadow-[0_8px_30px_-12px_rgba(10,26,47,0.18)]"
       }`}
     >
       <div className="w-full px-6 md:px-8 h-16 flex items-center justify-between">

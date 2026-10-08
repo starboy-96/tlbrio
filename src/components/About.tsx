@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Ambient from "@/components/Ambient";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -18,8 +19,12 @@ export default function About() {
   const promiseInView = useInView(promiseRef, { once: true, margin: "-60px" });
 
   return (
-    <section id="about" className="py-24 md:py-32 px-6 md:px-12 bg-green-xlight overflow-hidden" aria-label="About tlbr.io">
-      <div className="max-w-6xl mx-auto">
+    <section id="about" className="relative py-24 md:py-32 px-6 md:px-12 bg-green-xlight overflow-hidden" aria-label="About tlbr.io">
+      <Ambient blobs={[
+        { color: "rgba(148,229,97,0.42)", size: "48vw", top: "30%", left: "-15%" },
+        { color: "rgba(90,150,255,0.26)", size: "42vw", bottom: "-10%", right: "-10%", drift: "b" },
+      ]} />
+      <div className="relative max-w-6xl mx-auto">
 
         {/* Intro */}
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-10 lg:gap-16 items-end">
@@ -93,7 +98,7 @@ export default function About() {
         </figure>
 
         {/* Roadmap */}
-        <div className="mt-20 md:mt-24">
+        <div className="glass mt-20 md:mt-24 rounded-2xl p-7 md:p-10">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-8">
             <p className="text-[11px] uppercase tracking-[0.18em] text-navy/55" style={{ fontWeight: 500 }}>Across Microsoft 365</p>
             <p className="text-sm text-navy/60 max-w-md md:text-right" style={{ fontWeight: 400 }}>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Ambient from "@/components/Ambient";
 import { useMounted } from "@/hooks/useMounted";
 
 const NAVY = "#0a1a2f";
@@ -58,8 +59,12 @@ export default function Pricing() {
   });
 
   return (
-    <section id="pricing" className="py-24 md:py-32 px-6 md:px-12 bg-[#f4f4f2]" aria-label="Pricing">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-14 lg:gap-20 items-start">
+    <section id="pricing" className="relative py-24 md:py-32 px-6 md:px-12 bg-[#f4f4f2] overflow-hidden" aria-label="Pricing">
+      <Ambient blobs={[
+        { color: "rgba(148,229,97,0.42)", size: "48vw", top: "5%", right: "-6%" },
+        { color: "rgba(90,150,255,0.26)", size: "42vw", bottom: "-20%", right: "25%", drift: "b" },
+      ]} />
+      <div className="relative max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-14 lg:gap-20 items-start">
 
         {/* Left: the pitch */}
         <div className="lg:sticky lg:top-28">
@@ -84,8 +89,7 @@ export default function Pricing() {
         {/* Right: the proposal */}
         <motion.div
           {...reveal(0.1)}
-          className="relative bg-white rounded-xl border border-navy/[0.08]"
-          style={{ boxShadow: "0 40px 80px -48px rgba(10,26,47,0.45)" }}
+          className="glass relative rounded-2xl"
         >
           <div className="flex items-baseline justify-between px-5 sm:px-7 md:px-9 pt-7 pb-5 border-b border-navy/[0.08]">
             <p className="text-[11px] uppercase tracking-[0.18em] text-navy/55" style={{ fontWeight: 500 }}>Your proposal includes</p>

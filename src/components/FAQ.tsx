@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Ambient from "@/components/Ambient";
 
 const faqs = [
   {
@@ -94,8 +95,12 @@ function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
 
 export default function FAQ() {
   return (
-    <section id="faq" className="py-28 px-8" aria-label="Frequently asked questions">
-      <div className="max-w-6xl mx-auto">
+    <section id="faq" className="relative py-28 px-6 md:px-8 overflow-hidden" aria-label="Frequently asked questions">
+      <Ambient blobs={[
+        { color: "rgba(148,229,97,0.42)", size: "48vw", top: "10%", right: "-10%" },
+        { color: "rgba(90,150,255,0.26)", size: "42vw", bottom: "-20%", left: "10%", drift: "b" },
+      ]} />
+      <div className="relative max-w-6xl mx-auto">
         <div className="flex flex-col lg:flex-row lg:gap-24">
 
           {/* Left: sticky heading */}
@@ -148,7 +153,7 @@ export default function FAQ() {
           </div>
 
           {/* Right: accordion */}
-          <div className="flex-1">
+          <div className="glass flex-1 self-start rounded-2xl px-5 md:px-8 py-2">
             {faqs.map((item, i) => (
               <FAQItem key={i} q={item.q} a={item.a} index={i} />
             ))}

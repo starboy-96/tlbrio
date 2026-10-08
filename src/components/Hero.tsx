@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef, type ReactElement } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import Ambient from "@/components/Ambient";
 
 const BUTTONS = [
   { id: "colours", label: "Brand Colours" },
@@ -190,8 +191,16 @@ function StepSlide({ titleStyle, subtitleStyle, showRule = true, tableContent, c
       </div>
 
       {/* Footer label */}
-      <div className="absolute" style={{ bottom: "3%", left: "10%", fontSize: "clamp(6px, 0.6em, 10px)", color: "rgba(148,229,97,0.6)", fontFamily: '"General Sans", sans-serif', fontWeight: 600 }}>
-        ● {label}
+      <div className="absolute flex items-center" style={{
+        bottom: "4.5%", left: "10%", gap: "0.45em", padding: "0.4em 0.85em 0.4em 0.5em",
+        fontSize: "clamp(8px, 0.82em, 13px)", color: "#94E561", fontFamily: '"General Sans", sans-serif', fontWeight: 600,
+        background: "rgba(148,229,97,0.12)", border: "1px solid rgba(148,229,97,0.4)", borderRadius: "0.55em",
+        boxShadow: "0 0.4em 1.2em rgba(0,0,0,0.25)",
+      }}>
+        <span className="flex items-center justify-center rounded-full flex-shrink-0" style={{ width: "1.35em", height: "1.35em", background: "#94E561" }}>
+          <svg viewBox="0 0 16 16" width="62%" fill="none" aria-hidden="true"><path d="M3.5 8.4l2.8 2.8 6.2-6.4" stroke="#0A1A2F" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        </span>
+        {label}
       </div>
     </div>
   );
@@ -407,6 +416,29 @@ export default function Hero() {
   const [slideKey,  setSlideKey]  = useState<BtnId | "before">("before");
   const [stepIdx,   setStepIdx]   = useState(-1);
   const cycleRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const reduceMotion = useReducedMotion();
+  const [wide, setWide] = useState(false);
+  const px = useMotionValue(0);
+  const py = useMotionValue(0);
+  const tiltSpring = { stiffness: 120, damping: 20, mass: 0.6 };
+  const tiltY = useSpring(useTransform(px, (v) => (wide && !reduceMotion ? -7 + v * 10 : 0)), tiltSpring);
+  const tiltX = useSpring(useTransform(py, (v) => (wide && !reduceMotion ? 4 - v * 8 : 0)), tiltSpring);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => { setWide(mq.matches); px.set(px.get() + 0.0001); };
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, [px]);
+
+  function onPointerMove(e: React.PointerEvent<HTMLElement>) {
+    if (e.pointerType !== "mouse") return;
+    const r = e.currentTarget.getBoundingClientRect();
+    px.set((e.clientX - r.left) / r.width - 0.5);
+    py.set((e.clientY - r.top) / r.height - 0.5);
+  }
+  function onPointerLeave() { px.set(0); py.set(0); }
 
   function goToStep(idx: number) {
     if (idx >= CYCLE.length) {
@@ -437,30 +469,51 @@ export default function Hero() {
 
   const SlideContent = SLIDES[slideKey];
 
+  function showUnformatted() {
+    if (cycleRef.current) clearTimeout(cycleRef.current);
+    setStepIdx(-1); setActiveBtn(null); setSlideKey("before");
+    scheduleNext(-1);
+  }
+
+  const ribbon: { id: BtnId | "before"; label: string }[] = [{ id: "before", label: "Unformatted" }, ...BUTTONS];
+
   return (
-    <section id="hero" data-nav="dark" className="on-dark relative min-h-screen flex flex-col overflow-hidden"
-      style={{ background: "#0A1A2F" }}>
+    <section id="hero" data-nav="dark" className="on-dark relative min-h-screen overflow-hidden"
+      style={{ background: "#0A1A2F" }}
+      onPointerMove={onPointerMove} onPointerLeave={onPointerLeave}>
 
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-1/2 left-[22%] -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(148,229,97,0.055) 0%, transparent 65%)" }} />
-      </div>
+      {/* Ambient light */}
+      <Ambient blobs={[
+        { color: "rgba(148,229,97,0.30)", size: "62vw", top: "-18%", right: "-14%" },
+        { color: "rgba(70,130,255,0.22)", size: "54vw", bottom: "-30%", right: "8%", drift: "b" },
+        { color: "rgba(201,245,166,0.10)", size: "46vw", top: "-20%", left: "-16%", drift: "b" },
+        { color: "rgba(64,200,190,0.12)", size: "30vw", bottom: "-8%", left: "18%" },
+      ]} />
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{
+        backgroundImage: "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)",
+        backgroundSize: "64px 64px",
+        maskImage: "radial-gradient(ellipse 70% 60% at 60% 45%, black 20%, transparent 75%)",
+        WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 60% 45%, black 20%, transparent 75%)",
+      }} />
+      <div className="absolute inset-x-0 bottom-0 h-40 pointer-events-none" aria-hidden="true"
+        style={{ background: "linear-gradient(to bottom, transparent, rgba(10,26,47,0.9))" }} />
 
-      <div className="flex-1 flex flex-col lg:flex-row min-h-screen">
-        {/* ── LEFT: copy ─────────────────────────────────────────────── */}
-        <div className="relative z-10 flex flex-col justify-center pl-8 md:pl-14 lg:pl-20 pr-8 pt-28 pb-12 w-full lg:w-[50%]">
-
+      <div className="relative z-10 max-w-[1480px] mx-auto min-h-screen grid grid-cols-1 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)] items-center gap-14 lg:gap-12 px-6 md:px-12 pt-28 lg:pt-24 pb-16">
+        {/* ── Copy ─────────────────────────────────────────────── */}
+        <div className="flex flex-col">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 border border-green/20 w-fit"
-            style={{ background: "rgba(148,229,97,0.07)" }}>
-            <span className="w-2 h-2 rounded-full bg-green animate-glow" aria-hidden="true" />
-            <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "clamp(0.56rem,1.7vw,0.7rem)", letterSpacing: "0.1em", fontFamily: '"General Sans",sans-serif', fontWeight: 500 }}>
+            className="glass-dark inline-flex items-center gap-2.5 pl-3 pr-4 py-2 rounded-full mb-7 w-fit">
+            <span className="relative flex w-2 h-2" aria-hidden="true">
+              <span className="absolute inset-0 rounded-full bg-green animate-ping opacity-60" />
+              <span className="relative w-2 h-2 rounded-full bg-green" />
+            </span>
+            <span style={{ color: "rgba(255,255,255,0.75)", fontSize: "clamp(0.62rem,1.7vw,0.74rem)", letterSpacing: "0.06em", fontFamily: '"General Sans",sans-serif', fontWeight: 500 }}>
               The PowerPoint toolbar for firms of 100–1,500 people
             </span>
           </motion.div>
 
-          <h1 className="leading-[1.08] mb-7" style={{ fontFamily: '"Cal Sans",sans-serif', fontWeight: 700, fontSize: "clamp(2.4rem,4.4vw,4.6rem)", color: "#fff", letterSpacing: "-0.01em" }}>
+          <h1 className="leading-[1.04] mb-7" style={{ fontFamily: '"Cal Sans",sans-serif', fontWeight: 700, fontSize: "clamp(2.6rem,4.6vw,5rem)", color: "#fff", letterSpacing: "-0.02em" }}>
             <span className="sr-only">Every pitch, proposal, tender and report, perfectly on brand.</span>
             <span aria-hidden="true" className="block">
               <motion.span
@@ -490,150 +543,105 @@ export default function Hero() {
 
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="text-lg md:text-xl max-w-lg mb-10 leading-relaxed"
-            style={{ color: "rgba(255,255,255,0.68)", fontFamily: '"General Sans",sans-serif' }}>
+            className="text-lg md:text-xl max-w-[34rem] mb-10 leading-relaxed"
+            style={{ color: "rgba(255,255,255,0.72)", fontFamily: '"General Sans",sans-serif' }}>
             Your templates, colours and approved assets, built into the PowerPoint ribbon your team already uses. Whoever makes the deck, it looks like your design team made it.
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col sm:flex-row items-start gap-4">
+            className="flex flex-wrap items-center gap-3">
             <a href="#demo"
-              className="px-8 py-4 rounded-full text-navy text-sm font-semibold bg-green hover:bg-green-light transition-all duration-200 shadow-[0_0_28px_rgba(148,229,97,0.38)] hover:shadow-[0_0_44px_rgba(148,229,97,0.55)] cursor-pointer"
+              className="group inline-flex items-center gap-3 pl-7 pr-2 py-2 rounded-full text-navy text-[15px] font-semibold bg-green hover:bg-green-light transition-all duration-300 shadow-[0_10px_40px_-8px_rgba(148,229,97,0.6)] hover:shadow-[0_14px_50px_-6px_rgba(148,229,97,0.75)] cursor-pointer"
               onClick={(e) => { e.preventDefault(); document.querySelector("#demo")?.scrollIntoView({ behavior: "smooth" }); }}>
               Book a Demo
+              <span className="w-10 h-10 rounded-full bg-navy text-green flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true">
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </span>
             </a>
             <a href="#features"
-              className="flex items-center gap-2 py-4 text-sm transition-colors duration-200 cursor-pointer group"
-              style={{ color: "rgba(255,255,255,0.62)" }}
+              className="glass-dark inline-flex items-center gap-2 px-6 py-[1.05rem] rounded-full text-[15px] text-white/85 hover:text-white transition-colors duration-200 cursor-pointer group"
               onClick={(e) => { e.preventDefault(); document.querySelector("#features")?.scrollIntoView({ behavior: "smooth" }); }}>
               See what it does
-              <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+              <span className="transition-transform duration-200 group-hover:translate-y-0.5" aria-hidden="true">↓</span>
             </a>
           </motion.div>
 
           <motion.ul initial={{ opacity: 0 }} animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 1.1 }}
-            className="mt-10 pt-6 border-t border-white/[0.08] flex flex-wrap gap-x-6 gap-y-2 max-w-lg"
+            className="mt-12 flex flex-wrap gap-x-7 gap-y-3 max-w-xl"
             style={{ fontFamily: '"General Sans",sans-serif' }}>
             {["Live in around 4 weeks", "Built and maintained for you", "Slides never leave your machines"].map((item) => (
-              <li key={item} className="flex items-center gap-2 text-[13px]" style={{ color: "rgba(255,255,255,0.6)" }}>
-                <span className="w-1 h-1 rounded-full bg-green" aria-hidden="true" />
+              <li key={item} className="flex items-center gap-2 text-[13px]" style={{ color: "rgba(255,255,255,0.66)" }}>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8.4l2.8 2.8 6.2-6.4" stroke="#94E561" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
                 {item}
               </li>
             ))}
           </motion.ul>
         </div>
 
-        {/* ── RIGHT: mock-up ──────────────────────────────────────────── */}
-        <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="relative lg:w-[50%] flex flex-col lg:min-h-screen"
-          style={{ background: "#060d1a" }}>
+        {/* ── Mock-up ──────────────────────────────────────────── */}
+        <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          style={{ perspective: 1800 }}>
+        <motion.div
+          className="rounded-2xl overflow-hidden border border-white/10"
+          style={{ rotateX: tiltX, rotateY: tiltY, background: "rgba(13,31,56,0.72)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
+            boxShadow: "0 40px 100px -30px rgba(0,0,0,0.65)" }}>
 
-          <div className="absolute inset-x-0 top-0 h-20 pointer-events-none z-10"
-            style={{ background: "linear-gradient(to bottom, #060d1a, transparent)" }} />
-
-          <div className="flex flex-col h-full flex-1 pt-24 pb-8 px-8 lg:px-10 gap-4">
-            <div className="flex-1 flex flex-col rounded-2xl overflow-hidden border" style={{
-              borderColor: "rgba(255,255,255,0.07)",
-              boxShadow: "0 24px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(148,229,97,0.06)",
-              minHeight: 0,
-            }}>
-              {/* Title bar */}
-              <div className="flex items-center gap-2 px-4 py-3 flex-shrink-0"
-                style={{ background: "#0d1f38", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-                <div className="flex gap-1.5">
-                  {["#ff5f57","#febc2e","#28c840"].map((c) => (
-                    <div key={c} className="w-3 h-3 rounded-full" style={{ background: c, opacity: 0.85 }} />
-                  ))}
-                </div>
-                <div className="flex-1 flex justify-center">
-                  <p style={{ fontFamily: '"General Sans",sans-serif', fontSize: "0.68rem", color: "rgba(255,255,255,0.24)", fontWeight: 500 }}>
-                    Q3 Financial Summary.pptx — PowerPoint
-                  </p>
-                </div>
-              </div>
-
-              {/* Ribbon */}
-              <div className="flex-shrink-0" style={{ background: "#0A1A2F", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-                <div className="flex items-center px-4 pt-2 gap-1">
-                  {["Home","Insert","Design","Transitions"].map((tab) => (
-                    <div key={tab} className="px-3 py-1 rounded-t" style={{ fontFamily: '"General Sans",sans-serif', fontSize: "0.6rem", color: "rgba(255,255,255,0.18)", fontWeight: 500 }}>{tab}</div>
-                  ))}
-                  <div className="px-3 py-1 rounded-t border-t border-l border-r" style={{ fontFamily: '"General Sans",sans-serif', fontSize: "0.6rem", color: "#94E561", fontWeight: 700, borderColor: "rgba(148,229,97,0.22)", background: "rgba(148,229,97,0.06)", letterSpacing: "0.04em" }}>
-                    tlbr.io
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 px-4 pb-3 pt-1 flex-wrap">
-                  {BUTTONS.map(({ id, label }) => {
-                    const isActive = activeBtn === id;
-                    return (
-                      <button key={id} onClick={() => handleBtnClick(id)}
-                        className="relative px-3 py-1.5 rounded text-[11px] cursor-pointer transition-all duration-200"
-                        style={{
-                          fontFamily: '"General Sans",sans-serif',
-                          fontWeight: isActive ? 600 : 400,
-                          background: isActive ? "rgba(148,229,97,0.14)" : "rgba(255,255,255,0.04)",
-                          color: isActive ? "#94E561" : "rgba(255,255,255,0.36)",
-                          border: `1px solid ${isActive ? "rgba(148,229,97,0.3)" : "rgba(255,255,255,0.07)"}`,
-                        }}>
-                        {label}
-                        {isActive && (
-                          <motion.span key={`prog-${id}`}
-                            initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
-                            transition={{ duration: STEP_MS / 1000, ease: "linear" }}
-                            className="absolute bottom-0 left-0 right-0 h-[2px] rounded-full"
-                            style={{ background: "#94E561", transformOrigin: "left" }} />
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Slide canvas */}
-              <div className="flex-1 flex items-center justify-center p-4 min-h-0" style={{ background: "#1a2d45" }}>
-                <div className="relative w-full" style={{ paddingBottom: "56.25%", maxHeight: "100%" }}>
-                  <AnimatePresence mode="wait">
-                    <motion.div key={slideKey}
-                      initial={{ opacity: 0, scale: 0.97 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 1.02 }}
-                      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                      className="absolute inset-0 rounded-md overflow-hidden shadow-2xl">
-                      <SlideContent />
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </div>
-
-              {/* Status bar */}
-              <div className="flex items-center justify-between px-4 py-2 flex-shrink-0"
-                style={{ background: "#0d1f38", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-                <p style={{ fontFamily: '"General Sans",sans-serif', fontSize: "0.58rem", color: "rgba(255,255,255,0.16)" }}>Slide 1 of 24</p>
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#94E561" }} />
-                  <p style={{ fontFamily: '"General Sans",sans-serif', fontSize: "0.58rem", color: "rgba(148,229,97,0.42)", fontWeight: 500 }}>
-                    {activeBtn ? `${BUTTONS.find((b) => b.id === activeBtn)?.label} applied` : "tlbr.io active"}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Step dots */}
-            <div className="flex items-center justify-center gap-2 pb-2">
-              <button type="button" aria-label="Show original slide"
-                onClick={() => { if (cycleRef.current) clearTimeout(cycleRef.current); setStepIdx(-1); setActiveBtn(null); setSlideKey("before"); scheduleNext(-1); }}
-                className="rounded-full transition-all duration-300 cursor-pointer"
-                style={{ width: stepIdx === -1 ? "20px" : "6px", height: "6px", background: stepIdx === -1 ? "#94E561" : "rgba(255,255,255,0.14)" }} />
-              {CYCLE.map((id, i) => (
-                <button type="button" key={id} aria-label={`Show ${BUTTONS[i].label} step`} onClick={() => handleBtnClick(id)}
-                  className="rounded-full transition-all duration-300 cursor-pointer"
-                  style={{ width: stepIdx === i ? "20px" : "6px", height: "6px", background: stepIdx === i ? "#94E561" : "rgba(255,255,255,0.14)" }} />
+          {/* Window bar + ribbon */}
+          <div className="flex items-center gap-x-4 px-3 sm:px-4 py-3 border-b border-white/[0.07]">
+            <div className="hidden xl:flex gap-1.5 mr-1" aria-hidden="true">
+              {["#ff5f57","#febc2e","#28c840"].map((c) => (
+                <span key={c} className="w-2.5 h-2.5 rounded-full" style={{ background: c, opacity: 0.8 }} />
               ))}
             </div>
+            <div className="flex gap-1.5 lg:gap-1 xl:gap-1.5 overflow-x-auto mobile-carousel" style={{ scrollbarWidth: "none" }} role="group" aria-label="Formatting steps">
+              {ribbon.map(({ id, label }) => {
+                const isActive = slideKey === id;
+                const unformatted = id === "before";
+                return (
+                  <button key={id} type="button"
+                    onClick={() => (unformatted ? showUnformatted() : handleBtnClick(id))}
+                    aria-pressed={isActive}
+                    className="relative flex-shrink-0 px-2.5 lg:px-2 xl:px-2.5 py-1.5 rounded-md text-[11px] lg:text-[10.5px] xl:text-[11px] whitespace-nowrap cursor-pointer transition-colors duration-200 overflow-hidden"
+                    style={{
+                      fontFamily: '"General Sans",sans-serif',
+                      fontWeight: isActive ? 600 : 500,
+                      background: isActive ? (unformatted ? "rgba(255,255,255,0.12)" : "rgba(148,229,97,0.16)") : "transparent",
+                      color: isActive ? (unformatted ? "#fff" : "#94E561") : "rgba(255,255,255,0.5)",
+                      border: `1px solid ${isActive ? (unformatted ? "rgba(255,255,255,0.2)" : "rgba(148,229,97,0.35)") : "rgba(255,255,255,0.08)"}`,
+                    }}>
+                    {label}
+                    {isActive && (
+                      <motion.span key={`prog-${id}-${stepIdx}`}
+                        initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
+                        transition={{ duration: STEP_MS / 1000, ease: "linear" }}
+                        className="absolute bottom-0 left-0 right-0 h-[2px]"
+                        style={{ background: unformatted ? "rgba(255,255,255,0.6)" : "#94E561", transformOrigin: "left" }} />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           </div>
+
+          {/* Slide */}
+          <div className="p-3 sm:p-4">
+            <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+              <AnimatePresence mode="wait">
+                <motion.div key={slideKey}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.01 }}
+                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute inset-0 rounded-lg overflow-hidden shadow-2xl">
+                  <SlideContent />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+        </motion.div>
         </motion.div>
       </div>
     </section>

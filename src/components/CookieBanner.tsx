@@ -45,31 +45,32 @@ export default function CookieBanner({ children }: { children: React.ReactNode }
         {mounted && showBanner && (
           <motion.div
             key="cookie-banner"
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100%" }}
+            initial={{ y: 24, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 24, opacity: 0 }}
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed bottom-0 left-0 right-0 z-[60] h-[10vh] bg-navy border-t border-white/8 flex items-center px-6 md:px-10 gap-6"
+            className="glass-dark fixed z-[60] bottom-4 left-4 right-4 md:left-auto md:right-6 md:bottom-6 md:max-w-md rounded-2xl p-5 flex flex-col gap-4"
+            style={{ background: "rgba(10,26,47,0.98)" }}
             role="dialog"
             aria-label="Cookie consent"
             aria-modal="false"
           >
             {/* Text */}
             <p
-              className="text-xs md:text-sm text-white/60 leading-snug flex-1 min-w-0"
+              className="text-sm text-white/75 leading-relaxed"
               style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400 }}
             >
               We use cookies to understand how you use our site and improve your experience.{" "}
               <a
                 href="/cookie-policy"
-                className="underline underline-offset-2 text-white/40 hover:text-white/70 transition-colors whitespace-nowrap"
+                className="underline underline-offset-2 text-white/70 hover:text-white transition-colors whitespace-nowrap"
               >
                 Learn more
               </a>
             </p>
 
             {/* Buttons */}
-            <div className="flex items-center gap-3 flex-shrink-0">
+            <div className="flex items-center justify-end gap-3">
               <button
                 onClick={() => resolve("rejected")}
                 className="px-4 py-2 rounded-full text-xs md:text-sm border border-white/20 text-white/60 hover:border-white/40 hover:text-white transition-all duration-200 cursor-pointer whitespace-nowrap"

@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Ambient from "@/components/Ambient";
 
 const steps = [
   {
@@ -58,13 +59,10 @@ export default function HowItWorks() {
       className="relative py-28 px-6 bg-navy dot-grid-dark overflow-hidden"
       aria-label="How it works"
     >
-      {/* Ambient glow */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div
-          className="absolute bottom-0 right-1/4 w-[600px] h-[600px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(148,229,97,0.05) 0%, transparent 65%)" }}
-        />
-      </div>
+      <Ambient blobs={[
+        { color: "rgba(148,229,97,0.16)", size: "50vw", bottom: "-30%", right: "5%" },
+        { color: "rgba(70,130,255,0.16)", size: "44vw", top: "-25%", left: "-10%", drift: "b" },
+      ]} />
 
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Header */}

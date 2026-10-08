@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import {
   motion, useInView, useMotionValue, useSpring, useAnimationFrame,
 } from "framer-motion";
+import Ambient from "@/components/Ambient";
 
 // All icons used across the site
 const icons = [
@@ -178,6 +179,10 @@ export default function Demo() {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
+      <Ambient blobs={[
+        { color: "rgba(148,229,97,0.22)", size: "50vw", top: "-10%", left: "25%" },
+        { color: "rgba(70,130,255,0.18)", size: "44vw", bottom: "-25%", right: "-5%", drift: "b" },
+      ]} />
       {/* Floating orbiting icons */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         {orbitItems.map(([cx, cy, iconIndex, radius, duration, startAngle, opacity], i) => (
@@ -247,7 +252,7 @@ export default function Demo() {
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4 }}
-              className="p-8 rounded-2xl bg-white/5 border border-white/10 text-center"
+              className="glass-dark p-8 rounded-2xl text-center"
             >
               <div className="w-12 h-12 rounded-full bg-green/15 border border-green/30 flex items-center justify-center mx-auto mb-4">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94e561" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -263,7 +268,7 @@ export default function Demo() {
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} noValidate>
-              <div className={`flex flex-row items-center gap-2 p-2 rounded-full transition-all duration-300 ${focused ? "ring-2 ring-green/40 bg-white/8" : "bg-white/5"} border border-white/10`}>
+              <div className={`flex flex-row items-center gap-2 p-2 rounded-full transition-all duration-300 glass-dark ${focused ? "ring-2 ring-green/50" : ""}`}>
                 <input
                   type="email"
                   value={email}

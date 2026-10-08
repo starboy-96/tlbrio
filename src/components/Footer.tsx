@@ -129,7 +129,7 @@ export default function Footer({ showDemo = true }: { showDemo?: boolean }) {
         </div>
 
         {/* Newsletter */}
-        <div className="mb-10 pt-10 border-t border-white/8 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-12">
+        <div className="glass-dark mb-10 rounded-2xl p-6 md:p-8 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-12">
           {/* Left: label + heading */}
           <div className="flex-shrink-0">
             <p
