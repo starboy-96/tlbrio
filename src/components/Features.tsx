@@ -208,7 +208,7 @@ function FormattingVignette() {
 
 function UpdatesVignette() {
   const log = [
-    { t: "Brand refresh applied", d: "Colours and fonts updated firm-wide", tag: "v3.0" },
+    { t: "Brand refresh applied", d: "Colours and fonts updated for every user", tag: "v3.0" },
     { t: "New logo lockup added", d: "Available in the asset library", tag: "v3.1" },
     { t: "FY25 report template", d: "Live for all users", tag: "v3.2" },
   ];

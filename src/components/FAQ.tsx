@@ -6,11 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 const faqs = [
   {
     q: "How does pricing work?",
-    a: "tlbr.io is a one-off setup fee to configure the toolbar to your brand, plus an annual firm-wide licence. Because every deployment is bespoke, pricing is tailored to your firm — get in touch and we will put together a proposal within one business day.",
+    a: "tlbr.io is a one-off setup fee to configure the toolbar to your brand, plus an annual licence for each user. Because every deployment is bespoke, pricing is tailored to your firm — get in touch and we will put together a proposal within one business day.",
   },
   {
     q: "Can we try it before committing?",
-    a: "Yes. We offer a 90-day departmental pilot so you can prove the value within one team before rolling out firm-wide. Get in touch to discuss how that works for your firm.",
+    a: "Yes. We offer a 90-day departmental pilot so you can prove the value within one team before rolling out more widely. Get in touch to discuss how that works for your firm.",
   },
   {
     q: "How long does setup take?",

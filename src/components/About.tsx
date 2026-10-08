@@ -47,7 +47,7 @@ export default function About() {
           </div>
           <div className="space-y-5">
             {[
-              "Most professional services firms have the same problem: too many people making slides, not enough time to do it properly, and no design team big enough to fix everything before it goes out the door.",
+              "Most firms of a few hundred people have the same problem: too many people making slides, not enough time to do it properly, and no design team big enough to fix everything before it goes out the door.",
               "tlbr.io fixes that at the source. Every button, template and asset in the toolbar is configured specifically to your organisation's brand — not a generic starting point, but your exact colours, fonts and design standards, built in from day one.",
             ].map((para, i) => (
               <motion.p

@@ -24,7 +24,7 @@ const teams = [
     ),
   },
   {
-    name: "Partners & fee earners",
+    name: "Partners & client teams",
     description: "Client materials that look the part",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
@@ -80,8 +80,8 @@ export default function WhoItsFor() {
               className="text-[2.4rem] sm:text-5xl md:text-6xl leading-[1.05]"
               style={{ fontFamily: '"Cal Sans", sans-serif', fontWeight: 700 }}
             >
-              Accountancy, law<br />
-              <span className="gradient-text">and professional services</span>
+              Firms of 100 to 1,500 people,{" "}
+              <span className="gradient-text">where every deck counts</span>
             </motion.h2>
           </div>
           <motion.p
@@ -91,8 +91,8 @@ export default function WhoItsFor() {
             className="text-base text-navy/55 max-w-sm lg:text-right leading-relaxed"
             style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400 }}
           >
-            Firms between 100 and 1,500 people where brand consistency matters and
-            the marketing team can&apos;t be in every deck.
+            Big enough that hundreds of people make slides. Small enough that the
+            brand team can&apos;t check every one before it goes out.
           </motion.p>
         </div>
 
@@ -151,7 +151,7 @@ export default function WhoItsFor() {
               className="text-[10px] text-navy/30 uppercase tracking-[0.2em] mb-4"
               style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 500 }}
             >
-              Industries
+              Common in
             </p>
             <div className="flex flex-wrap gap-2">
               {industries.map((industry, i) => (

@@ -13,18 +13,19 @@ export const metadata: Metadata = {
     apple: { url: "/favicon.svg", type: "image/svg+xml" },
   },
   title: {
-    default: "tlbr.io – The PowerPoint Toolbar for Accountancy and Law Firms",
+    default: "tlbr.io – The Bespoke PowerPoint Toolbar for Growing Firms",
     template: "%s | tlbr.io",
   },
   description:
-    "A bespoke PowerPoint toolbar for accountancy, law and professional services firms. Your templates, brand colours and approved assets, one click away inside the ribbon.",
+    "A bespoke PowerPoint toolbar for firms of 100 to 1,500 people. Your templates, brand colours and approved assets built into the ribbon, so every deck goes out on brand.",
   keywords: [
     "PowerPoint toolbar",
     "PowerPoint add-in",
+    "branded PowerPoint templates",
+    "brand consistency",
+    "company PowerPoint toolbar",
     "accountancy firm presentation",
     "law firm PowerPoint",
-    "brand consistency",
-    "professional services presentation",
     "on-brand presentations",
     "PowerPoint branding",
   ],
@@ -35,23 +36,23 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: "https://tlbr.io",
     siteName: "tlbr.io",
-    title: "tlbr.io – The PowerPoint Toolbar for Accountancy and Law Firms",
+    title: "tlbr.io – The Bespoke PowerPoint Toolbar for Growing Firms",
     description:
-      "A bespoke PowerPoint toolbar for accountancy, law and professional services firms. Your templates, brand colours and approved assets, one click away.",
+      "A bespoke PowerPoint toolbar for firms of 100 to 1,500 people. Every pitch, proposal and report, on brand in one click.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "tlbr.io – The PowerPoint Toolbar for Accountancy and Law Firms",
+        alt: "tlbr.io – The Bespoke PowerPoint Toolbar for Growing Firms",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "tlbr.io – The PowerPoint Toolbar for Accountancy and Law Firms",
+    title: "tlbr.io – The Bespoke PowerPoint Toolbar for Growing Firms",
     description:
-      "A bespoke PowerPoint toolbar for accountancy, law and professional services firms. Your templates, brand colours and approved assets, one click away.",
+      "A bespoke PowerPoint toolbar for firms of 100 to 1,500 people. Every pitch, proposal and report, on brand in one click.",
     images: ["/og-image.png"],
   },
   robots: {

@@ -15,9 +15,9 @@ const facts = [
     body: "A ribbon tab. Your team opens PowerPoint and it's already there.",
   },
   {
-    label: "Firm-wide",
-    title: "No seat counting",
-    body: "One licence. Everyone in the firm gets it, from partners to juniors.",
+    label: "Low risk",
+    title: "Pilot it first",
+    body: "Start with a 90-day pilot in one team, then roll out to the people who need it.",
   },
   {
     label: "Maintained",

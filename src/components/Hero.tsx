@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, type ReactElement } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 const BUTTONS = [
   { id: "colours", label: "Brand Colours" },
@@ -373,6 +373,35 @@ const SLIDES: Record<BtnId | "before", () => ReactElement> = {
 };
 
 // ── HERO ──────────────────────────────────────────────────────────────────────
+const ROTATING_WORDS = ["pitch", "proposal", "tender", "report", "board pack"];
+
+function RotatingWord() {
+  const [i, setI] = useState(0);
+  const reduce = useReducedMotion();
+  useEffect(() => {
+    if (reduce) return;
+    const t = setInterval(() => setI((n) => (n + 1) % ROTATING_WORDS.length), 2400);
+    return () => clearInterval(t);
+  }, [reduce]);
+  return (
+    <span className="relative inline-block overflow-hidden align-top" style={{ height: "1.22em", marginBottom: "-0.1em" }}>
+      <span className="invisible whitespace-nowrap">{ROTATING_WORDS[i]},</span>
+      <AnimatePresence initial={false}>
+        <motion.span
+          key={ROTATING_WORDS[i]}
+          initial={{ y: "110%", opacity: 0 }}
+          animate={{ y: "0%", opacity: 1 }}
+          exit={{ y: "-110%", opacity: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute left-0 top-0 whitespace-nowrap"
+        >
+          <span className="gradient-text">{ROTATING_WORDS[i]}</span>,
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
+
 export default function Hero() {
   const [activeBtn, setActiveBtn] = useState<BtnId | null>(null);
   const [slideKey,  setSlideKey]  = useState<BtnId | "before">("before");
@@ -409,7 +438,7 @@ export default function Hero() {
   const SlideContent = SLIDES[slideKey];
 
   return (
-    <section id="hero" data-nav="dark" className="relative min-h-screen flex flex-col overflow-hidden"
+    <section id="hero" data-nav="dark" className="on-dark relative min-h-screen flex flex-col overflow-hidden"
       style={{ background: "#0A1A2F" }}>
 
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -427,30 +456,43 @@ export default function Hero() {
             style={{ background: "rgba(148,229,97,0.07)" }}>
             <span className="w-2 h-2 rounded-full bg-green animate-glow" aria-hidden="true" />
             <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "clamp(0.56rem,1.7vw,0.7rem)", letterSpacing: "0.1em", fontFamily: '"General Sans",sans-serif', fontWeight: 500 }}>
-              The bespoke PowerPoint toolbar for accountancy and law firms
+              The PowerPoint toolbar for firms of 100–1,500 people
             </span>
           </motion.div>
 
-          <h1 className="leading-[1.15] mb-7" style={{ fontFamily: '"Cal Sans",sans-serif', fontWeight: 700, fontSize: "clamp(2.4rem,4.5vw,5rem)", color: "#fff" }}>
-            {["Stop formatting.", "Start presenting."].map((line, li) => (
-              <span key={li} className="block">
-                {line.split(" ").map((word, wi) => (
-                  <motion.span key={wi}
-                    initial={{ opacity: 0, y: 48 }} animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: 0.2 + li * 0.15 + wi * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                    className={`inline-block${wi < line.split(" ").length - 1 ? " mr-[0.22em]" : ""}`}>
-                    {word}
-                  </motion.span>
-                ))}
-              </span>
-            ))}
+          <h1 className="leading-[1.08] mb-7" style={{ fontFamily: '"Cal Sans",sans-serif', fontWeight: 700, fontSize: "clamp(2.4rem,4.4vw,4.6rem)", color: "#fff", letterSpacing: "-0.01em" }}>
+            <span className="sr-only">Every pitch, proposal, tender and report, perfectly on brand.</span>
+            <span aria-hidden="true" className="block">
+              <motion.span
+                initial={{ opacity: 0, y: 48 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="inline-block">
+                Every
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0, y: 48 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className="block">
+                <RotatingWord />
+              </motion.span>
+            </span>
+            <span aria-hidden="true" className="block">
+              {["perfectly", "on", "brand."].map((word, wi, arr) => (
+                <motion.span key={word}
+                  initial={{ opacity: 0, y: 48 }} animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.45 + wi * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  className={`inline-block${wi < arr.length - 1 ? " mr-[0.22em]" : ""}`}>
+                  {word}
+                </motion.span>
+              ))}
+            </span>
           </h1>
 
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="text-lg md:text-xl max-w-lg mb-10 leading-relaxed"
-            style={{ color: "rgba(255,255,255,0.5)", fontFamily: '"General Sans",sans-serif' }}>
-            tlbr.io puts your firm&apos;s templates, brand colours and approved assets inside the PowerPoint ribbon — so every pitch, proposal and client report goes out on-brand.
+            style={{ color: "rgba(255,255,255,0.68)", fontFamily: '"General Sans",sans-serif' }}>
+            Your templates, colours and approved assets, built into the PowerPoint ribbon your team already uses. Whoever makes the deck, it looks like your design team made it.
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
@@ -469,6 +511,18 @@ export default function Hero() {
               <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
             </a>
           </motion.div>
+
+          <motion.ul initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.1 }}
+            className="mt-10 pt-6 border-t border-white/[0.08] flex flex-wrap gap-x-6 gap-y-2 max-w-lg"
+            style={{ fontFamily: '"General Sans",sans-serif' }}>
+            {["Live in around 4 weeks", "Built and maintained for you", "Slides never leave your machines"].map((item) => (
+              <li key={item} className="flex items-center gap-2 text-[13px]" style={{ color: "rgba(255,255,255,0.6)" }}>
+                <span className="w-1 h-1 rounded-full bg-green" aria-hidden="true" />
+                {item}
+              </li>
+            ))}
+          </motion.ul>
         </div>
 
         {/* ── RIGHT: mock-up ──────────────────────────────────────────── */}

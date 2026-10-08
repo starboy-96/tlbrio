@@ -13,9 +13,9 @@ import Demo from "@/components/Demo";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "tlbr.io – The PowerPoint Toolbar for Accountancy and Law Firms",
+  title: "tlbr.io – The Bespoke PowerPoint Toolbar for Growing Firms",
   description:
-    "A bespoke PowerPoint toolbar for accountancy, law and professional services firms. Your templates, brand colours and approved assets, one click away inside the ribbon.",
+    "A bespoke PowerPoint toolbar for firms of 100 to 1,500 people. Your templates, brand colours and approved assets built into the ribbon, so every deck goes out on brand.",
   alternates: {
     canonical: "https://tlbr.io",
   },
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "tlbr.io – The PowerPoint Toolbar for Accountancy and Law Firms",
+        alt: "tlbr.io – The Bespoke PowerPoint Toolbar for Growing Firms",
       },
     ],
   },
@@ -39,7 +39,7 @@ const jsonLd = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Windows",
   description:
-    "A bespoke PowerPoint toolbar for accountancy, law and professional services firms. Templates, brand colours and approved assets built into the PowerPoint ribbon.",
+    "A bespoke PowerPoint toolbar for firms of 100 to 1,500 people. Templates, brand colours and approved assets built into the PowerPoint ribbon.",
   url: "https://tlbr.io",
   featureList: [
     "Align & distribute objects in one click",

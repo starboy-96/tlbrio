@@ -9,8 +9,8 @@ const GREEN = "#94e561";
 const ease = [0.22, 1, 0.36, 1] as const;
 
 const included = [
-  { item: "Firm-wide licence", note: "Everyone, partners to juniors" },
-  { item: "No seat counting", note: "Add people without re-quoting" },
+  { item: "Per-user licences", note: "Pay for the people who use it" },
+  { item: "Scales as you roll out", note: "Add users team by team" },
   { item: "Bespoke to your brand", note: "Templates, colours, fonts, assets" },
   { item: "Custom setup", note: "Configured during onboarding" },
   { item: "Dedicated account manager", note: "One named contact" },
