@@ -171,6 +171,7 @@ export default function Demo() {
   return (
     <section
       id="demo"
+      data-nav="dark"
       ref={sectionRef}
       className="relative py-28 px-6 bg-navy dot-grid-dark overflow-hidden"
       aria-label="Book a demo"
@@ -218,7 +219,7 @@ export default function Demo() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="text-5xl md:text-6xl text-white mb-4"
+            className="text-[2.4rem] sm:text-5xl md:text-6xl text-white mb-4"
             style={{ fontFamily: '"Cal Sans", sans-serif', fontWeight: 700, color: "white" }}
           >
             See tlbr.io in your firm&apos;s brand
@@ -288,16 +289,6 @@ export default function Demo() {
           )}
         </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.45 }}
-          className="mt-5 text-xs"
-          style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400, color: "rgba(255,255,255,0.3)" }}
-        >
-          30 minutes. No hard sell – just the product.
-        </motion.p>
-
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -305,13 +296,16 @@ export default function Demo() {
           className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6"
         >
           {[
-            { icon: "🔒", text: "No spam, ever" },
-            { icon: "⚡", text: "Response within 1 business day" },
-            { icon: "🎯", text: "Tailored to your organisation" },
+            { text: "No spam, ever" },
+            { text: "Response within 1 business day" },
+            { text: "Tailored to your organisation" },
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-2">
-              <span className="text-sm">{item.icon}</span>
-              <span className="text-xs" style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400, color: "rgba(255,255,255,0.35)" }}>
+              <span
+                className="w-1 h-1 rounded-full flex-shrink-0"
+                style={{ background: "rgba(148,229,97,0.5)" }}
+              />
+              <span className="text-xs" style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400, color: "rgba(255,255,255,0.6)" }}>
                 {item.text}
               </span>
             </div>

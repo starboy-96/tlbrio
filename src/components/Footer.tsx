@@ -59,7 +59,7 @@ export default function Footer({ showDemo = true }: { showDemo?: boolean }) {
   };
 
   return (
-    <footer className="bg-navy px-6 py-16" aria-label="Site footer">
+    <footer data-nav="dark" className="relative bg-navy px-6 pt-16 overflow-hidden" aria-label="Site footer">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
@@ -78,7 +78,7 @@ export default function Footer({ showDemo = true }: { showDemo?: boolean }) {
               style={{
                 fontFamily: '"General Sans", sans-serif',
                 fontWeight: 400,
-                color: "rgba(255,255,255,0.4)",
+                color: "rgba(255,255,255,0.6)",
               }}
             >
               A bespoke PowerPoint toolbar for firms who can&apos;t afford to look off-brand.
@@ -100,7 +100,7 @@ export default function Footer({ showDemo = true }: { showDemo?: boolean }) {
             <div key={group.label}>
               <p
                 className="section-label mb-4"
-                style={{ color: "rgba(255,255,255,0.3)" }}
+                style={{ color: "rgba(255,255,255,0.5)" }}
               >
                 {group.label}
               </p>
@@ -113,7 +113,7 @@ export default function Footer({ showDemo = true }: { showDemo?: boolean }) {
                       style={{
                         fontFamily: '"General Sans", sans-serif',
                         fontWeight: 400,
-                        color: "rgba(255,255,255,0.45)",
+                        color: "rgba(255,255,255,0.68)",
                         background: "none",
                         border: "none",
                         padding: 0,
@@ -198,7 +198,7 @@ export default function Footer({ showDemo = true }: { showDemo?: boolean }) {
             style={{
               fontFamily: '"General Sans", sans-serif',
               fontWeight: 400,
-              color: "rgba(255,255,255,0.25)",
+              color: "rgba(255,255,255,0.5)",
             }}
           >
             © {year} tlbr.io. All rights reserved.
@@ -212,7 +212,7 @@ export default function Footer({ showDemo = true }: { showDemo?: boolean }) {
                 style={{
                   fontFamily: '"General Sans", sans-serif',
                   fontWeight: 400,
-                  color: "rgba(255,255,255,0.25)",
+                  color: "rgba(255,255,255,0.5)",
                 }}
               >
                 {label}
@@ -220,6 +220,22 @@ export default function Footer({ showDemo = true }: { showDemo?: boolean }) {
             ))}
           </div>
         </div>
+      </div>
+
+      <div
+        aria-hidden="true"
+        className="select-none pointer-events-none text-center whitespace-nowrap mt-10"
+        style={{
+          fontFamily: '"Cal Sans", sans-serif',
+          fontSize: "clamp(6rem, 24vw, 22rem)",
+          lineHeight: 0.78,
+          marginBottom: "-0.12em",
+          letterSpacing: "-0.04em",
+          color: "transparent",
+          WebkitTextStroke: "1px rgba(148,229,97,0.22)",
+        }}
+      >
+        tlbr.io
       </div>
     </footer>
   );

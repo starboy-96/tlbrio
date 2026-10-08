@@ -47,31 +47,53 @@
   --animate-fade-up: fade-up 0.6s ease forwards;
 }
 
-/* ── Base ── */
-html {
-  scroll-behavior: smooth;
-  background-color: #fafafa;
+/* ── Base (layered so Tailwind utilities like text-white win) ── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: #fafafa;
+  }
+
+  body {
+    background-color: #fafafa;
+    color: #0a1a2f;
+    font-family: "General Sans", sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: "Cal Sans", sans-serif;
+    font-weight: 700;
+    color: #0a1a2f;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid #94e561;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: #c9f5a6;
+    color: #0a1a2f;
+  }
 }
 
-body {
-  background-color: #fafafa;
-  color: #0a1a2f;
-  font-family: "General Sans", sans-serif;
-  font-weight: 300;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-}
-
-h1, h2, h3, h4 {
-  font-family: "Cal Sans", sans-serif;
-  font-weight: 700;
-  color: #0a1a2f;
-  text-wrap: balance;
-}
-
-p {
-  text-wrap: pretty;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Ensure Cal Sans always renders bold */
@@ -112,6 +134,14 @@ p {
 
 /* ── Gradient text ── */
 .gradient-text {
+  background: linear-gradient(120deg, #3f8a1e 0%, #56a82a 55%, #74c843 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-navy .gradient-text,
+.on-dark .gradient-text {
   background: linear-gradient(135deg, #94e561 0%, #6be033 50%, #c9f5a6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -125,6 +155,12 @@ p {
   font-size: 0.7rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  color: #3d7a1c;
+}
+
+/* Brand green only has enough contrast on navy */
+.bg-navy .section-label,
+.on-dark .section-label {
   color: #94e561;
 }
 

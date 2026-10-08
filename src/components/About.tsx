@@ -3,135 +3,141 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
-export default function About() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(headingRef, { once: true, margin: "-80px" });
-  const quoteRef = useRef<HTMLDivElement>(null);
-  const quoteInView = useInView(quoteRef, { once: true, margin: "-60px" });
+const ease = [0.22, 1, 0.36, 1] as const;
 
-  const bodyParagraphs = [
-    "Most professional services firms have the same problem: too many people making slides, not enough time to do it properly, and no design team big enough to fix everything before it goes out the door.",
-    "tlbr.io fixes that at the source. Every button, template, and asset in the toolbar is configured specifically to your organisation's brand – not a generic starting point, but your exact colours, fonts, and design standards, built in from day one.",
-    "And we're not stopping at PowerPoint. Word and Excel toolbars are in development – so your team will have the same consistency and speed across every Microsoft Office document they create.",
-  ];
+const roadmap = [
+  { app: "PowerPoint", status: "Available now", live: true },
+  { app: "Word", status: "In development", live: false },
+  { app: "Excel", status: "In development", live: false },
+];
+
+const promise = ["Fewer clicks.", "Higher quality.", "More time for the work that actually matters."];
+
+export default function About() {
+  const promiseRef = useRef<HTMLQuoteElement>(null);
+  const promiseInView = useInView(promiseRef, { once: true, margin: "-60px" });
 
   return (
-    <section
-      id="about"
-      ref={sectionRef}
-      className="py-28 px-6 bg-green-xlight overflow-hidden"
-      aria-label="About tlbr.io"
-    >
+    <section id="about" className="py-24 md:py-32 px-6 md:px-12 bg-green-xlight overflow-hidden" aria-label="About tlbr.io">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left: Text */}
+
+        {/* Intro */}
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-10 lg:gap-16 items-end">
           <div>
-            <div ref={headingRef}>
-              <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.4 }}
-                className="section-label mb-3"
-              >
-                About
-              </motion.p>
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-                className="text-5xl md:text-6xl mb-8 leading-[1.05]"
-                style={{ fontFamily: '"Cal Sans", sans-serif' }}
-              >
-                Built for firms who{" "}
-                <span className="gradient-text">{"can't afford to"}</span>{" "}
-                look off-brand
-              </motion.h2>
-            </div>
-
-            <div className="space-y-5">
-              {bodyParagraphs.map((para, i) => (
-                <motion.p
-                  key={i}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{
-                    duration: 0.55,
-                    delay: i * 0.1,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="text-base text-navy/65 leading-relaxed"
-                  style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400 }}
-                >
-                  {para}
-                </motion.p>
-              ))}
-            </div>
-
-            {/* Tags */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: 0.35 }}
-              className="flex flex-wrap gap-2 mt-8"
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.4 }}
+              className="section-label mb-4"
             >
-              {[
-                "PowerPoint",
-                "Word (coming soon)",
-                "Excel (coming soon)",
-                "Microsoft 365",
-              ].map((tag) => (
-                <span
-                  key={tag}
-                  className="px-3 py-1.5 rounded-full text-xs bg-white border border-navy/8 text-navy/75"
-                  style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400 }}
+              About
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: 0.08, ease }}
+              className="text-[2.4rem] sm:text-5xl md:text-6xl leading-[1.05]"
+            >
+              Built for firms who{" "}
+              <span className="gradient-text">{"can't afford to"}</span>{" "}
+              look off-brand
+            </motion.h2>
+          </div>
+          <div className="space-y-5">
+            {[
+              "Most professional services firms have the same problem: too many people making slides, not enough time to do it properly, and no design team big enough to fix everything before it goes out the door.",
+              "tlbr.io fixes that at the source. Every button, template and asset in the toolbar is configured specifically to your organisation's brand — not a generic starting point, but your exact colours, fonts and design standards, built in from day one.",
+            ].map((para, i) => (
+              <motion.p
+                key={i}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.55, delay: 0.1 + i * 0.1, ease }}
+                className="text-base text-navy/70 leading-relaxed"
+                style={{ fontWeight: 400 }}
+              >
+                {para}
+              </motion.p>
+            ))}
+          </div>
+        </div>
+
+        {/* The promise */}
+        <figure className="mt-20 md:mt-28 pt-10 border-t border-navy/10">
+          <blockquote
+            ref={promiseRef}
+            className="text-navy"
+            style={{ fontFamily: '"Cal Sans", sans-serif', fontSize: "clamp(2.2rem, 5.4vw, 4.75rem)", lineHeight: 1.04, letterSpacing: "-0.015em" }}
+          >
+            {promise.map((line, i) => (
+              <span key={line} className="block overflow-hidden pb-[0.06em]">
+                <motion.span
+                  className="block"
+                  initial={{ y: "105%" }}
+                  animate={promiseInView ? { y: "0%" } : {}}
+                  transition={{ duration: 0.85, delay: i * 0.12, ease }}
                 >
-                  {tag}
-                </span>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Right: Pull quote + decorative */}
-          <div ref={quoteRef} className="flex flex-col gap-8">
-            {/* Pull quote */}
-            <motion.blockquote
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={quoteInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="relative p-8 rounded-2xl bg-navy"
-            >
-              {/* Quote mark */}
-              <span
-                className="absolute -top-4 left-8 text-6xl text-green leading-none select-none"
-                style={{ fontFamily: '"Cal Sans", sans-serif' }}
-                aria-hidden="true"
-              >
-                "
+                  {i === promise.length - 1 ? (
+                    <span className="gradient-text inline-block max-w-[16ch]">{line}</span>
+                  ) : line}
+                </motion.span>
               </span>
-              <p
-                className="text-xl md:text-2xl text-white leading-snug mt-2"
-                style={{ fontFamily: '"Cal Sans", sans-serif', fontWeight: 700, color: "white" }}
-              >
-                Fewer clicks. Higher quality. More time for the work that
-                actually matters.
-              </p>
-              <div className="mt-6 h-px bg-white/10" />
-              <p
-                className="mt-4 text-sm"
-                style={{
-                  fontFamily: '"General Sans", sans-serif',
-                  fontWeight: 400,
-                  color: "rgba(255,255,255,0.4)",
-                }}
-              >
-                The tlbr.io promise
-              </p>
-            </motion.blockquote>
+            ))}
+          </blockquote>
+          <figcaption className="mt-6 text-sm text-navy/55" style={{ fontWeight: 500 }}>
+            — The tlbr.io promise
+          </figcaption>
+        </figure>
 
+        {/* Roadmap */}
+        <div className="mt-20 md:mt-24">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-8">
+            <p className="text-[11px] uppercase tracking-[0.18em] text-navy/55" style={{ fontWeight: 500 }}>Across Microsoft 365</p>
+            <p className="text-sm text-navy/60 max-w-md md:text-right" style={{ fontWeight: 400 }}>
+              We&apos;re not stopping at PowerPoint. The same consistency and speed is coming to every Office document your team creates.
+            </p>
           </div>
+
+          <ol className="relative grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0">
+            <span className="hidden md:block absolute left-[7px] right-0 top-[7px] h-px bg-navy/15" aria-hidden="true" />
+            <motion.span
+              className="hidden md:block absolute left-[7px] top-[7px] h-px bg-navy origin-left"
+              style={{ width: "33.33%" }}
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 1, delay: 0.2, ease }}
+              aria-hidden="true"
+            />
+            {roadmap.map((r, i) => (
+              <motion.li
+                key={r.app}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: 0.15 + i * 0.12, ease }}
+                className="relative flex md:flex-col items-start gap-4 md:gap-5 md:pr-8"
+              >
+                <span
+                  className={`relative z-10 w-[15px] h-[15px] rounded-full flex-shrink-0 mt-1.5 md:mt-0 ${
+                    r.live ? "bg-green ring-4 ring-green/25" : "bg-green-xlight border-2 border-navy/30"
+                  }`}
+                  aria-hidden="true"
+                />
+                <span>
+                  <span className={`block text-3xl md:text-4xl leading-none ${r.live ? "text-navy" : "text-navy/40"}`} style={{ fontFamily: '"Cal Sans", sans-serif' }}>
+                    {r.app}
+                  </span>
+                  <span className={`block mt-2 text-xs uppercase tracking-[0.14em] ${r.live ? "text-[#3d7a1c]" : "text-navy/50"}`} style={{ fontWeight: 600 }}>
+                    {r.status}
+                  </span>
+                </span>
+              </motion.li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>

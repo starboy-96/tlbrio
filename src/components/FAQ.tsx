@@ -114,7 +114,7 @@ export default function FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="text-5xl md:text-6xl leading-[1.05] mb-5"
+              className="text-[2.4rem] sm:text-5xl md:text-6xl leading-[1.05] mb-5"
               style={{ fontFamily: '"Cal Sans", sans-serif', fontWeight: 700 }}
             >
               Questions,{" "}
