@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   title: "Cookie Policy",
   description: "How tlbr.io uses cookies to understand site usage and improve your experience.",
 };

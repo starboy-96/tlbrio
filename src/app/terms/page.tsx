@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   title: "Terms of Service",
   description: "The terms and conditions that govern your use of tlbr.io and its products.",
 };

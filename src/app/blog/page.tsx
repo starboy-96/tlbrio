@@ -3,11 +3,15 @@ import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Ambient from "@/components/Ambient";
+import DarkBackdrop from "@/components/blog/DarkBackdrop";
+import PostCard, { PostMetaLine } from "@/components/blog/PostCard";
 
 export const metadata: Metadata = {
   title: "Blog – Presentation design, brand consistency & PowerPoint tips",
   description:
     "Insights on presentation design, brand consistency, and making the most of PowerPoint for your team – from the tlbr.io team.",
+  alternates: { canonical: "https://tlbr.io/blog" },
   openGraph: {
     title: "Blog | tlbr.io",
     description:
@@ -16,128 +20,102 @@ export const metadata: Metadata = {
   },
 };
 
-function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
-
 export default function BlogPage() {
   const posts = getAllPosts();
+  const [featured, ...rest] = posts;
 
   return (
     <>
       <Navbar />
-      <main className="flex flex-col flex-1 pt-24 pb-20 px-6 min-h-screen">
-        <div className="max-w-5xl mx-auto w-full">
-          {/* Header */}
-          <div className="mb-16">
-            <p className="section-label mb-3">Blog</p>
-            <h1
-              className="text-4xl md:text-5xl mb-4"
-              style={{ fontFamily: '"Cal Sans", sans-serif' }}
-            >
-              Insights & ideas
-            </h1>
-            <p
-              className="text-lg text-navy/55 max-w-xl"
-              style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 300 }}
-            >
-              Presentation design, brand consistency, and getting more from
-              PowerPoint – straight from the tlbr.io team.
-            </p>
-          </div>
-
-          {/* Posts */}
-          {posts.length === 0 ? (
-            <div className="py-20 text-center">
-              <p
-                className="text-navy/40 text-lg"
-                style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 300 }}
+      <main id="main" className="flex flex-col flex-1">
+        {/* Header */}
+        <section data-nav="dark" className="on-dark relative overflow-hidden bg-navy px-6 md:px-12 pt-36 md:pt-40 pb-32 md:pb-40">
+          <DarkBackdrop />
+          <div className="relative max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-8 lg:gap-16 items-end">
+            <div>
+              <p className="section-label mb-5 opacity-0 animate-fade-up">The tlbr.io blog</p>
+              <h1
+                className="text-white leading-[1.04] opacity-0 animate-fade-up"
+                style={{ fontSize: "clamp(2.6rem, 5.6vw, 5rem)", letterSpacing: "-0.02em", animationDelay: "80ms" }}
               >
-                Posts are on the way. Check back soon.
-              </p>
+                Ideas for decks that{" "}
+                <span className="gradient-text">stay on brand.</span>
+              </h1>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {posts.map((post) => (
+            <div className="opacity-0 animate-fade-up" style={{ animationDelay: "160ms" }}>
+              <p className="text-lg leading-relaxed mb-5" style={{ color: "rgba(255,255,255,0.72)", fontWeight: 400 }}>
+                Presentation design, brand consistency and getting more from PowerPoint, straight from the tlbr.io team.
+              </p>
+              <p className="text-sm text-white/55">{posts.length} articles</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Posts */}
+        <section className="relative bg-[#fafafa] px-6 md:px-12 pb-24 md:pb-32">
+          <Ambient blobs={[
+            { color: "rgba(148,229,97,0.4)", size: "46vw", top: "30%", right: "-14%" },
+            { color: "rgba(90,150,255,0.24)", size: "40vw", top: "60%", left: "-14%", drift: "b" },
+          ]} />
+
+          <div className="relative max-w-6xl mx-auto">
+            {!featured ? (
+              <p className="glass rounded-2xl -mt-16 p-12 text-center text-navy/60">Posts are on the way. Check back soon.</p>
+            ) : (
+              <>
+                {/* Featured */}
                 <Link
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  className="group flex flex-col rounded-2xl overflow-hidden border border-navy/8 bg-[#fafafa] hover:border-navy/20 transition-all duration-200 hover:shadow-md"
-                  aria-label={`Read: ${post.title}`}
+                  href={`/blog/${featured.slug}`}
+                  className="glass group relative -mt-20 md:-mt-24 grid grid-cols-1 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] gap-0 rounded-3xl overflow-hidden opacity-0 animate-fade-up"
+                  style={{ animationDelay: "240ms", background: "rgba(255,255,255,0.9)" }}
                 >
-                  {/* Thumbnail */}
-                  <div className="w-full aspect-[16/9] bg-navy/5 overflow-hidden flex-shrink-0">
-                    {post.image ? (
+                  <div className="relative aspect-[16/10] lg:aspect-auto lg:min-h-[420px] overflow-hidden bg-navy/5">
+                    {featured.image && (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={post.image}
-                        alt=""
-                        aria-hidden="true"
-                        className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-navy/8 to-green/10" />
+                      <img src={featured.image} alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]" />
                     )}
                   </div>
-
-                  {/* Content */}
-                  <div className="flex flex-col flex-1 p-6">
-                    <div className="flex flex-wrap items-center gap-2 mb-3">
-                      {post.tags.slice(0, 2).map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2 py-0.5 rounded text-[10px] bg-green-xlight text-navy/50 border border-navy/6"
-                          style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 400 }}
-                        >
-                          {tag}
-                        </span>
+                  <div className="flex flex-col p-7 md:p-10 lg:p-12">
+                    <div className="flex flex-wrap items-center gap-2 mb-6">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-navy text-green text-[11px]" style={{ fontWeight: 600 }}>
+                        <span className="w-1.5 h-1.5 rounded-full bg-green" aria-hidden="true" />
+                        Latest
+                      </span>
+                      {featured.tags.slice(0, 2).map((tag) => (
+                        <span key={tag} className="px-2.5 py-1 rounded-full text-[11px] text-navy/65 border border-navy/10" style={{ fontWeight: 500 }}>{tag}</span>
                       ))}
                     </div>
-
-                    <h2
-                      className="text-lg text-navy leading-snug mb-2 group-hover:text-navy"
-                      style={{ fontFamily: '"Cal Sans", sans-serif' }}
-                    >
-                      {post.title}
-                    </h2>
-
-                    <p
-                      className="text-sm text-navy/50 line-clamp-2 mb-4 flex-1"
-                      style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 300 }}
-                    >
-                      {post.description}
-                    </p>
-
-                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-navy/6">
-                      <div className="flex items-center gap-3">
-                        <span
-                          className="text-xs text-navy/40"
-                          style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 300 }}
-                        >
-                          {formatDate(post.date)}
+                    <h2 className="text-3xl md:text-4xl leading-[1.1] mb-4 text-navy">{featured.title}</h2>
+                    <p className="text-base text-navy/65 leading-relaxed mb-8 line-clamp-3" style={{ fontWeight: 400 }}>{featured.description}</p>
+                    <div className="mt-auto flex items-center justify-between gap-4">
+                      <PostMetaLine post={featured} className="text-navy/55" />
+                      <span className="inline-flex items-center gap-2 pl-5 pr-1.5 py-1.5 rounded-full bg-navy text-white text-sm" style={{ fontWeight: 600 }}>
+                        Read article
+                        <span className="w-8 h-8 rounded-full bg-green text-navy flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true">
+                          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
                         </span>
-                        <span className="text-navy/20 text-xs">·</span>
-                        <span
-                          className="text-xs text-navy/35"
-                          style={{ fontFamily: '"General Sans", sans-serif', fontWeight: 300 }}
-                        >
-                          {post.readingTime}
-                        </span>
-                      </div>
-                      <span className="text-navy/25 group-hover:text-green transition-colors duration-200 text-sm">
-                        →
                       </span>
                     </div>
                   </div>
                 </Link>
-              ))}
-            </div>
-          )}
-        </div>
+
+                {rest.length > 0 && (
+                  <>
+                    <div className="flex items-end justify-between mt-20 md:mt-24 mb-8 pb-5 border-b border-navy/10">
+                      <h2 className="text-2xl md:text-3xl text-navy">More articles</h2>
+                      <p className="text-sm text-navy/50">{rest.length} posts</p>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {rest.map((post, i) => (
+                        <PostCard key={post.slug} post={post} delay={300 + Math.min(i, 5) * 60} />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </>
+            )}
+          </div>
+        </section>
       </main>
       <Footer />
     </>

@@ -238,3 +238,10 @@
 
 /* Hide scrollbar on mobile feature carousel */
 .mobile-carousel::-webkit-scrollbar { display: none; }
+
+/* ── Blog article ── */
+.prose-tlbr > p:first-child {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #0a1a2f;
+}

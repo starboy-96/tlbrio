@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
+  robots: { index: false, follow: true },
   title: "Privacy Policy",
   description: "How tlbr.io collects, uses, and protects your personal information.",
 };
