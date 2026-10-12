@@ -4,7 +4,7 @@ description: "Discover the five most common alignment errors in PowerPoint decks
 date: "2026-05-05"
 tags: ["PowerPoint tips", "presentation design", "alignment in PowerPoint"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1611890798517-07b0fcb4a811?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1556155092-490a1ba16284?w=1200&auto=format&q=80"
 ---
 
 Your CEO just glanced at your slide and said, "Everything's a bit… off." You squint. The text boxes are spaced unevenly. The chart sits 3mm too far left. The logo wobbles above the title. It's not sloppy. It's just untidy.

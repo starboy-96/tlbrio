@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Generate a tlbr.io blog post using the editorial brief.
-Outputs JSON to stdout: {status, title, description, tags, body}
+Outputs JSON to stdout: {status, title, description, tags, body, linkedin_intro, image_query}
 Saves an editorial record to content/blog/editorial-records/ for future runs.
 """
 
@@ -103,6 +103,7 @@ Use these fields exactly:
 - Publication date:
 - Title:
 - Meta description (120–155 characters, for SEO):
+- Image search query: 3–7 plain English words describing a real photograph of people or a workplace that suits the article, e.g. "marketing team reviewing slides in meeting room". Describe what is literally visible. Never use the words deck, slide, pitch, template, chart or brand, because photo libraries read them literally (house decks, playground slides, sports pitches).
 - LinkedIn post (start with a fresh, upbeat Tuesday greeting — vary it every week, e.g. "Happy Tuesday!", "It's Tuesday — your weekly read is here.", "Tuesday drop:", "Good Tuesday everyone." — never repeat the same opener. Then 2–3 short sentences about the post. Conversational tone. No hashtags, no emojis, no em dashes. Ends with "Read it here:"):
 - Primary reader:
 - Creative discipline:
@@ -141,7 +142,7 @@ VERIFIED TOOLBAR CAPABILITIES:
 - Deployed company-wide via Microsoft AppSource or direct IT deployment
 - Works inside PowerPoint for Windows
 - Each deployment is custom-configured to the client's brand; not an off-the-shelf product
-- Firm-wide licensing model — no per-seat counting
+- Licensed per user; firms can start with a 90-day departmental pilot
 - Dedicated account manager and ongoing support included
 
 Do not invent capabilities, integrations, performance results or customer stories beyond the above.
@@ -306,6 +307,7 @@ def extract_editorial_fields(section_b):
         "Title:": "title",
         "Meta description (120–155 characters, for SEO):": "meta_description",
         "Meta description:": "meta_description",
+        "Image search query:": "image_query",
         "LinkedIn post (3–4 short sentences, conversational tone, no hashtags, no emojis, ends with \"Read it here:\"):": "linkedin_intro",
         "LinkedIn post:": "linkedin_intro",
         "Primary reader:": "primary_reader",
@@ -455,7 +457,7 @@ Please generate a blog post following the editorial brief."""
     print(f"Editorial record saved: {record_path}", file=sys.stderr)
 
     linkedin_intro = editorial.get("linkedin_intro", "")
-    print(json.dumps({"status": "READY", "title": title, "description": description, "tags": tags, "body": body, "linkedin_intro": linkedin_intro}))
+    print(json.dumps({"status": "READY", "title": title, "description": description, "tags": tags, "body": body, "linkedin_intro": linkedin_intro, "image_query": editorial.get("image_query", "").strip('"')}))
 
 
 if __name__ == "__main__":

@@ -70,20 +70,11 @@ jobs:
           SLUG="${TODAY}-${TITLE_SLUG}"
           FILE_PATH="content/blog/${SLUG}.md"
 
-          # Search Unsplash for an image matching the post title
-          FALLBACK_IMAGE="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&auto=format&q=80"
-          SEARCH_QUERY=$(jq -rn --arg t "$TITLE" '$t | @uri')
-          UNSPLASH_RESPONSE=$(curl -s --max-time 10 \
-            "https://api.unsplash.com/search/photos?query=${SEARCH_QUERY}&per_page=5&orientation=landscape&content_filter=high" \
-            -H "Authorization: Client-ID $UNSPLASH_ACCESS_KEY")
-          IMAGE_URL=$(echo "$UNSPLASH_RESPONSE" | jq -r '.results[0].urls.regular // empty')
-          if [ -z "$IMAGE_URL" ]; then
-            IMAGE_URL="$FALLBACK_IMAGE"
-            echo "Unsplash search failed — using fallback image"
-          else
-            IMAGE_URL="${IMAGE_URL%%\?*}?w=1200&auto=format&q=80"
-            echo "Unsplash image: $IMAGE_URL"
-          fi
+          # Pick a cover image: filtered Unsplash search, de-duplicated, checked by Claude
+          IMAGE_QUERY=$(echo "$POST_JSON" | jq -r '.image_query // ""')
+          export IMAGE_QUERY TITLE DESCRIPTION
+          IMAGE_URL=$(python3 scripts/pick-image.py)
+          echo "Cover image: $IMAGE_URL"
 
           # Write the markdown file (using Python to avoid YAML/heredoc conflicts)
           export TITLE DESCRIPTION TODAY TAGS_JSON IMAGE_URL BODY FILE_PATH

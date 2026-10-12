@@ -4,7 +4,7 @@ description: "Stop wasting time nudging objects manually in PowerPoint—five co
 date: "2026-05-19"
 tags: ["PowerPoint", "alignment tools", "presentation design", "brand consistency", "PowerPoint add-in"]
 author: "tlbr.io team"
-image: "https://images.unsplash.com/photo-1666148610265-5e64d889574b?w=1200&auto=format&q=80"
+image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&auto=format&q=80"
 ---
 
 PowerPoint’s alignment tools are right there in the ribbon. Yet every deck we open still looks like a drunk layout contest.
