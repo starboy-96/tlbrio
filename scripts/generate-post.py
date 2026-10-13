@@ -5,7 +5,7 @@ Outputs JSON to stdout: {status, title, description, tags, body, linkedin_intro,
 Saves an editorial record to content/blog/editorial-records/ for future runs.
 """
 
-import os, sys, json, glob, re
+import os, sys, json, glob, re, random
 import urllib.request, urllib.error
 from datetime import datetime
 
@@ -26,10 +26,9 @@ AUDIENCE
 Write for intelligent, busy readers including: designers and creative directors; brand, marketing and communications teams; business leaders exploring AI; agencies and in-house creative teams; people creating presentations, video, websites and business content; non-designers whose tools increasingly include design capabilities.
 Choose one primary reader per article. Explain unfamiliar concepts briefly. Include technical details only when they affect a meaningful decision.
 
-LENGTH
-Every article must fit within an estimated two-minute read at 200 words per minute.
-Target 250–350 words. The hard maximum is 400 words for everything published: title, body, headings, lists, tables, source labels and any closing question.
-The internal editorial record is excluded. Deliver one clear idea with enough substance to be useful. Narrow the subject rather than rushing through several developments.
+LENGTH AND SHAPE
+Each week's length, structure and opening are set by THIS WEEK'S FORMAT in the user message. It changes every week so the publication never feels predictable. Follow its word range and structure exactly; it overrides any general guidance in this brief.
+The internal editorial record is excluded from the word count. Deliver one clear idea with enough substance for the length. Narrow the subject rather than rushing through several developments.
 
 1. COVER THE FULL CREATIVE LANDSCAPE
 Look beyond PowerPoint and office productivity. Relevant areas include:
@@ -51,7 +50,7 @@ Do not describe an older feature as newly launched. If current research is unava
 
 4. GENERATE FIVE DIFFERENT IDEAS INTERNALLY
 Before drafting, develop five candidates across at least three creative areas and three article formats.
-For each, identify: the development or central question; the primary reader; why they would care; the most interesting supported detail; TLBR's proposed interpretation; the concrete takeaway; available evidence; difference from recent posts; whether it fits within 400 words.
+For each, identify: the development or central question; the primary reader; why they would care; the most interesting supported detail; TLBR's proposed interpretation; the concrete takeaway; available evidence; difference from recent posts; whether it suits this week's format and word range.
 Reject: routine updates with little impact; generic "AI is changing everything" commentary; announcement copy with different wording; unsupported predictions; forced controversy; subjects too broad for a short article; ideas selected mainly to promote TLBR.
 Choose the strongest story, not necessarily the newest or biggest launch.
 
@@ -62,7 +61,7 @@ Do not let every article end with: humans still matter; AI saves time; designers
 
 6. CHOOSE THE RIGHT ARTICLE FORMAT
 Possible formats: the useful discovery; the announcement decoded; the demo versus the job; the workflow shift; the considered opinion; the small experiment; the focused comparison; the future signal; the follow-up.
-Do not use identical headings or structure each week.
+Do not use identical headings or structure each week. The physical structure (length, headings, lists, tables) is set by this week's format; choose the angle that suits it.
 
 7. ADD A POINT OF VIEW THAT EARNS ITS PLACE
 Each article needs one central argument. Investigate questions such as: what becomes possible that was previously difficult? Which stage of work changes? Where does effort move rather than disappear? Can the output be edited, reused and handed over? What new judgement or skill does the team need? Who benefits most—and who may find little value?
@@ -74,17 +73,18 @@ Separate established facts, your interpretation, and predictions or possibilitie
 9. VERIFY EVERYTHING THAT NEEDS VERIFICATION
 Never invent: features, launches, dates or availability; statistics, studies, quotations or links; customer stories or personal experience; hands-on testing or performance results; partnerships, integrations or TLBR capabilities.
 Do not write "we tested", "we found" or "our customers are seeing" unless verified supporting information is supplied. Use precise release language: announced, preview, rolling out or available. Source links should support the actual claims beside them. If a central claim cannot be verified, change the angle or return HOLD.
+Do not attribute results to unnamed groups ("companies report", "teams are seeing", "research shows") without a linked source. Every source you list must have a working link; leave out anything you cannot link.
 
 10. WRITE SOMETHING PEOPLE WANT TO READ
-Write one piece that works as both a short blog article and a LinkedIn post.
-Use: a specific title that creates interest without hiding the subject; an opening that immediately reveals the useful development, tension or observation; short connected paragraphs; plain British English; concrete language and natural sentence rhythms; a clear ending: an implication, action, open question or signal to watch.
+Write a blog article; the LinkedIn post field in the editorial record is its short social version.
+Use: a specific title that creates interest without hiding the subject; the opening style set in this week's format; paragraphs of varied length, mostly two to four sentences, with an occasional single-sentence paragraph for emphasis; plain British English; concrete language and natural sentence rhythms; a clear ending: an implication, action, open question or signal to watch.
 Avoid: generic introductions; "in today's fast-paced world"; "game-changing", "revolutionary", "unlock" and "supercharge"; "the future is here"; "AI is changing everything"; repeated "It's not X, it's Y" constructions; exaggerated metaphors; a sequence of disconnected one-line statements; generic engagement bait such as "Agree?" or "Thoughts?"; mandatory closing questions; hashtags and emojis unless requested; a conclusion that simply repeats the article.
 
 11. USE TLBR'S EXPERIENCE WITHOUT INVENTING IT
 When supplied, use observations from TLBR's team and customer questions to find distinctive angles. Without supplied experience, build the perspective from evidence and clearly framed analysis. Do not fabricate an agency anecdote or personal test. The article must remain worth reading without a TLBR product mention. Mention the product only when an approved capability directly helps explain the topic.
 
 12. FINAL EDITORIAL CHECK
-Before returning the article, verify each: Is there a clear reason this reader would care? Does the article offer something beyond the headline? Is there one distinct, supported argument? Is the example or implication concrete? Are facts, interpretation and prediction distinguishable? Does it differ meaningfully from recent posts? Is the title accurate and interesting? Does the opening deliver value immediately? Does it work on LinkedIn and the blog? Would someone have a specific reason to share it? Is all publishable content within 400 words?
+Before returning the article, verify each: Is there a clear reason this reader would care? Does the article offer something beyond the headline? Is there one distinct, supported argument? Is the example or implication concrete? Are facts, interpretation and prediction distinguishable? Does it differ meaningfully from recent posts? Is the title accurate and interesting? Does the opening deliver value immediately? Does it work on LinkedIn and the blog? Would someone have a specific reason to share it? Does the piece follow this week's format: word range, structure and opening?
 Count the words. Do not simply estimate. If the piece is generic, sharpen or replace the idea.
 
 OUTPUT
@@ -96,7 +96,7 @@ Start your response with the heading "A. PUBLISHABLE ARTICLE" on its own line, f
 - Finished article (no separate summary unless requested).
 - Relevant source links within the article where they support a specific claim.
 
-Keep all publishable content within 400 words. Do not include brainstorming, candidate analysis or editorial notes.
+Write the article in Markdown: "## " and "### " headings, "- " bullets, "1. " numbered lists, "> " pull quotes, "|" tables and **bold**, using only the elements this week's format calls for. Keep all publishable content within this week's word range. Do not include brainstorming, candidate analysis or editorial notes.
 
 B. INTERNAL EDITORIAL RECORD — DO NOT PUBLISH
 Use these fields exactly:
@@ -149,6 +149,99 @@ Do not invent capabilities, integrations, performance results or customer storie
 Mention the toolbar only when it directly illustrates the article's point. Most articles will not need a product mention."""
 
 
+# ---------------------------------------------------------------------------
+# Format rotation: varies length and structure week to week
+# ---------------------------------------------------------------------------
+FORMATS = [
+    {"key": "quick-take", "words": (180, 260),
+     "brief": "A quick take. No headings, no lists. Four to six short paragraphs, one of them a single punchy sentence. End on a specific thing to watch or try.",
+     "checks": {"h_max": 0, "list_max": 0}},
+    {"key": "numbered-list", "words": (450, 650),
+     "brief": "A numbered list. A two-paragraph introduction, then five to seven numbered points written as \"1. **Bold lead-in.** One to three sentences.\" No headings. A short closing paragraph.",
+     "checks": {"ol_min": 5, "h_max": 0}},
+    {"key": "deep-dive", "words": (700, 950),
+     "brief": "A deep dive. An introduction, then three or four \"## \" subheadings written as statements or questions. Include one \"- \" bullet list of three to five items and one \"> \" pull quote of a key line from the article itself. A closing section with a clear implication.",
+     "checks": {"h2_min": 3, "ul_min": 3, "quote_min": 1}},
+    {"key": "how-to", "words": (450, 650),
+     "brief": "A practical how-to. Frame the problem in one or two paragraphs, then a \"## \" heading followed by five to eight numbered steps (\"1. \"). Finish with a \"## \" heading and a \"- \" checklist of three to five items a reader could copy, then one closing paragraph.",
+     "checks": {"ol_min": 5, "ul_min": 3, "h2_min": 2}},
+    {"key": "questions", "words": (400, 600),
+     "brief": "Questions answered. A short introduction, then three to five \"### \" headings that are real questions or common assumptions readers have, each answered in one or two short paragraphs. No bullet lists.",
+     "checks": {"h3_min": 3}},
+    {"key": "comparison", "words": (450, 650),
+     "brief": "A focused comparison of two or three approaches or ways of working (not unverifiable product specifications). An introduction, then a Markdown table with a header row comparing them across four to six rows. Then two or three paragraphs interpreting the table, and a \"## \" heading with the bottom line.",
+     "checks": {"table_min": 1, "h2_min": 1}},
+    {"key": "opinion", "words": (350, 500),
+     "brief": "A considered opinion essay. A clear argued position in flowing paragraphs. At most one \"## \" heading, no lists, and one \"> \" pull quote of the central line.",
+     "checks": {"h_max": 1, "list_max": 0, "quote_min": 1}},
+    {"key": "scenario", "words": (300, 450),
+     "brief": "A scenario. Open with a short, clearly hypothetical example (\"Picture a bid team at 6pm...\"), never presented as a real customer. Then a \"## \" heading such as \"What changes\" with three or four \"- \" bullets, and a short close.",
+     "checks": {"ul_min": 3, "h2_min": 1}},
+]
+
+OPENINGS = [
+    "Open with the single most specific, surprising detail in the story.",
+    "Open with the takeaway in the first sentence, then earn it.",
+    "Open with a direct question the reader is probably asking themselves.",
+    "Open with a common assumption, then show where it breaks down.",
+    "Open with a bold one-sentence claim, then qualify it carefully.",
+    "Open with a concrete moment from everyday work that the reader will recognise.",
+]
+
+
+def recent_records(n=4):
+    files = sorted(glob.glob("content/blog/editorial-records/*.json"))[-n:]
+    records = []
+    for f in files:
+        try:
+            with open(f) as fp:
+                records.append(json.load(fp))
+        except Exception:
+            pass
+    return records
+
+
+def choose_format():
+    recent = recent_records()
+    used_shapes = {r.get("format_shape") for r in recent[-3:]}
+    used_openings = {r.get("opening") for r in recent[-2:]}
+    shape = random.choice([f for f in FORMATS if f["key"] not in used_shapes] or FORMATS)
+    opening = random.choice([o for o in OPENINGS if o not in used_openings] or OPENINGS)
+    return shape, opening
+
+
+def format_brief(shape, opening):
+    lo, hi = shape["words"]
+    return f"""THIS WEEK'S FORMAT ({shape["key"]})
+Word range for the article body: {lo}–{hi} words.
+Structure: {shape["brief"]}
+Opening: {opening}
+This format overrides any general length or structure guidance in the brief."""
+
+
+def shape_problems(body, shape):
+    words = len(re.findall(r"[A-Za-z0-9'’-]+", re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", body)))
+    h2 = len(re.findall(r"^## ", body, re.M))
+    h3 = len(re.findall(r"^### ", body, re.M))
+    ul = len(re.findall(r"^\s*[-*] ", body, re.M))
+    ol = len(re.findall(r"^\s*\d+\. ", body, re.M))
+    quote = len(re.findall(r"^> ", body, re.M))
+    table = 1 if re.search(r"^\|.*\|\s*\n\|[\s:|-]+\|", body, re.M) else 0
+    lo, hi = shape["words"]
+    c = shape["checks"]
+    problems = []
+    if words < lo * 0.85 or words > hi * 1.15:
+        problems.append(f"the body is {words} words; it must be {lo}–{hi}")
+    counts = {"h2": h2, "h3": h3, "h": h2 + h3, "ul": ul, "ol": ol, "list": ul + ol, "quote": quote, "table": table}
+    for rule, limit in c.items():
+        name, kind = rule.rsplit("_", 1)
+        if kind == "min" and counts[name] < limit:
+            problems.append(f"it needs at least {limit} {name} element(s) but has {counts[name]}")
+        if kind == "max" and counts[name] > limit:
+            problems.append(f"it may have at most {limit} {name} element(s) but has {counts[name]}")
+    return problems
+
+
 def build_recent_articles_context():
     records_dir = "content/blog/editorial-records"
     blog_dir = "content/blog"
@@ -164,7 +257,7 @@ def build_recent_articles_context():
                         r = json.load(fp)
                     lines.append(f"Date: {r.get('date', '?')}")
                     lines.append(f"Title: {r.get('title', '?')}")
-                    for field in ["primary_reader", "problem", "approach", "format", "example", "takeaway", "status"]:
+                    for field in ["primary_reader", "problem", "approach", "format", "format_shape", "example", "takeaway", "status"]:
                         if r.get(field):
                             lines.append(f"{field.replace('_', ' ').title()}: {r[field]}")
                     lines.append("")
@@ -198,12 +291,14 @@ def build_recent_articles_context():
     return "\n".join(lines)
 
 
-def call_anthropic(user_msg, api_key):
+def call_anthropic(messages, api_key):
+    if isinstance(messages, str):
+        messages = [{"role": "user", "content": messages}]
     payload = {
         "model": "claude-haiku-4-5-20251001",
-        "max_tokens": 2500,
+        "max_tokens": 6000,
         "system": SYSTEM_PROMPT,
-        "messages": [{"role": "user", "content": user_msg}],
+        "messages": messages,
     }
     req = urllib.request.Request(
         "https://api.anthropic.com/v1/messages",
@@ -412,6 +507,8 @@ def main():
         sys.exit(1)
 
     recent = build_recent_articles_context()
+    shape, opening = choose_format()
+    print(f"Format this week: {shape['key']} / {opening}", file=sys.stderr)
 
     user_msg = f"""Publication date: {today}
 
@@ -428,10 +525,24 @@ Verified source material (recent news headlines — use only if genuinely releva
 
 Optional editorial priority: None.
 
-Please generate a blog post following the editorial brief."""
+{format_brief(shape, opening)}
+
+Please generate a blog post following the editorial brief and this week's format."""
 
     raw = call_anthropic(user_msg, api_key)
     section_a, section_b = parse_response(raw)
+
+    if not re.search(r"Status:\s*HOLD", section_b, re.I):
+        _, draft_body = extract_post_fields(section_a)
+        problems = shape_problems(draft_body, shape)
+        if problems:
+            print(f"Draft missed the {shape['key']} format: {'; '.join(problems)}. Asking for a rewrite.", file=sys.stderr)
+            raw = call_anthropic([
+                {"role": "user", "content": user_msg},
+                {"role": "assistant", "content": raw},
+                {"role": "user", "content": f"This draft does not follow this week's format: {'; '.join(problems)}. Rewrite the full response, both sections, so the article follows the format exactly. Keep the same story and all facts."},
+            ], api_key)
+            section_a, section_b = parse_response(raw)
 
     # Check for HOLD
     if re.search(r"Status:\s*HOLD", section_b, re.I) or (not section_b and "HOLD" in section_a[:100]):
@@ -450,7 +561,8 @@ Please generate a blog post following the editorial brief."""
     # Save editorial record for future runs
     records_dir = "content/blog/editorial-records"
     os.makedirs(records_dir, exist_ok=True)
-    record_data = {"date": today, "title": title, "description": description, **editorial, "raw": section_b}
+    record_data = {"date": today, "title": title, "description": description, **editorial,
+                   "format_shape": shape["key"], "opening": opening, "raw": section_b}
     record_path = f"{records_dir}/{today}.json"
     with open(record_path, "w") as fp:
         json.dump(record_data, fp, indent=2)

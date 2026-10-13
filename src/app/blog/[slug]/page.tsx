@@ -8,6 +8,7 @@ import ReadingProgress from "@/components/ReadingProgress";
 import Ambient from "@/components/Ambient";
 import DarkBackdrop from "@/components/blog/DarkBackdrop";
 import PostCard, { formatDate } from "@/components/blog/PostCard";
+import { renderMarkdown } from "@/lib/markdown";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -53,29 +54,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [post.image ?? "/og-image.png"],
     },
   };
-}
-
-const CAL = "font-family:'Cal Sans',sans-serif";
-
-// Simple markdown-to-HTML renderer (no external dependencies)
-function renderMarkdown(content: string, title: string): string {
-  const body = content.replace(/^\s*# (.+)\n+/, (line, heading: string) =>
-    heading.trim().toLowerCase() === title.trim().toLowerCase() ? "" : line,
-  );
-  return body
-    .replace(/^### (.+)$/gm, `<h3 class="text-xl md:text-[1.35rem] leading-snug text-navy mt-10 mb-3" style="${CAL}">$1</h3>`)
-    .replace(/^## (.+)$/gm, `<h2 class="text-[1.65rem] md:text-[1.9rem] leading-tight text-navy mt-14 mb-4" style="${CAL}">$1</h2>`)
-    .replace(/^# (.+)$/gm, `<h2 class="text-[1.65rem] md:text-[1.9rem] leading-tight text-navy mt-14 mb-4" style="${CAL}">$1</h2>`)
-    .replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold text-navy">$1</strong>')
-    .replace(/\*(.+?)\*/g, "<em>$1</em>")
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="text-[#3d7a1c] underline decoration-green decoration-2 underline-offset-4 hover:text-navy transition-colors" target="_blank" rel="noopener noreferrer">$1</a>')
-    .replace(/^- (.+)$/gm, '<li class="flex gap-3"><span class="mt-[0.7em] w-1.5 h-1.5 rounded-full bg-green flex-shrink-0" aria-hidden="true"></span><span>$1</span></li>')
-    .replace(/(<li[^>]*>.*<\/li>\n?)+/g, (m) => `<ul class="space-y-3 my-6 text-[17px] text-navy/80 leading-[1.75]">${m}</ul>`)
-    .replace(/```[\w]*\n([\s\S]*?)```/g, '<pre class="bg-navy text-white/85 rounded-xl p-5 overflow-x-auto my-8 text-sm font-mono"><code>$1</code></pre>')
-    .replace(/`(.+?)`/g, '<code class="bg-navy/[0.06] px-1.5 py-0.5 rounded text-[0.9em] font-mono text-navy">$1</code>')
-    .replace(/^> (.+)$/gm, `<blockquote class="my-10 pl-6 border-l-[3px] border-green text-[1.4rem] md:text-[1.6rem] leading-snug text-navy" style="${CAL}">$1</blockquote>`)
-    .replace(/^(?!<[a-z]|$)(.+)$/gm, '<p class="mb-6 text-[17px] text-navy/80 leading-[1.8]">$1</p>')
-    .replace(/^---$/gm, '<hr class="border-navy/10 my-12"/>');
 }
 
 export default async function BlogPostPage({ params }: Props) {

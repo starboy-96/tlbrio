@@ -240,8 +240,29 @@
 .mobile-carousel::-webkit-scrollbar { display: none; }
 
 /* ── Blog article ── */
-.prose-tlbr > p:first-child {
-  font-size: 1.2rem;
-  line-height: 1.7;
-  color: #0a1a2f;
-}
+.prose-tlbr { color: rgba(10, 26, 47, 0.8); font-size: 17px; line-height: 1.8; }
+.prose-tlbr > *:first-child { margin-top: 0; }
+.prose-tlbr > p:first-child { font-size: 1.2rem; line-height: 1.7; color: #0a1a2f; }
+.prose-tlbr p { margin: 0 0 1.5rem; }
+.prose-tlbr h1, .prose-tlbr h2 { font-size: clamp(1.6rem, 2.4vw, 1.9rem); line-height: 1.15; margin: 3.25rem 0 1rem; color: #0a1a2f; }
+.prose-tlbr h3 { font-size: 1.3rem; line-height: 1.3; margin: 2.5rem 0 0.75rem; color: #0a1a2f; }
+.prose-tlbr strong { color: #0a1a2f; font-weight: 600; }
+.prose-tlbr a { color: #3d7a1c; text-decoration: underline; text-decoration-color: #94e561; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.prose-tlbr a:hover { color: #0a1a2f; }
+.prose-tlbr ul, .prose-tlbr ol { list-style: none; padding: 0; margin: 1.5rem 0 1.75rem; }
+.prose-tlbr li { position: relative; padding-left: 2.1rem; margin-bottom: 0.75rem; }
+.prose-tlbr li > p { margin: 0; }
+.prose-tlbr ul > li::before { content: ""; position: absolute; left: 0.55rem; top: 0.72em; width: 7px; height: 7px; border-radius: 9999px; background: #94e561; }
+.prose-tlbr ol { counter-reset: tlbr-ol; }
+.prose-tlbr ol > li { counter-increment: tlbr-ol; }
+.prose-tlbr ol > li::before { content: counter(tlbr-ol); position: absolute; left: 0; top: 0.18em; width: 1.5rem; height: 1.5rem; border-radius: 9999px; background: #0a1a2f; color: #94e561; font-size: 0.75rem; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+.prose-tlbr blockquote { margin: 2.5rem 0; padding: 0.25rem 0 0.25rem 1.5rem; border-left: 3px solid #94e561; font-family: "Cal Sans", sans-serif; font-weight: 700; font-size: clamp(1.3rem, 2.2vw, 1.6rem); line-height: 1.3; color: #0a1a2f; }
+.prose-tlbr blockquote p { margin: 0; }
+.prose-tlbr hr { border: 0; border-top: 1px solid rgba(10, 26, 47, 0.1); margin: 3rem 0; }
+.prose-tlbr code { background: rgba(10, 26, 47, 0.06); padding: 0.1em 0.4em; border-radius: 4px; font-size: 0.9em; color: #0a1a2f; }
+.prose-tlbr pre { background: #0a1a2f; color: rgba(255, 255, 255, 0.85); padding: 1.25rem; border-radius: 12px; overflow-x: auto; margin: 2rem 0; font-size: 14px; }
+.prose-tlbr pre code { background: none; padding: 0; color: inherit; }
+.prose-tlbr table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 2rem 0; font-size: 15px; line-height: 1.5; }
+.prose-tlbr thead th { background: #0a1a2f; color: #fff; font-weight: 600; text-align: left; }
+.prose-tlbr th, .prose-tlbr td { padding: 0.75rem 1rem; border-bottom: 1px solid rgba(10, 26, 47, 0.1); vertical-align: top; }
+.prose-tlbr tbody tr:nth-child(even) { background: rgba(10, 26, 47, 0.025); }
