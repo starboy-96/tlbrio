@@ -7,57 +7,20 @@ author: "tlbr.io team"
 image: "https://images.unsplash.com/photo-1758518731462-d091b0b4ed0d?w=1200&auto=format&q=80"
 ---
 
-# Pitch decks win legal work
+Law firms tend to treat the pitch deck as packaging. The real work, the thinking goes, happens in the room: the partner's grasp of the issue, the chemistry, the fee conversation. The slides are just there to hold the logo and the team photos.
 
-Your pitch deck has 12 minutes to impress a room of sceptical partners before they even glance at your fees. That’s the brutal truth you’ll never hear from your BD team. Most professional services firms treat their proposals like glorified brochures, sprinkling bullet points over stock templates that scream “we’re too busy to care.” Stop. Start again.
+I think that gets it backwards. A pitch deck is often the first piece of legal work a prospective client sees from you, and they read it the way they will later read your advice. Is it clear? Does it get to the point? Does it show you understood their problem before you started talking about yourselves?
 
-## What makes legal clients say yes
+> A client reads your pitch deck the way they will later read your advice.
 
-Clients don’t buy expertise. They buy clarity, confidence and the sense that you’ve already thought through their problem. A 2023 study by Thomson Reuters found that 72% of in-house counsel rank “understanding our business” as their top priority when selecting external counsel. Your deck isn’t about you. It’s about how you solve their specific pain.
+Look at most proposals with that in mind and the weaknesses become obvious. They open with the firm's history. They spend several slides on office locations and rankings. The client's actual situation appears somewhere in the middle, in a bullet list that could have been written for anyone. Each slide carries three or four ideas, so none of them lands. A general counsel skimming it on a train learns a great deal about the firm and very little about what the firm would do for them.
 
-So strip everything back. Begin every slide with the client’s name, not your logo. Use their industry jargon. Reference their recent regulatory changes. Show you’ve done your homework before you ask for theirs.
+Compare that with a deck that starts from the client's position: the regulatory change they are facing, the deal they are trying to close, the dispute that is costing them sleep. Every slide makes one point. Team biographies go to an appendix. Numbers come with context, so "we handled a number of similar matters" becomes a short, specific account of what those matters involved and how they ended. That deck is doing the same job good advice does, which is to reduce the reader's uncertainty.
 
-## One slide, one message
+## Presentation is part of the argument
 
-You wouldn’t deliver a closing argument in rambling paragraphs. Why do the same in your pitch deck? Each slide must have one idea, one number, one story. If you can’t explain the slide in one sentence, delete it. Split it in two.
+None of this is about decoration. A deck with three shades of the firm's colour, mismatched fonts and charts in four different styles tells the reader the document was assembled in a hurry by several people who weren't talking to each other. That may be exactly what happened. The reader doesn't need to know it.
 
-Legal proposals often collapse under the weight of team bios and office locations. Move those to an appendix the client can read on the train home. Keep the deck razor-focused on the issues they care about today.
+Consistency is the cheapest credibility a firm can buy. It doesn't need creative flair; it needs agreed templates, the right brand colours and fonts available to whoever is building the slides at eleven at night, and a habit of building from those rather than from last year's pitch for a different client.
 
-## Bring your brand to life
-
-Your firm’s brand is more than a Pantone number. It’s how you sound, how you structure ideas and how you make complex topics feel human. A pitch deck that ignores your brand guidelines is like wearing a tracksuit to court. It doesn’t matter how good the argument is.
-
-Start with a master slide that locks in your fonts, colours and tone of voice. Then build every subsequent slide from that template. Use subtle rules, consistent spacing and a single accent colour to guide the eye. If a partner insists on adding their pet project slide, push back. You’re not designing for egos. You’re designing for outcomes.
-
-For teams juggling multiple pitches, consistency isn’t a nicety—it’s survival. [Consistent brand presentation across decks increases recognition by 80%.](https://tlbr.io/#features) Clients start to trust you before they’ve met anyone.
-
-## Data that doesn’t lie
-
-Numbers don’t lie, but bad charts do. If your slide shows “Revenue increased 15%,” ask: compared to what? Over what period? Without context, it’s noise. With context, it’s proof.
-
-Use small multiples to show trends across clients or matters. Highlight the one data point that matters most in bold. And never, ever use 3D pie charts. They’re the legal equivalent of arguing with a magic eight-ball.
-
-If you must show tables, keep them lean. Two columns, three rows. Any more and the client’s eyes glaze over. They didn’t hire you to read spreadsheets. They hired you to interpret them.
-
-## Visual storytelling under pressure
-
-You have 72 hours to turn a draft into a board-ready deck. That’s not time to “make it pop.” It’s time to make it clear. Stock legal icons— gavels, scales, handshakes—clutter slides and dilute your message. Replace them with simple, high-impact visuals that reinforce your point.
-
-A timeline showing key dates in a transaction. A simple pipeline of deals you’ve handled in their sector. A single quote from a grateful client, set in your firm’s typeface. These elements build credibility faster than another bullet list of achievements.
-
-## Practice until it sounds like you
-
-The best pitch decks collapse under the weight of rehearsals. You’ve polished the message, locked the design, but when you present you sound like a Wikipedia page. That’s a problem.
-
-Record your team rehearsing. Listen for jargon, long sentences, passive voice. Edit ruthlessly. Then rehearse again. The goal isn’t perfection. It’s clarity under pressure.
-
-## Today’s task
-
-Open your next pitch deck. Run this test:
-
-1. Replace every “we” with “you” on one slide. If it doesn’t sound like you’re talking to their problem, rewrite it.
-2. Check the slide count. If it’s over 12, cut ruthlessly. The best legal decks rarely exceed 10.
-3. Confirm the deck uses your brand fonts and colours exactly. No exceptions.
-4. Time your delivery. If you can’t explain the entire deck in under 12 minutes, cut content.
-
-If you fail any step, fix it today. Your next pitch depends on it.
+The firms that win more often are rarely the ones with the cleverest slides. They are the ones whose decks feel as though they were written for the person reading them. Before your next pitch goes out, reread the first three slides as if you were the client. If your name appears before theirs, start again.

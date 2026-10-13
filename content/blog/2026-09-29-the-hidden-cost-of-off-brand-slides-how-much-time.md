@@ -7,58 +7,24 @@ author: "tlbr.io team"
 image: "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=1200&auto=format&q=80"
 ---
 
-Your finance team just spent three hours reformatting a deck that should have taken one.
+Off-brand slides rarely show up in a budget. Nobody raises a purchase order for "fixing the fonts on the board pack". The cost hides inside ordinary working weeks: a deck goes to a senior reviewer, comes back with comments about colours and spacing, and someone spends an evening putting it right.
 
-No one tells you this when you hire more people. Each new person builds slides in their own style. Fonts drift. Colours shift. Spacing gets weird. Then someone senior sees it and sends it back. Everyone reruns the same fix. Again.
+How a firm handles that problem matters more than whether it admits to having it. Broadly there are three ways of working, and most organisations use a mix of all three without ever choosing between them deliberately.
 
-This is the hidden cost of off-brand slides. It is not glamorous enough to appear in your budget forecasts, but it is real money leaking out every single week.
+| | Brand guide and review | Central design team | Standards built into the tool |
+|---|---|---|---|
+| Where the rules live | A PDF on the shared drive | In the heads of a few specialists | In PowerPoint, on the toolbar |
+| When errors are caught | At review, after the work is done | When the deck reaches the designers | Mostly prevented while building |
+| Who does the fixing | The author, often late in the day | Designers, in a queue | Little fixing needed |
+| What scales badly | Reviewer time | Designer headcount | Keeping the toolbar up to date |
+| How new starters learn | Reading the guide, then corrections | Waiting for help | Using the options in front of them |
 
-## The arithmetic of inconsistency
+The brand guide approach is the cheapest to set up and the most expensive to run. The rules are clear on paper, but they ask every author to stop, look something up and apply it by hand. Under deadline, people skip that step, and the cost moves to whoever reviews the deck. Picture a team of a dozen people each producing a few decks a month: even a modest share coming back for formatting means hours of rework that never appears on a timesheet.
 
-Let's be concrete. Your team of twelve people each builds maybe four decks a month. That is forty-eight decks. If one in four gets sent back for formatting fixes, that is twelve rework cycles. Each one takes ninety minutes on average because the person fixing it has to hunt through slides, remember the brand rules, and apply them manually.
+A central design team produces better slides but turns them into a bottleneck. It works well for the handful of decks that really matter, such as investor presentations and major bids. It does not work for the weekly update, the internal proposal or the client follow-up, which is where most slides are actually made.
 
-That is eighteen hours a month spent fixing what should never have been broken in the first place.
+Building standards into the tool changes where the effort goes. If brand colours, fonts, templates and approved assets are on the toolbar people already use, the right choice becomes the easiest one. The trade-off is that someone has to own that toolbar and keep it current as the brand evolves, which is why a setup like tlbr.io pairs the bespoke add-in with ongoing support rather than handing over a file and walking away.
 
-Eighteen hours. Multiply that by twelve months. That is 216 hours annually. At an average salary of £55,000, you are looking at roughly £5,700 a year disappearing into formatting labour.
+## The bottom line
 
-And that is just one team in one company.
-
-Now add the meetings. Someone has to present a half-finished deck because it is not ready for the client yet. Someone else has to explain why the version your CEO saw last week looked different. Someone has to build a style guide that nobody reads anyway.
-
-## Why off-brand slides happen
-
-You probably have a brand guide somewhere. It is a PDF with sixteen pages about logo placement and a hex code for your corporate blue. Your team skimmed it once during onboarding.
-
-When people build slides, they do not think about your brand guide. They think about getting the work done. They grab a template that looks okay, change a few things to suit their taste, and move on. The next person does something slightly different. The third person just makes up their own format because they have never seen consistency enforced.
-
-This is not laziness. It is friction. Every time someone has to stop and check the brand rules, they lose focus on the actual content. So they do not.
-
-## The real damage goes deeper
-
-Formatting fixes are the obvious waste. But the deeper problem is that your brand looks shaky.
-
-When a client sees twelve different slide styles in one presentation, they notice. Maybe not consciously, but they feel it. The company looks like it does not have its act together. The message gets weaker because the presentation itself is distracting.
-
-Internal teams also suffer. Your sales deck looks different from your product deck, which looks different from your HR materials. Each team reinvents the wheel. Knowledge about how to do things well does not travel across the company because there is no standard to learn from.
-
-[Consistent branding across all communications increases brand recognition by up to 80%](https://www.forbes.com/sites/theyec/2021/10/20/why-brand-consistency-matters-more-than-ever/), and that matters as much for internal credibility as it does for external perception.
-
-## Stop the bleeding
-
-You need one simple thing: a template system that people actually use because it removes friction, not adds it.
-
-Not a PDF guide that sits in a shared drive. Not a PowerPoint file from 2019 that has eighteen different master slides. You need [a way to enforce brand consistency that works at the point of creation](https://tlbr.io/#features).
-
-When your team opens PowerPoint, the right fonts, colours, and layouts should be there. No hunting. No guessing. No sending it back.
-
-The best systems make doing the right thing easier than doing the wrong thing. Your team builds faster. Your deck looks like it belongs to your company. No rework. No meetings about formatting.
-
-## What to do today
-
-Sit down with your comms or marketing lead. Ask them how much time their team spends fixing decks that do not meet brand standards. They will probably give you a number that shocks you.
-
-Then ask what would happen if every slide your team made was on-brand from the start. No rework. No back and forth. Just done.
-
-That is not a nice-to-have. That is money in your pocket.
-
-[Find out how to enforce brand consistency at scale](https://tlbr.io/blog).
+Ask your marketing or communications lead how often decks are sent back for formatting, and who fixes them. If the answer is "the author, late at night", your brand guide is doing the documenting but not the enforcing. [Moving the standards to the point of creation](https://tlbr.io/#features) is usually cheaper than paying for the same fixes every month.

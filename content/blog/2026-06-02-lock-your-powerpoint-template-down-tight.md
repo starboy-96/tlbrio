@@ -7,110 +7,30 @@ author: "tlbr.io team"
 image: "https://images.unsplash.com/photo-1555529902-5261145633bf?w=1200&auto=format&q=80"
 ---
 
-Lock your PowerPoint template down tight
+Anyone who has looked after a company PowerPoint template knows the pattern. You build something tidy, send it round, and within a month decks come back with extra fonts, new colours and the logo in a different corner. Locking a template down is possible to a point, but it helps to know which of the usual assumptions hold up.
 
-Your quarterly results deck just went global with a competitor’s logo on the cover. The CEO spotted it first, naturally. The designer who built the template? On holiday. You? Now the hero who fixes it before the earnings call.
+### Can I stop people changing the template at all?
 
-So how do you stop beautiful templates from turning into corporate clown cars?
+Not completely. PowerPoint isn't built to prevent editing in the way a PDF can be, and anyone determined enough can change almost anything. What you can do is make the right choices the easiest ones, and put the elements that matter most where casual edits don't reach them.
 
-Start by accepting one hard truth: non-designers will break anything that looks even slightly clickable. A locked-down template is the only way to keep your brand safe while they build slides. Here’s how to build one.
+The most effective place for that is the slide master. Logos, footers and background elements placed on the master or its layouts can't be selected or dragged around on ordinary slides. People would have to open Slide Master view deliberately to change them, which most never do.
 
-## Strip out the parts they’ll misuse
+### Will theme colours keep everyone on brand?
 
-Every template ships with generous helpings of fonts, colours and effects. Most of them are accidents waiting to happen.
+They help a great deal. If you set the theme colours to your brand palette, those are the swatches people see first in every colour picker, and charts and shapes pick them up automatically. Setting theme fonts for headings and body text does the same job for typography.
 
-- Delete every font except the two you actually use.
-- Remove every slide layout that isn’t required for the next six months.
-- Ditch every animation preset except subtle fade and appear.
+The gap is that More Colours and the eyedropper are still there, and fonts can still be chosen by name. Themes make the right option the default; they don't remove the wrong ones.
 
-What remains is your working palette. Nothing to click, nothing to choose, nothing to break.
+### Should I delete layouts people don't need?
 
-## Lock the colours, not just the theme
+Yes. A long list of layouts invites people to pick something close enough and then reshape it by hand. A short list of well-named layouts, such as "Title", "Chart with commentary" or "Two column", with placeholders already sized and positioned, gets slides started in the right shape. Saving the result as a .potx file means each new deck starts from a clean copy rather than an edited old one.
 
-Every colour in your brand guide should live inside the template. But if anyone can double-click the eyedropper, your blue will become battleship grey by slide 12.
+### What about locking individual objects?
 
-- Create a colour palette of exactly six colours.
-- Rename each colour to the number in your brand guide: 1-Blue, 2-Green, 3-Red.
-- Apply those colours to all text styles, shapes and chart elements.
-- Right-click each colour swatch and choose “Lock colour”.
+Recent versions of PowerPoint for Microsoft 365 let you right-click an object and lock it so it can't be moved or resized by accident. That's useful for one-off slides, but it's applied object by object and can be undone just as easily, so it's no substitute for putting fixed elements on the master.
 
-Now the only way to change blue is to select a shape and pick from the locked swatch. No one will eye-dropper the logo to match the background.
+### Isn't a "rules" slide at the front enough?
 
-## Turn text styles into handrails, not suggestions
+It's worth including, but people read instructions once at most. Templates stay on brand when the correct action is quicker than the incorrect one. Some firms go further and add their brand colours, fonts, templates and assets to a bespoke toolbar so the approved choices sit one click away, which is what [tlbr.io](https://tlbr.io/#features) builds.
 
-Slide titles should never need manual formatting. Yet every deck I audit has headings that are 16 pt in bold, not 22 pt in Bold, not 22 pt in Bold 2.
-
-- Create a title style called “H1” and set it to your brand font at 22 pt Bold.
-- Create a subtitle style called “H2” and set it to 18 pt Bold.
-- Create a body style called “Body” and set it to 14 pt Regular.
-- Disable the ability to override styles by going to View > Slide Master > Format > Protect Styles.
-
-Now any user can apply H1, H2 or Body and the size, colour and font stay locked. No more “I only made it italic because I thought it looked better.”
-
-## Build layouts, not loose slides
-
-A classic mistake is to give users a blank slide and call it a “Title and Content” layout. Within minutes, the margins are 3 cm, the font is Comic Sans, and the logo is missing.
-
-- Open Slide Master view.
-- Delete every built-in layout except Title Slide, Title and Content, Section Header, Two Content, Comparison, Content with Caption, Blank.
-- For each remaining layout, fix the placeholders: title box exactly where it should be, content box exactly the right width, logo box locked in the corner.
-- Rename each layout to what it actually is: “Quarterly Results Title,” “Data Slide,” “Image Gallery.”
-- Save the template.
-
-Any user who inserts a new slide will only see these seven layouts. No blank slides, no rogue placeholders.
-
-## Make the logo bulletproof
-
-Logos move. Logos resize. Logos change colour. The fix is to embed the logo once, in the Slide Master, and lock it down.
-
-- Insert your logo in the Slide Master’s Title Slide layout.
-- Right-click the logo > Size and Position > Lock aspect ratio > Lock position on slide.
-- In the master layout, set the logo to appear only on the Title Slide.
-- For every other layout, insert the logo as a picture placeholder named “Company Logo” and set it to appear in the top-right corner.
-
-Now every slide has the logo locked in the right place, and no one can delete or resize it accidentally.
-
-## Hide the dangerous buttons
-
-PowerPoint’s ribbon is full of tools that will break your template faster than you can say “colour drift.”
-
-- Right-click the ribbon > Customize the Ribbon.
-- Remove the Home tab’s Font, Paragraph and Drawing groups.
-- Remove the Insert tab’s Icons, 3D Models and Video groups.
-- Remove the Design tab entirely if you’re feeling brave.
-
-What remains is a stripped-down ribbon with only Slide, Review and View tabs. No temptation to muck about with fonts or colours mid-deck.
-
-## Document the rules in one slide
-
-Even locked templates get misused if no one remembers the rules.
-
-- Create a single slide called “Template Rules.”
-- Add a heading: “How to use this template without breaking it.”
-- Bullet the three rules:
-  - Use the layouts provided. No blank slides.
-  - Apply styles from the Styles gallery. Don’t change fonts or colours manually.
-  - Do not resize the logo. If you need to hide it, use the placeholder and set transparency to 100%.
-- Place this slide at the start of each deck you hand out. It saves hours of repair time.
-
-## Check the locks before you hand the deck out
-
-Before you share the template, run a quick audit.
-
-- Open the template and try to change a colour. Can you? If yes, relock it.
-- Try to insert a new font. Can you? If yes, delete the font files from your system.
-- Try to insert a blank slide. Can you? If no, you’re locked down tight.
-
-Fix any leaks immediately. The first user to click “Format Background > Picture” will undo all your work.
-
-## Today’s fix list
-
-You can lock your template down in under an hour. Do these five things now:
-
-1. Delete unnecessary fonts, layouts and animations.
-2. Lock the six brand colours and apply them to all styles.
-3. Rename and protect text styles in the Slide Master.
-4. Reduce the ribbon to only the tabs your team needs.
-5. Add a “Template Rules” slide and place it first in every deck.
-
-Send the updated template to your team today. Watch the number of “fix requests” drop tomorrow.
+Whatever route you take, test your template the way a busy colleague would use it. Insert a slide, paste in a chart from an old deck, try to move the logo. Whatever breaks easily is what to fix next.

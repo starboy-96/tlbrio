@@ -7,54 +7,32 @@ author: "tlbr.io team"
 image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&auto=format&q=80"
 ---
 
-# PowerPoint for marketing teams that sell
+Marketing teams build the decks that sales teams carry into meetings, and too often both sides lose time to the same thing: formatting. Hours go on resizing images, chasing the current logo and rebuilding the same case study slide for the third time this quarter. Meanwhile the deck still ends on a "Thank you" slide that gives the prospect nowhere to go.
 
-Your marketing decks aren’t just documents. They’re your salespeople’s secret weapons. Yet most teams treat PowerPoint like a glorified bullet-point printer. Stop that.
+The aim is a set of slides that look like your brand without effort, assemble quickly from reusable parts, and finish with a clear next step. The steps below get a marketing team there without a big project.
 
-The decks your team builds today influence tomorrow’s deals. A disjointed slide here, a colour that doesn’t match your brand there, and suddenly you’ve lost credibility before the first question. Worse, you’ve wasted hours on menial tasks that could have been automated.
+## Build a deck that sells
 
-Here’s how to make PowerPoint work harder for your marketing team.
+1. **Audit the decks already in circulation.** Collect the five decks sales use most and note where fonts, colours and logos drift, and which slides are rebuilt every time. This tells you what to standardise first.
 
-## Build slides that feel like your brand, not a template factory
+2. **Agree the core sections.** Most sales decks follow a familiar arc: the problem, your approach, proof, and the next step. Build one strong, approved slide for each so people assemble decks instead of starting from blank.
 
-Your audiences notice inconsistencies before they notice your message. A misaligned font, a rogue colour, or a logo in the wrong shade—these tiny errors erode trust.
+3. **Put brand rules where people work.** Set colours, fonts and layouts in the slide master, and keep approved logos and imagery in one place everyone can reach from PowerPoint. A bespoke toolbar such as [tlbr.io](https://tlbr.io/#features) can hold your brand colours, fonts, templates and asset library inside PowerPoint itself.
 
-Brand consistency isn’t about locking your team into rigid templates that look stale. It’s about giving everyone the freedom to create while enforcing the rules that matter. Use a system where slide masters update automatically, fonts stay on-brand, and colour palettes are locked. [With tlbr.io, your brand guidelines live inside PowerPoint](https://tlbr.io/#features). Update one setting, and every slide inherits the change.
+4. **Standardise how data looks.** Decide once how charts and tables should be styled, from colours to label sizes, and apply the same treatment across every deck. Consistent visuals let the audience focus on the number rather than the styling.
 
-## Stop wasting time on formatting that doesn’t sell
+5. **Make proof easy to drop in.** Keep a small library of approved proof slides, such as results you are permitted to share or product screenshots, so nobody grabs an old version from an email thread.
 
-Marketing teams spend hours polishing decks that no one remembers. They tweak layouts, resize images, and realign shapes—work that adds no value to the story.
+6. **Replace the closing slide.** End with a specific next step: a link to book a demo, a contact, or a short summary of what happens after the meeting. A QR code works well for decks shown on screen.
 
-Set up reusable components. Create slide sections for problem, solution, case study, and call to action. Use consistent data visualisation styles. When every graph follows the same colour scheme and typography, your message becomes clearer. And your team regains hours every week.
+7. **Ask sales what worked.** After a few weeks, find out which slides prompted questions and which were skipped. Cut what nobody uses and strengthen what lands.
 
-## Turn decks into demand-gen machines
+## Pre-send checklist
 
-Your sales team uses slides to open doors. Your marketing team builds them to close deals. So why are you still sending static PDFs?
+- Headline on every slide states the point, not the topic
+- Fonts and colours all come from the brand palette
+- Logos are the current, approved versions
+- Charts follow the agreed house style
+- Final slide gives one clear next step with a working link
 
-Embed interactive elements directly into your PowerPoint files. Links to demos, product walkthroughs, or customer testimonials should live inside the deck—not buried in a follow-up email. When your slide deck becomes a self-contained experience, it works harder for you.
-
-## Make every slide a handoff point, not a dead end
-
-Too many marketing decks end with “Any questions?” and a slide that says Thank You. That’s a wasted opportunity.
-
-End every deck with a clear next step. Add a QR code that links to a booking page. Include a CTA slide with a direct link to your product trial. Even a simple “Download the full report here” button drives action. Turn your slides into conversion tools.
-
-## Automate the busywork so creativity can thrive
-
-Marketing teams are creative, not administrative. Yet many still manually copy-paste brand assets, resize logos, or hunt down the latest colour codes.
-
-Automate what doesn’t need a human touch. Use a PowerPoint add-in that syncs with your design system, updates slides when assets change, and enforces brand rules without locking people into rigid structures. You’ll free up your team to focus on messaging, not margins.
-
-## Measure what matters—and iterate fast
-
-You wouldn’t launch a campaign without tracking its performance. Why treat your slide decks differently?
-
-Track which slides get the most questions, where audiences pause, or which CTAs drive clicks. Use those insights to refine future decks. But first, you need a system that captures this data. Without it, you’re flying blind.
-
-## Start today: three things you can do now
-
-1. Audit one deck. Check for misaligned fonts, rogue colours, or off-brand logos. Fix one error today.
-2. Set up a slide section template. Use it in your next deck. Notice how much faster you work.
-3. Add a next-step slide to your next deck. Include a QR code or a direct link. Measure the response.
-
-Your slides should do more than look good. They should help you sell. Start building decks that work as hard as your marketing team.
+None of this asks marketing to become a design studio. It asks the team to decide a few things once, put them where everyone can reach them, and stop spending creative energy on margins. Start with step one this week: the audit alone will show where the hours are going.

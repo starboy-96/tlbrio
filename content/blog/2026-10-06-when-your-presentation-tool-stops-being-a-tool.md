@@ -7,26 +7,24 @@ author: "tlbr.io team"
 image: "https://images.unsplash.com/photo-1588429717419-f328fe7fc260?w=1200&auto=format&q=80"
 ---
 
-Presentation software has a hidden job: teaching people how to present professionally. Every font choice, spacing default and alignment grid is a lesson in what "good" looks like in your organisation.
+Every piece of software teaches. The defaults it offers, the options it hides and the actions it makes easy all tell people what normal looks like. Presentation software is no exception, and most organisations have been letting it teach the wrong lesson.
 
-Until recently, that teaching happened through templates and style guides—documents most people ignore. The presenter made their own decisions. The designer caught problems later. Nothing changed.
+Out of the box, PowerPoint teaches generic good taste. Its default fonts, theme colours and layouts are reasonable, but they belong to nobody. Organisations then try to overwrite that lesson with documents: a brand guide, a template file, an onboarding slide about logo placement. People read these once, if at all. When they sit down to build a deck under pressure, the software's lesson wins, because the software is what is in front of them.
 
-The tools are now shifting that teaching into the interface itself. When your brand colours appear as the default palette, when approved fonts load instantly, when a single click distributes objects with correct spacing—the tool is no longer neutral. It's showing you the right way to work.
+The result is a familiar cycle. The author makes their own choices, a reviewer spots the problems later, the author fixes them, and nothing about the next deck changes. Oversight becomes a permanent tax rather than a one-off cost.
 
-This matters because of what happens next. Presentation creators stop treating standards as constraints to work around. They become the frictionless path. A junior marketer building their first campaign deck doesn't need to memorise spacing rules or hunt for asset files. They need one click.
+## The interface is the policy
 
-For organisations with strict brand control, this changes the economics of oversight. You can spend effort catching problems (slow, frustrating, expensive). Or you can spend effort making standards invisible—built into the interface itself (faster, smoother, better).
+I think this is the wrong place to spend effort. If you want consistent presentations, the most effective lever is not a better guide or a stricter reviewer. It is changing what the tool offers first.
 
-The distinction is already visible across software. Some companies are shipping PowerPoint with Microsoft 365 Copilot and leaving it generic. Others are deploying custom toolbars that lock in brand systems before the creator starts typing. The second group reports faster creation, fewer revision cycles, and compliance that doesn't require a checklist.
+> A presentation tool is a set of choices someone has already made for you, so make sure your organisation is the one making them.
 
-The shift is subtle but significant. Your tool is becoming a choice architecture. It's deciding what your team sees first, what's easy, what requires a workaround. If that aligns with your brand standards, creation accelerates. If it doesn't, your team spends energy fighting the interface.
+When brand colours are the palette people see, approved fonts are the ones loaded, and a single click distributes objects with the right spacing, the standard stops being a rule people have to remember. It becomes the easiest path. A junior analyst building their first client deck does not need to memorise spacing rules or hunt through a shared drive for the right logo file. They need the right button in the right place.
 
-This is why the tools that matter most over the next 18 months won't be the ones adding AI or new features. They'll be the ones that disappear into your workflow—the ones that make compliance feel like freedom instead of obligation.
+This changes the economics of brand control. Catching errors is slow, irritating for everyone involved and never finished. Preventing them takes effort up front, in configuring the tool, and very little afterwards. That is the thinking behind a bespoke toolbar such as tlbr.io: put the brand, templates and formatting tools where the work actually happens, rather than in a document beside it.
 
-If you're building presentation systems for a large team, ask yourself: are we teaching standards through documents, or embedding them into the tool itself? Where you answer shapes whether creation feels faster or slower.
+Tools like [Copilot in PowerPoint](https://support.microsoft.com/en-us/office/copilot-in-powerpoint-afd7d301-b426-45a1-8f3a-4342fe1dcc42) will make drafting faster, but faster drafting in a generic environment simply produces generic slides sooner. The tools worth caring about are the ones that fade into the workflow and make the compliant choice feel like the obvious one.
 
----
+So the question for anyone who owns presentation standards is a blunt one. Are you teaching those standards through documents people ignore, or through the interface they use every day? The answer decides whether your team spends its time building or correcting.
 
-**Sources:** [Microsoft 365 Copilot for PowerPoint](https://support.microsoft.com/en-us/office/copilot-in-powerpoint-afd7d301-b426-45a1-8f3a-4342fe1dcc42); [Zoom's AI-First Presentations approach](https://www.zoom.com/en/products/zoom-ai-companion/); OpenAI ChatGPT office suite developments.
-
----
+*Sources: [Microsoft Support, Copilot in PowerPoint](https://support.microsoft.com/en-us/office/copilot-in-powerpoint-afd7d301-b426-45a1-8f3a-4342fe1dcc42)*

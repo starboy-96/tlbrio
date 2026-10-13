@@ -7,28 +7,41 @@ author: "tlbr.io team"
 image: "https://images.unsplash.com/photo-1560439513-74b037a25d84?w=1200&auto=format&q=80"
 ---
 
-The last six months have brought a rush of AI features into presentation software. OpenAI launched ChatGPT for Google Slides. Microsoft expanded Copilot across PowerPoint. Zoom added AI-assisted design. The message is clear: presentation tools now have AI built in, and they're competing hard to prove it.
+Presentation software is filling up with AI features. Copilot sits inside PowerPoint, and most of the major tools now offer some way to turn a document or a prompt into a draft deck. The obvious reading is that AI is making slides faster. That is true, but it misses where the more interesting change is happening.
 
-But look closer at what's actually shifting in how teams create decks, and the picture is more complicated than "AI does presentations now."
+The final slide looks much the same as it did. What has moved is everything before it: who builds the first draft, how long it takes, and at what point anyone thinks about whether the deck should look like it came from your organisation.
 
-The real change is not in the final slide. It's in what happens before you open the software.
+## The old sequence was quietly doing a job
 
-Traditionally, presentation work followed a clear sequence: someone gathered information, someone else structured it into a narrative, a designer laid it out, and a presenter delivered it. These roles often overlapped, but the sequence was linear. AI is scrambling that order.
+For years, presentation work followed a rough order. Someone gathered the information, someone shaped it into a story, a designer laid it out, and a presenter delivered it. Roles overlapped, but the sequence held.
 
-A product manager can now paste a quarterly report into ChatGPT and get a deck structure in seconds. A marketer can ask Copilot to rework slides around new messaging without touching the layout tools. An executive's assistant can feed a meeting transcript into a slide generator and have a first draft before the meeting ends.
+That sequence had a useful side effect. Brand compliance happened at a predictable stage. The designer, or the one colleague who knew the template properly, applied the palette, the fonts and the layout rules before anything went out. Standards were enforced by a person at a particular point in the process.
 
-That speed creates a choice the previous tools never forced: *Should you make slides at all?* Or would a document, a video recording, or a tight five-slide narrative serve the actual purpose better?
+## What happens when the first draft takes seconds?
 
-This isn't a new question. But AI made generating slides so easy that teams are now creating them by default, even for situations where they muddy rather than clarify. Last week's article explored that problem.
+Picture a product manager pasting a quarterly report into an AI assistant and getting a ten-slide structure back before their coffee has cooled. Or an assistant turning meeting notes into a draft deck while the meeting is still going. Neither person is a designer, and neither ever passes the stage where brand checks used to happen.
 
-The second shift is less visible but more consequential for how teams actually work: *Brand and consistency are moving upstream.*
+That shift brings a handful of new problems:
 
-When presentations were built sequentially—research, structure, design, delivery—brand compliance happened at the design stage. A designer enforced palette, typography and layout standards. Now, when a non-designer generates a first draft in seconds, those standards need to be built into the tool itself, available at the moment of creation.
+- Slides get made by default, even when a short document or a conversation would serve the purpose better.
+- Drafts arrive fast and in large numbers, so review becomes the bottleneck.
+- The people producing most of the slides are the ones least familiar with the brand rules.
+- Generated drafts often pick up generic styling that then has to be stripped out by hand.
 
-That's why companies are moving to custom-configured presentation environments: branded colour palettes locked in, approved fonts available one click away, asset libraries integrated directly into the interface, templates reflecting the company's actual communication standards. Not policing the output afterwards. Embedding the standards into the act of creation.
+The first point is a question of judgement, and no tool settles it. The rest are a question of where the standards live.
 
-The consequence: presentation work is becoming less about design skill and more about judgment. Less about making things look right and more about deciding what should appear at all.
+## Standards have to move upstream
 
-**Word count: 348**
+If the first draft no longer passes through a designer, the standards cannot wait for one. They need to be present at the moment of creation, in the software people are already using.
 
----
+In practice that means brand colours that appear as the default palette, approved fonts that are simply there, templates built around how the organisation actually communicates, and an asset library inside the interface rather than in a folder somewhere. It also means alignment, spacing and table formatting that produce a consistent result without the author needing to know the rules. This is the territory tlbr.io works in: a bespoke PowerPoint toolbar built for each firm, with its brand, templates and assets already loaded.
+
+> When a non-designer can produce a draft in seconds, the standards have to be in the tool, because there is no longer a designer in the way to apply them.
+
+None of this replaces AI drafting. It sits underneath it. A generated draft that lands in a well-configured environment can be pulled into shape in minutes. One that lands in a generic environment takes much longer, and the fixing falls to whoever happens to notice.
+
+## What this means for the people who own presentations
+
+The skill that matters is shifting. Making things look right is becoming less of a specialist task, because the tools can carry more of it. Deciding what deserves to be a slide at all, and what the audience actually needs to see, is becoming the scarcer skill.
+
+For anyone responsible for how a firm presents itself, the practical implication is simple. Stop treating brand compliance as a review step at the end and start treating it as part of the toolset at the beginning. Faster drafting is arriving whether you plan for it or not; the open question is whether your standards arrive with it.

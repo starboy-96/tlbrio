@@ -295,8 +295,10 @@ def call_anthropic(messages, api_key):
     if isinstance(messages, str):
         messages = [{"role": "user", "content": messages}]
     payload = {
-        "model": "claude-haiku-4-5-20251001",
-        "max_tokens": 6000,
+        "model": "claude-opus-5-5",
+        "max_tokens": 16000,
+        "output_config": {"effort": "high"},
+        "fallbacks": "default",
         "system": SYSTEM_PROMPT,
         "messages": messages,
     }
@@ -306,16 +308,26 @@ def call_anthropic(messages, api_key):
         headers={
             "x-api-key": api_key,
             "anthropic-version": "2023-06-01",
+            "anthropic-beta": "server-side-fallback-2026-07-01",
             "content-type": "application/json",
         },
     )
     try:
-        with urllib.request.urlopen(req, timeout=90) as resp:
+        with urllib.request.urlopen(req, timeout=300) as resp:
             result = json.loads(resp.read())
-        return result["content"][0]["text"]
     except Exception as e:
         print(f"Anthropic API error: {e}", file=sys.stderr)
         sys.exit(1)
+
+    if result.get("stop_reason") == "refusal":
+        print(f"Anthropic API declined the request: {result.get('stop_details')}", file=sys.stderr)
+        sys.exit(1)
+    # Opus 5.5 always thinks first; only the text blocks are the article.
+    text = "".join(b.get("text", "") for b in result.get("content", []) if b.get("type") == "text")
+    if not text.strip():
+        print(f"Anthropic API returned no text (stop_reason={result.get('stop_reason')})", file=sys.stderr)
+        sys.exit(1)
+    return text
 
 
 def parse_response(raw):

@@ -7,90 +7,28 @@ author: "tlbr.io team"
 image: "https://images.unsplash.com/photo-1762330470070-249e7c23c8c0?w=1200&auto=format&q=80"
 ---
 
-You spent £50k on a PowerPoint add-in three years ago and not a single team uses it today. That’s not a one-off. Most enterprise add-ins die silently on the IT shelf because they ignore the people who actually build decks.
+Rolling out a PowerPoint add-in across a company is easy to approve and hard to make stick. The licences get bought, IT pushes the install, and a few months later the icon sits on the ribbon untouched. Whether that happens depends far less on the demo than on a few questions worth asking before anything is deployed.
 
-Deploying a PowerPoint add-in company-wide isn’t about slick demos or a 30-day free trial. It’s about whether your designers, analysts, and executives will still open the tool next quarter. Here’s what actually makes an add-in worth rolling out to hundreds of users.
+### "If it has the right features, people will use it."
 
-## It plugs a real gap, not a hypothetical one
+Features matter less than fit. An add-in earns its place only if it removes something people already find tedious, such as rebuilding off-brand slides, hunting for the correct colour or lining up shapes by hand. Before choosing anything, ask the people who build decks what wastes their time each week, and judge every option against those answers.
 
-The best add-ins solve pain points your teams already complain about. Not the ones your IT department thinks exist.
+If a tool solves problems nobody mentioned, expect it to be ignored.
 
-Ask teams directly: “What do you waste time doing every week in PowerPoint?” You’ll hear things like:
+### Does it matter how the add-in looks inside PowerPoint?
 
-- Rebuilding slides because the old version broke the brand
-- Hunting for the right colour or font across 47 decks
-- Copying the same data from Excel into charts
+More than most buyers expect. Tools that open separate windows, ask for extra logins or bury functions in unfamiliar menus feel like a detour, and people take the shorter route back to what they know. The add-ins that last behave like part of PowerPoint: buttons in a sensible place, doing one clear job each, with results that appear on the slide straight away.
 
-If your add-in doesn’t directly reduce one of these frustrations, it’s just another icon on the ribbon nobody clicks.
+### Should brand rules be built in or left to users?
 
-## Teams adopt it only if it feels like part of PowerPoint
+Built in. Asking every analyst to remember the exact brand blue and the approved fonts guarantees drift. When the brand colours, fonts and templates sit in the toolbar itself, the on-brand choice becomes the quickest one, and nobody needs to police it. This is the thinking behind a bespoke toolbar like [tlbr.io](https://tlbr.io/#features), which is built around each firm's own brand.
 
-Enterprise add-ins often feel bolted on. They launch separate windows, add confusing menus, or require extra logins. Users abandon them within days.
+### What will IT and security want to know?
 
-A genuinely useful add-in behaves like a native PowerPoint feature. It appears in the right tabs, recognises your brand palette automatically, and updates slides with one click. No pop-ups. No gimmicks. Just PowerPoint working as expected.
+Expect questions about where slide content goes, how the tool is deployed and how updates reach every machine. Have clear answers before the business case goes forward, and involve IT early rather than at the end. An add-in that can be deployed through the organisation's normal channels, such as Microsoft AppSource or central IT deployment, and that keeps slide content on users' machines, removes much of the friction.
 
-## Brand consistency isn’t optional — it’s the whole point
+### How do you know it is working before going company-wide?
 
-Your deck represents the company. Yet most add-ins ignore the brand guidelines your marketing team agonised over. They let users pick neon colours from the default palette or apply 12-point fonts because “it’s easier.”
+Run a pilot with people who build decks every week, not just enthusiasts. Give them live work, not test files, and watch what happens after the novelty fades. Are they still using it a month in? Have formatting fixes at review stage dropped? Do they ask for it when they move teams?
 
-A solid add-in enforces your brand in every slide. It locks fonts, colours, and layout rules so every analyst’s pitch deck looks like it came from the same designer.
-
-That’s not micromanagement — it’s risk control. One poorly branded slide can undermine a £10m proposal.
-
-## Automation that doesn’t break when spreadsheets change
-
-Every data add-in promises to “update charts automatically.” Most fail when the source Excel file moves columns or renames a sheet.
-
-Look for an add-in that keeps a live connection but handles changes gracefully. It should:
-
-- Keep the chart style even if new data arrives
-- Preserve callouts and annotations
-- Show clear warnings when updates fail
-
-If it just overwrites your carefully formatted slide with raw data every time, it’s not ready for prime time.
-
-## Security and compliance baked in from day one
-
-Enterprise teams don’t trust add-ins that siphon data to the cloud or store credentials insecurely. IT departments block them before rollout.
-
-Choose an add-in that:
-
-- Keeps all assets and data on your network
-- Supports single sign-on or Azure AD integration
-- Meets SOC 2 or ISO 27001 standards
-
-If your IT security team hasn’t vetted it, don’t deploy it.
-
-## Training isn’t a separate project — it’s built into the workflow
-
-Most add-ins come with a 60-page PDF and a 90-minute webinar. By week two, the manuals gather dust.
-
-The best ones embed training directly into PowerPoint. A quick tooltip when you hover over a button. A subtle red flag if you pick a disallowed font. No extra documentation required.
-
-## It scales without breaking when your team grows
-
-A tool that works for 20 users may collapse under 500. Check:
-
-- Does it slow down when hundreds of decks are open?
-- Can you deploy updates centrally without touching every machine?
-- Does it handle offline decks in regional offices?
-
-If the vendor can’t answer these, assume it won’t scale.
-
-## The litmus test: would your CEO use it?
-
-If your CEO refuses to install the add-in on their laptop, stop the company rollout. Executives set the tone. If they bypass it, everyone else will too.
-
-Run a pilot with five heavy PowerPoint users — not interns, not designers. Give them real decks and watch what happens. If usage drops after week three, your add-in has failed the test.
-
-## How to start today
-
-Pick one add-in that meets these criteria and run a two-week pilot with a small group. Track:
-
-- Number of active users each day
-- Time spent on manual formatting before and after
-- Number of brand violations reported
-
-If it doesn’t move the needle in two weeks, it’s not worth a company-wide licence.
-
-Your teams already know which PowerPoint habits waste time. A valuable add-in should feel like an extension of their workflow, not a distraction. Deploy only those that pass that test — everything else is just clutter in the ribbon.
+If the answers are encouraging, widen the rollout. If usage fades quickly, it is far cheaper to learn that from one department than from the whole firm.

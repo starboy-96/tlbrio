@@ -7,72 +7,42 @@ author: "tlbr.io team"
 image: "https://images.unsplash.com/photo-1561489413-985b06da5bee?w=1200&auto=format&q=80"
 ---
 
-# Your presentation is your brand in action
+Long before a client has weighed your recommendation, they have flicked through your deck. They notice, without meaning to, that the blue on slide four is not quite the blue on slide nine, that the logo has been stretched to fit a box, that the footer changes size halfway through. None of that is about the work itself. All of it shapes how the work is received.
 
-Your client sees your slide deck before they meet you. If the colours clash, fonts don't match, or logos look stretched, they wonder what else is inconsistent in your work.
+This is the uncomfortable part of client presentations. A deck is often the most tangible thing a client holds from you between meetings, so it stands in for the parts of your work they cannot see. If it looks assembled in a hurry, it invites the question of what else was.
 
-That’s not a small problem. A 2023 study by Lucidpress found that consistent brand presentation increases revenue by up to 23%. When your deck looks sloppy, clients subconsciously doubt your attention to detail.
+## Inconsistency is a signal, whether you intend it or not
 
-The good news? You don’t need a design team to fix this. With the right tools and habits, you can enforce brand consistency in every presentation you build.
+Picture a pitch where the first half uses the current brand template and the second half was lifted from a proposal two years old. The content may be excellent. But the reader sees two visual languages stitched together, and the natural inference is that two teams worked on it without talking, or that nobody read it end to end.
 
-## How inconsistency quietly erodes trust
+Clients rarely say this out loud. They are unlikely to reject a proposal because of a stray font. What they do is adjust their sense of how careful you are, and that sense colours everything else they read. A precise argument presented loosely reads as less precise. The reverse also holds: a deck that is visually calm and consistent lets the reader spend their attention on what you are actually saying.
 
-Imagine you hand a client a deck where half the slides use your official blue and half use a random teal. The logo appears eight different sizes across ten slides. The footer text changes colour on every page.
+> A deck is often the most tangible thing a client holds from you between meetings, so it stands in for the parts of your work they cannot see.
 
-None of us would do that on purpose. Yet it happens because PowerPoint makes it easy to copy, paste, and tweak without checking the underlying design. Clients notice these tiny inconsistencies. They might not comment directly, but they file it away as a sign that your standards are slippery.
+## Why good teams still send inconsistent decks
 
-One finance client told me their biggest frustration wasn’t the content of competitor pitches—it was the lack of visual discipline. “If they can’t get their own brand right,” they said, “how can I trust them with my money?”
+It is tempting to treat this as a discipline problem. Usually it is a workflow problem. PowerPoint makes copying, pasting and tweaking effortless, and it does nothing to tell you when a pasted slide has brought its own fonts and colours with it.
 
-That’s the brutal truth: your presentation is a credibility test.
+The usual sources are predictable:
 
-## Enforce brand rules without a designer
+- Slides reused from older decks that predate a brand refresh
+- Logos taken from the website or an email signature rather than an approved file
+- Charts pasted from Excel in default colours
+- Small manual adjustments to spacing and size that never quite match
+- Several people editing one file under time pressure, each with their own habits
 
-You can’t rely on memory or habit to keep every deck consistent. You need systems. Here’s how to build them:
+Each of these is reasonable in the moment. Together they produce a document that looks like a patchwork, even when every contributor did their part well.
 
-### 1. Start with a single source of truth
+## What does a working system look like?
 
-Create one master template that contains your approved fonts, colours, logo lockups, and slide layouts. Store it in a shared folder where everyone on your team can access it.
+A single, well-built master template is the foundation. It should hold the approved colours, fonts, logo placements and layouts, and live somewhere everyone can find it. That alone removes a good share of the guesswork.
 
-In PowerPoint, go to View > Slide Master and set up your base design. Lock the colour scheme, font choices, and logo positioning. Save this file as your company standard.
+A template on its own, though, only helps people who start from it. The harder part is what happens after the first slide: the reused content, the pasted charts, the late changes. This is where giving people the right tools inside PowerPoint matters more than another reminder email. A bespoke toolbar such as [tlbr.io](https://tlbr.io/#features) puts brand colours, fonts, approved assets and one-click alignment where people are already working, so the on-brand option is also the quickest one.
 
-### 2. Use a brand control tool
+Habits close the remaining gap. A short session showing new joiners where the template and assets live, and why it matters, does more than a style guide nobody opens. And a brief check before anything goes to a client, scanning colours, fonts and logos from first slide to last, catches what slips through.
 
-Even with a master template, people will still tweak colours, resize logos, or swap fonts. That’s where a brand control add-in helps.
+## The implication for client-facing teams
 
-A tool like [tlbr.io](https://tlbr.io/#features) lets you lock your brand elements so they can’t be changed accidentally. If someone tries to use the wrong blue, the system overrides it with the official shade. No design team required.
+Treat visual consistency as part of the quality of the work, not a finishing touch applied if time allows. That means deciding the standards once, building them into the tools people use every day, and making a final consistency check a normal step before anything leaves the building.
 
-### 3. Train your team on the shortcuts
-
-Most inconsistency comes from shortcuts. Someone copies a slide from an old deck instead of using the template. Or they paste in a logo from the website instead of the locked version.
-
-Run a 15-minute training session. Show your team how to use the master template, how to access brand assets, and why consistency matters. Make it part of onboarding.
-
-### 4. Run a quick consistency audit
-
-Before you send any deck to a client, do a 60-second check:
-
-- Scan the colour palette. Is every shade from your brand guide?
-- Check the fonts. Did anyone sneak in Arial or Calibri?
-- Look at the logo. Is it crisp at all sizes, or pixelated on a dark background?
-
-If something’s off, fix it before the client sees it.
-
-## The cost of doing nothing
-
-Let me be clear: inconsistency isn’t a design nitpick. It’s a business risk.
-
-Clients use your presentations to judge your professionalism. If your deck looks haphazard, they assume your work will be the same. A single off-brand slide can undo hours of careful messaging.
-
-And it’s not just about first impressions. Every time you send a deck with inconsistent branding, you’re training your clients to expect less from you. Next time, they might not even notice the errors—but they’ll feel the difference in their gut.
-
-## Take action today
-
-You don’t need a designer to fix this. All you need is:
-
-1. A locked master template in PowerPoint
-2. A system to enforce it—like [tlbr.io](https://tlbr.io/#features) or another brand control tool
-3. A 15-minute team training session
-
-Pick one deck you’re about to send. Audit it now. Fix the colours, lock the fonts, and resize the logo. Send it to a colleague for a second check.
-
-Do that once, and you’ll start to see a shift in how clients respond to your work. Not because the content changed, but because your brand finally looks like it belongs to a team that knows what it’s doing.
+Start with the next deck due to go to a client. Read it end to end looking only at the visuals, fix what you find, and note where each problem came from. That list will tell you whether you need a better template, better tools or better habits, and most teams will find they need a little of each.

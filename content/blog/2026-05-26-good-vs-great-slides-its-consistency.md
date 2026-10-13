@@ -7,58 +7,24 @@ author: "tlbr.io team"
 image: "https://images.unsplash.com/photo-1512758017271-d7b84c2113f1?w=1200&auto=format&q=80"
 ---
 
-# Good vs great slides: it's consistency
+Slide 12 has a beautifully built animation that took most of an afternoon. Slide 4 uses a blue that is close to the brand colour but not quite it. The client remembers neither, but the second one is the kind of thing that makes a reader wonder what else was rushed.
 
-You spent 45 minutes tweaking the pivot table animation in slide 12. The client didn’t even notice. Meanwhile, slide 4 has the wrong blue.
+That gap is the real difference between good slides and great ones. Good slides can look impressive one at a time. Great slides look as though they belong together, deck after deck, whoever made them. Teams usually try to get there in one of three ways, and they lead to quite different results.
 
-That’s the difference between a good slide and a great one. Creativity gets attention. Consistency gets results.
+| | Design each deck from scratch | Shared template only | Template plus built-in brand tools |
+|---|---|---|---|
+| Where the brand rules live | In the designer's head and a PDF guide | In the slide master and theme | In the template and in the commands people click every day |
+| Who keeps decks consistent | Whoever happens to be building the deck | Each user, if they remember | Mostly the tools, with people checking |
+| What happens under deadline | Shortcuts, off-brand colours, copied slides | Slides pasted from old decks drift from the master | The quickest option and the on-brand option are the same button |
+| Room for creativity | High, but uneven across the team | Moderate, inside fixed layouts | Moderate, with more time freed for content |
+| Effort to maintain | Ongoing, per deck | Low until the brand changes, then every copy is out of date | Updated centrally and pushed to every user |
 
-## Consistency is the unseen superpower
+Designing from scratch produces the occasional standout deck, which is why it survives. It also produces the most variation, because every person interprets the brand guide slightly differently and every deadline encourages a shortcut. When a team of twenty does this, the firm ends up with twenty house styles.
 
-Every slide you design is an ambassador for your brand. A single misaligned logo erodes trust faster than a missing comma. A rogue font choice shouts louder than any carefully crafted headline.
+A shared template is a real improvement and is where most organisations sit. The trouble is that a template only sets the starting point. PowerPoint will still let anyone pick any colour from More Colours, paste in a chart from another file or drag a logo a few millimetres out of place. The template makes consistency possible; it doesn't make it the default behaviour.
 
-A study by Siegel+Gale found that brands with consistent visual identities see a 23% boost in customer trust. That trust transfers to your slides. When your deck looks like it belongs to the brand, your audience stops questioning the content and starts absorbing it.
+The third approach moves the brand into the things people actually click. Brand colours and fonts appear first, approved layouts and assets are a click away, and alignment and spacing tools apply the same rules on every slide. A bespoke toolbar such as [tlbr.io](https://tlbr.io/#features) is one way to do this; the principle is that the easiest action should also be the correct one.
 
-## Where good slides fail
+## The bottom line
 
-Good slides have nice pictures and bullet points. Great slides match the deck’s style, chart for chart.
-
-Here’s where most decks fall apart:
-
-- **Slide 12 has the corporate blue (RGB 0-102-204). Slide 18 uses a lighter variant (RGB 102-153-204) because you thought it looked nicer. It doesn’t.**
-- **Headings in Arial on slide 3, Calibri on slide 7, and Helvetica on slide 14. The audience feels the inconsistency before they read a word.**
-- **Your logo is 3mm off-centre on slide 22. Subconsciously, your client thinks, “This team is sloppy.”**
-
-The audience doesn’t need clever transitions. They need to trust you.
-
-## Great slides feel inevitable
-
-A great slide isn’t a creative masterpiece. It’s the one that feels like it was always meant to be there.
-
-How do you get there?
-
-- **Use a master slide.** Every new slide should pull its layout, fonts, and colours from the same source. No exceptions.
-- **Lock down your palette.** Pick four brand colours and stick to them. Create a custom palette in PowerPoint and never deviate.
-- **Enforce spacing rules.** Define a grid in your master slide and enforce consistent margins. No slide should ever feel crowded or lost.
-
-If you’re manually adjusting every slide, you’re already losing. Brand consistency isn’t a design choice. It’s a risk management strategy.
-
-## PowerPoint can’t do it alone
-
-PowerPoint’s default tools let you build consistent decks. They don’t let you enforce consistency across a team of 50 people working on 200 slides.
-
-That’s where a tool like [tlbr.io](https://tlbr.io/#features) comes in. It turns your brand guidelines into guardrails inside PowerPoint. Slide layouts stay uniform. Colours stay on-brand. Fonts don’t drift.
-
-No more last-minute heroics to fix slide 18’s rogue blue.
-
-## Today’s action: set one rule
-
-Make this decision now. Pick one thing that’s been inconsistent and fix it permanently.
-
-- Set your master slide as the default for every new slide.
-- Create a custom colour palette and delete every other colour option.
-- Disable every font except the two you use in your brand guidelines.
-
-Then move on to the next rule tomorrow.
-
-When your deck looks like it belongs to the brand, your ideas get the attention they deserve. Consistency isn’t the enemy of creativity. It’s the foundation that lets creativity shine.
+Creativity makes a slide memorable, but consistency is what makes a deck credible, and credibility is usually what the audience is judging. If your team relies on memory to stay on brand, you will see drift no matter how good the template is. Start by finding one rule people break most often, perhaps a colour or a font, and work out how to make breaking it harder than following it.

@@ -7,96 +7,22 @@ author: "tlbr.io team"
 image: "https://images.unsplash.com/photo-1579758300918-333e43ba760d?w=1200&auto=format&q=80"
 ---
 
-Clean finance slides that win trust
+A finance deck is judged twice. Once on the numbers, and once, a few seconds earlier, on whether the slide looks like it was put together with care. If the second judgement goes badly, the first one starts on the back foot. A cramped table or a chart in six unrelated colours makes a sound result look shaky.
 
-You open a quarterly deck. The first slide is a wall of 12-point Times New Roman in grey on grey. The CEO asks for the key takeaway. You freeze.
+The fix is less about design talent than about a handful of habits applied every time. None of the points below needs specialist software or a designer on call. They need a decision, made once, and then followed on every slide.
 
-That never has to happen again.
+1. **Lead with the conclusion.** Write the headline as the takeaway, such as "Operating costs fell as headcount held flat", rather than "Q3 costs". The audience should know what to think before they read a single figure.
 
-A finance slide isn’t just a spreadsheet screenshot dressed in a title. It’s your chance to make complex numbers feel obvious and actions feel urgent. Do it well and stakeholders nod before you speak. Do it poorly and you spend the next 10 minutes apologising for clutter.
+2. **Show only the rows that matter.** If the point sits in four lines of a forty-line schedule, put those four on the slide and leave the rest for the appendix. A full spreadsheet screenshot asks the room to do the analysis you were meant to do.
 
-Here’s how to build slides that look crisp, stay consistent and scream credibility.
+3. **Make the numbers easy to scan.** Use the same number of decimal places throughout, right-align figures so the units line up, and state the unit once in the header instead of on every cell. Small details like these are what make a table feel trustworthy.
 
-## Start with a clear story, not a spreadsheet
+4. **Give colour a job.** Pick one neutral for most of the data and one accent for the bar, line or cell you want people to look at. If a colour is not pointing at something, it is noise. Every colour should come from the brand palette, set in the slide master so nobody has to guess.
 
-Finance audiences want two things: the story and the numbers behind it. Put the story first.
+5. **Settle the type rules in the master.** Decide the sizes and weights for titles, body text and footnotes once, and build them into the slide master. When every headline sits in the same place at the same size, the audience stops noticing the layout and starts reading.
 
-- Put the headline in 24-point bold at the top.
-- Follow with three bullet points that summarise the insight.
-- Drop the supporting data below in a single, uncluttered table or chart.
+6. **Align to a grid.** Turn on PowerPoint's guides, set consistent margins and snap every chart, table and text box to them. Objects that float a few millimetres off line are hard to name but easy to feel, and they make a slide look unfinished.
 
-No one remembers 17 rows of EBITDA bridges. They remember the headline that says “EBITDA up 14% driven by cost discipline.”
+7. **One chart, one message.** Label data directly on the bars rather than relying on a legend, and add a single sentence underneath saying what the chart shows. If a chart needs three or more series to make its point, it is probably two slides.
 
-If your slide needs a spreadsheet, export just the relevant rows and format them as a clean table. Use consistent decimal places. Align numbers on the decimal point. No one cares how smart your pivot looks if they can’t read it from the back row.
-
-## Use colour like a CFO, not a designer
-
-Finance teams love blue. It feels serious, trustworthy and corporate. That’s fine, provided every blue in your deck comes from the same palette.
-
-Create a custom palette in PowerPoint with six colours: three for brand blues (dark, mid, light), one accent (emerald or gold), one highlight (yellow) and one neutral (light grey). Lock the palette in your slide master. Then every chart, table and text box pulls from these six.
-
-Use colour to guide the eye, not to decorate. Positive variances get the accent colour. Negative variances get warning red, but only if your brand palette includes it. If not, use a darker shade of your neutral.
-
-Colour consistency tells the room you’ve thought about the message, not just the font.
-
-## One font, one style, one voice
-
-Pick one sans-serif font—Segoe UI, Calibri or Arial—and stick to it. Use bold for headlines, regular for body text, and italic sparingly for emphasis. No Comic Sans. No Papyrus.
-
-Set the default styles in your slide master:
-- Title: 28pt bold, sentence case
-- Subtitle: 20pt regular, grey
-- Body: 18pt regular, align left
-- Caption: 14pt regular, grey
-
-If you deviate for a single slide, you risk breaking the rhythm. The room notices the inconsistency, even if they can’t name it.
-
-## Align everything to the grid
-
-Finance slides drift when elements float in empty space. Use a grid to keep everything tidy.
-
-In PowerPoint, go to View > Guides > Add Vertical and Horizontal Guides. Set them every 0.5cm. Snap every text box, chart and logo to the nearest guide. Keep margins consistent: 1.5cm top and bottom, 2cm left and right.
-
-Alignment matters most at the top of the slide. If you centre your headline, centre everything else beneath it. If you left-align, do it all the way down. Misaligned text is like a typo—it screams “I didn’t care enough to fix it.”
-
-## Keep charts simple, stupid
-
-A stacked column chart with six categories and three years of data is a migraine waiting to happen. Strip it back.
-
-- One chart per slide.
-- Use horizontal bars for long category names.
-- Label directly on the bars, not in a legend.
-- Use a single colour for all bars except the one you want to highlight.
-- Add a one-sentence takeaway beneath the chart.
-
-If the chart needs more than three data series, split it into two slides. No one absorbs seven colours in seven seconds.
-
-## Templates are your secret weapon
-
-The fastest way to consistency is a template. Lock your font, palette, grid and logo into a master slide. Then every new deck starts clean.
-
-You can build one yourself or use a tool like [tlbr.io](https://tlbr.io/#features) to push your brand rules across every slide. Either way, the first slide of every deck should look like it belongs to the same family as the last.
-
-## Review ruthlessly
-
-Before you hit send, run a 60-second checklist:
-
-- Is the headline in the same font and size as every other headline?
-- Are numbers aligned on the decimal point?
-- Did you use more than three colours?
-- Is there anything floating in the margins?
-- Can someone three rows back read the smallest text?
-
-If a single item fails, fix it. No slide leaves your desk half-baked.
-
-## Today’s action
-
-Open your next finance deck. Pick one slide that matters. Apply these rules:
-
-1. Write a three-word headline.
-2. Strip the slide to one chart or table.
-3. Check every element against your brand palette.
-4. Align everything to the grid.
-5. Send it to a colleague for a 30-second gut check.
-
-If it passes, you’re done. If not, iterate until it does. Your credibility starts with the slide you send, not the meeting you’re in.
+The common thread is that each rule is decided in advance rather than on deadline. Take the finance slide you present most often, run it against the list above, and fix whatever fails. Then build those fixes into the template, so the next version starts clean instead of starting over.

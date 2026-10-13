@@ -7,20 +7,21 @@ author: "tlbr.io team"
 image: "https://images.unsplash.com/photo-1758874383467-9aead920c794?w=1200&auto=format&q=80"
 ---
 
-Template libraries sound logical: store approved designs, let teams reuse them, maintain consistency. But many organisations are discovering that template-heavy systems create unexpected friction.
+Picture a consultant at 4pm on a Thursday, with a client update due first thing tomorrow. This is a made-up example, but a familiar one. She opens the firm's template library and scrolls through two dozen approved layouts. There is one for quarterly results, one for project timelines, one for team introductions. None of them quite fits a slide that needs a short comparison, a small chart and a recommendation.
 
-The problem isn't templates themselves. It's that they often solve the wrong problem at the wrong time.
+She picks the closest match, then spends the next forty minutes bending it into shape. She deletes placeholders, moves the chart around, shrinks the text to make it fit, and swaps a colour that looked wrong next to her data. By the time she is finished, the slide is technically built on an approved template and visibly off-brand anyway.
 
-A typical template library works like this: designer creates 20 approved layouts, teams browse the collection, select one, then adapt it for their content. In theory, this enforces standards. In practice, templates frequently mismatch the actual work. A template designed for "quarterly results" doesn't fit a product announcement. Teams waste time finding the closest fit, then spend more time modifying it. The template that was supposed to save time becomes a constraint to work around.
+The template was meant to save her time. Instead it gave her a starting point she had to fight. The trouble is not that templates are bad. It is that they bundle the standards into fixed layouts, so when the layout does not fit, the standards get broken along with it.
 
-The friction multiplies across a team. A designer might spend an hour finding or adapting a template that could have been assembled from components in ten minutes—if those components (colours, fonts, spacing rules, asset libraries) were available at the moment of creation, rather than locked into pre-built layouts.
+## What changes
 
-What's changing is where the standardisation happens. Instead of enforcing rules through template selection, high-performing teams are moving standards into the creation environment itself. Approved colours and fonts are available instantly. Spacing, alignment and asset placement follow consistent rules without requiring a template choice first. Teams build slides from components that are inherently compliant, rather than trying to retrofit compliance onto a template that doesn't quite fit their content.
+Now imagine the same Thursday with the standards available as building blocks rather than finished pages.
 
-This shift affects how design teams should think about their tools. Template-first systems ask: "Which approved layout is closest to what you need?" Component-first systems ask: "What do you need to communicate—and how do we make it impossible to do that inconsistently?"
+- Brand colours and fonts are on the toolbar, so any shape or chart she adds is already correct without a template choice first.
+- Alignment and spacing tools give her a tidy layout in a couple of clicks, whatever the content turns out to be.
+- Approved logos, icons and images come from an asset library inside PowerPoint, rather than a search of old decks.
+- Templates still exist for the common slide types, but they are a shortcut, not the only route to a compliant slide.
 
-The difference matters most for teams creating frequently and across varied content types. If your approval process regularly catches brand violations that could have been prevented earlier, or if teams repeatedly adapt templates rather than using them as-is, the problem might not be the templates. It might be that your standards are enforced at the wrong stage of work.
+The question shifts from "which approved layout is closest to what I need?" to "what do I need to say?", and the tool keeps the result consistent either way.
 
-**Word count: 340**
-
----
+This is the approach behind tlbr.io's bespoke toolbars, which put brand colours, fonts, templates and layout tools in one place inside PowerPoint. If your reviewers regularly catch brand problems on slides that started from an approved template, the templates may be fine. Your standards may simply be arriving at the wrong stage of the work.

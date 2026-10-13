@@ -7,44 +7,22 @@ author: "tlbr.io team"
 image: "https://images.unsplash.com/photo-1556155092-490a1ba16284?w=1200&auto=format&q=80"
 ---
 
-Your CEO just glanced at your slide and said, "Everything's a bit… off." You squint. The text boxes are spaced unevenly. The chart sits 3mm too far left. The logo wobbles above the title. It's not sloppy. It's just untidy.
+Nobody in a meeting has ever said "the left margin on slide nine is two millimetres out". What they say is that a deck feels a bit rushed, or that it doesn't look quite finished. Alignment problems rarely get named. They just quietly lower the reader's confidence in whatever is on the slide.
 
-Alignment isn't decoration. It's the difference between a deck that feels professional and one that screams, "I didn't have time to finish." Here are the five PowerPoint alignment mistakes every presenter makes, and how to fix them without dragging guides or squinting at pixels.
+The frustrating part is that the same handful of mistakes turns up in almost every deck, and each one can be put right with a single alignment or distribution command once you know what you're looking at. Here are the five worth checking for before anything leaves your desk.
 
-## 1. Centred text that isn't centred
+1. **Text that is centred inside its box, but the box isn't centred.** The Centre button in the Paragraph group only centres the words within their text box. If the box itself sits off to one side, the heading still looks lopsided. Select the box and align it to the slide's horizontal centre instead.
 
-You click "Center" in the ribbon, expecting perfect symmetry. But the text box is still half a millimetre off. Why? Because PowerPoint centres relative to the text box, not the slide.
+2. **Left edges that are nearly, but not exactly, the same.** Eyeballed margins tend to wander by a nudge or two from slide to slide, and clicking through the deck makes that drift obvious. Pick one object as the anchor, select everything that should share its edge, and align left in one go.
 
-**Fix it in one click:** Use a tool that snaps the box itself to the true horizontal centre. It doesn't care about text flow. It cares about the frame. Slide your text box, your logo, or any object toward the slide's midpoint and it locks exactly where it should be. [See how it works in tlbr.io](https://tlbr.io/#features).
+3. **Uneven gaps in a row of boxes or icons.** Dragging items into a row by hand almost guarantees one gap is wider than the rest. Distribute horizontally does the arithmetic for you, spacing the objects evenly between the outermost two. Fix the two ends first, then distribute.
 
-## 2. Objects drifting from the edge
+4. **Charts and captions that don't share a line.** A chart dropped next to a text box usually sits slightly higher or lower than its neighbour, which makes the pairing look accidental. Select both and align their tops (or bottoms, if the baseline matters more). The pair then reads as one unit.
 
-You eyeballed the left margin at 25mm. On your screen it looks fine. On the projector it's 27mm. Viewers don't measure margins, but they feel the imbalance.
+5. **A row of logos at slightly different heights.** Logos come in different shapes and with different amounts of white space, so lining them up by eye rarely works. Align them to the middle so their visual centres sit on one horizontal line, then distribute them so the gaps match.
 
-**Fix it in one click:** Snap to the slide edge or to a consistent ruler mark. No more "approximately flush." The tool automatically aligns the nearest edge to the ruler tick you choose. You set the margin once. Every slide inherits it.
+6. **Objects aligned to each other when they should be aligned to the slide.** PowerPoint can align a selection relative to the slide or relative to the selected objects themselves, and it's easy to be in the wrong mode. A group can be perfectly neat internally and still sit off-centre on the page. Check which option is ticked before you click.
 
-## 3. Inconsistent spacing between bullets
+None of these takes long to fix on its own. The cost comes from repeating the fix on every slide, every deck, every week, often by different people making slightly different judgements.
 
-You copied bullet points from last month's deck. The spacing between lines varies from 6pt to 10pt. Your audience doesn't count points, but their eyes do. According to the [Nielsen Norman Group](https://www.nngroup.com/articles/visual-hierarchy/), inconsistent spacing is one of the fastest ways to break visual hierarchy and lose reader attention.
-
-**Fix it in one click:** Select the whole bullet block, not each line. A single command applies uniform line spacing across the group. No more hunting through the paragraph menu.
-
-## 4. Charts that drift off the baseline
-
-You dropped a bar chart on the slide. The baseline isn't aligned with other objects on the page. Your data looks untethered.
-
-**Fix it in one click:** Select the chart and the nearest baseline object (title, footer, or another chart). Run the baseline-align command. The chart's bottom edge snaps to the same vertical position as the others. Instant harmony.
-
-## 5. Multiple logos at different heights
-
-You pasted three partner logos at the top of the slide. One sits 2mm higher than the others. It's subtle, but it screams amateur.
-
-**Fix it in one click:** Select all logos, then send them to a single vertical baseline. The tool averages their positions and aligns every logo to the same horizontal line. No dragging, no guessing.
-
-## One tool, five fixes, zero excuses
-
-You don't need a degree in graphic design to align a deck properly. You need a tool that treats alignment as a first-class citizen, not an afterthought.
-
-[Book a demo](https://tlbr.io/#demo) and watch every object snap into place. The whole process takes less time than fixing one stubborn text box manually.
-
-Alignment isn't about perfection. It's about respect for your audience's time and your message's clarity. Fix these five mistakes once, and your deck will finally look like you meant it.
+That's the reasoning behind putting alignment, distribution and spacing tools one click away in a firm's own toolbar, which is part of what [tlbr.io](https://tlbr.io/#features) builds. Whichever route you take, try this on your next deck: before sending it, click through every slide at full screen and watch only the left edges and the gaps. Whatever jumps is your list.

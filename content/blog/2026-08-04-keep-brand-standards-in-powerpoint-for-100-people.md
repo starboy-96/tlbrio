@@ -7,70 +7,50 @@ author: "tlbr.io team"
 image: "https://images.unsplash.com/photo-1614036634955-ae5e90f9b9eb?w=1200&auto=format&q=80"
 ---
 
-# Brand standards in PowerPoint still feel like a fantasy in your 100-plus team?
+Once more than a hundred people are building slides, brand standards stop being a design question and become an operations one. The style guide may be excellent. The template may be carefully built. Yet the decks that reach clients and the board still drift: an extra shade of blue here, a substitute font there, a logo that has been resized by eye.
 
-Your CEO just emailed the quarterly deck to the board. It’s 42 slides. Three different blues. A font that doesn’t exist. And someone forgot to update the logo lock-up. Again.
+The instinct is to send another reminder. That rarely works, because the problem is structural. Keeping a large team on brand means designing a system in which the right choice is the easy one, and the wrong one takes deliberate effort.
 
-You’re not alone. When 100+ people touch PowerPoint every day, brand consistency isn’t a nice-to-have—it’s a daily fire drill. But it doesn’t have to be this way. Build the system once, protect it forever, and let your team ship decks without the panic.
+## Drift comes from small, reasonable decisions
 
-## Kill the “I’ll fix it later” culture
+Very little brand drift is careless. Look at how it actually happens. A regional team adjusts the primary colour because they think it suits their market better. An analyst pastes a chart straight from Excel because the deadline is in an hour. Someone tweaks a footer because it looked slightly off on their screen.
 
-Most brand drift starts with small decisions that feel harmless at the time.
+Each of those choices made sense to the person making it. None of them is visible on its own. But copy those slides into the next deck, and the one after that, and within a few months the house style has quietly forked into several versions.
 
-* A regional team swaps the primary blue for a local shade to “better reflect their market.”
-* An analyst pastes a screenshot with a different chart style because it’s faster.
-* A designer tweaks the spacing on a slide footer because the original version “looked off.”
+> Keeping a large team on brand means designing a system in which the right choice is the easy one.
 
-Each change is invisible at first. Then suddenly, your deck looks like a patchwork quilt stitched by 120 different hands.
+That is why policing after the fact struggles. By the time someone spots the problem, the off-brand slide has already been reused a dozen times.
 
-The fix isn’t more nagging emails. It’s removing the ability to make the wrong choice in the first place. Start with a single source of truth: your brand template.
+## Where should the rules actually live?
 
-## Lock the template, not the creativity
+Most organisations keep their standards in two places: a PDF style guide and a template file on a shared drive. Both depend on people remembering to look. The PDF describes the rules; the template contains some of them; neither is present at the moment someone is choosing a colour at speed.
 
-The template must be the one place where colours, fonts, and layout rules live. But if creators have to open the template file, update styles manually, and remember which button does what, compliance will collapse within weeks.
+The more reliable approach is to put the standards inside PowerPoint itself, where the work happens. In practice, that means a few concrete things:
 
-Instead, embed the rules directly into PowerPoint.
+- Brand colours and fonts available in one click, ahead of PowerPoint's defaults
+- Approved templates and slide layouts reachable from the ribbon rather than a folder somewhere
+- A shared library of logos, icons and imagery so nobody pulls an old version from their downloads
+- Formatting tools for tables and charts, so pasted data lands in house style
+- Alignment and spacing tools that make tidy layouts quicker than messy ones
 
-Use a PowerPoint add-in that locks colours to your brand palette, replaces fonts automatically, and resets layouts when a user hits “reset.” Creators can still design, but the system prevents drift. No more “accidental” slides with Times New Roman because someone’s system font stack defaulted.
+A bespoke PowerPoint toolbar, such as the ones tlbr.io builds for each firm, is one way to deliver all of that in a single place. Whatever route you choose, the test is the same: can someone producing a deck at 6pm follow the brand without opening another file?
 
-If you want to go further, create master slides that map to your brand narrative. A “Problem Statement” slide should always look identical, no matter who builds it. Same for “Solution,” “Key Metrics,” and “Next Steps.” Master slides become your silent compliance officers.
+## Structure helps more than restriction
 
-## Train once, scale forever
+Locking everything down can backfire. If people feel the template stops them saying what they need to say, they will work around it, often by starting from an old deck that predates the rules entirely.
 
-A template is useless if no one knows how to use it. But running a 90-minute workshop for 120 people every quarter is a productivity black hole.
+A better balance is to standardise the parts that carry the brand and leave room in the parts that carry the argument. Recurring slide types, such as an agenda, a problem statement, a set of key figures or next steps, can have a fixed design that looks identical whoever builds it. The content inside those slides stays the author's responsibility.
 
-Instead, bake the training into the tool.
+Give people a route to ask for change, too. If a team keeps needing a layout that does not exist, that is useful information. Someone owning the template should be able to review the request, build the new layout properly and push it out to everyone. When the system responds to real needs, people have less reason to bypass it.
 
-Build a short walkthrough that appears the first time someone uses the add-in. Show them how to apply brand colours, reset layouts, and access approved templates. Keep it under two minutes. Repeat it via a one-click help button whenever they need it.
+## Training works best when it is short and built in
 
-Pair this with a living style guide that lives in the same add-in. When the brand team updates the Pantone reference for a shade, the change propagates instantly to every deck. No waiting for IT to push a template update. Creators see the new value the next time they open PowerPoint.
+Large workshops have their place, but they fade quickly and are hard to repeat for every new joiner. People learn a tool by using it, so the most effective training tends to be brief and close to the work: a short walkthrough when someone first opens the toolbar, a help link they can return to, and a named person to ask.
 
-## Audit automatically, not manually
+Keep the message narrow. If people remember only two things, make them "start from the approved template" and "use the brand colours in the ribbon". Everything else becomes easier once those two habits are in place.
 
-Humans are terrible at policing themselves. Spreadsheets and colour pickers are worse. The only way to catch drift early is to automate the audit.
+## What this means for your next quarter
 
-Set up an add-in that scans every deck for rogue fonts, off-brand colours, or unauthorised layouts. Run the scan automatically before every save. Flag issues in real time, not after the deck lands in the CEO’s inbox.
+Fixing brand consistency for a large team is less about effort and more about where you spend it. Effort spent correcting finished decks is lost every time. Effort spent making the right option the default keeps paying back as each new deck is built.
 
-You want to know within seconds if slide 17 uses the wrong red. Not after someone spends an hour rebuilding the whole deck.
-
-## Make the system self-reinforcing
-
-Compliance isn’t a policy. It’s a habit.
-
-Start by celebrating the right behaviour. When someone uses the template perfectly, acknowledge it publicly in team chats or emails. A quick “Great work on that compliance score” does more for adoption than another all-hands deck review.
-
-Next, tie brand adherence to performance metrics. If your team tracks presentation impact, include compliance as a data point. A deck that’s 100% on-brand should score higher than one that’s 60%. Over time, creators learn that brand consistency isn’t bureaucracy; it’s part of delivering value.
-
-Finally, give creators a path to request changes. If the template feels too rigid, let them propose updates through a formal review board. This turns compliance from a blocker into a collaborative process. The board meets monthly, approves changes, and pushes them live—no rework, no drama.
-
-## Today’s action: pick one lever to pull this week
-
-You can’t fix everything at once. So pick one lever and yank it.
-
-If templates are the problem, update your master slides today. Delete any slide that doesn’t map to a brand narrative. Lock the layouts, the fonts, and the colour swatches. Push the update to your team’s shared drive.
-
-If the add-in is the gap, install a brand compliance add-in this week. Run a pilot with 10 people. Measure how many rogue fonts and colours disappear in the first 72 hours.
-
-If training is the bottleneck, record a two-minute walkthrough video of how to use the template. Email it to your team with a clear deadline to watch it and reply with a confirmation.
-
-Brand consistency isn’t about control. It’s about clarity. When every slide carries the same voice, your message cuts through the noise. Start small, build the system, and watch your 100-plus team ship decks that look like one mind designed them.
+So pick one lever and pull it properly. If your templates are out of date, rebuild them around the slide types people actually use. If the rules are hard to reach, move them into PowerPoint. If you want evidence before committing, run a contained trial with one department and compare their decks before and after. A pilot like that will tell you more about your organisation's habits than any style guide revision.

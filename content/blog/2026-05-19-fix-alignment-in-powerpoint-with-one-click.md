@@ -7,56 +7,32 @@ author: "tlbr.io team"
 image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&auto=format&q=80"
 ---
 
-PowerPoint’s alignment tools are right there in the ribbon. Yet every deck we open still looks like a drunk layout contest.
+Most people align objects in PowerPoint by dragging them until they look about right, then nudging with the arrow keys. It works, slowly, and it falls apart as soon as a slide has more than a few elements or someone else picks up the deck.
 
-You’ve seen it. Text boxes shoved off-centre. Icons pasted at random angles. Charts pasted miles from their labels. The magic wand you need is already inside PowerPoint—but it’s buried under layers of clicks and settings. Worse, the default tools often leave you worse off than when you started. So here are the five alignment crimes everyone commits in PowerPoint, and how you can smash them in one click.
+PowerPoint already has the tools to do this properly. They are just spread across a couple of menus and a settings dialog that few people open. The steps below use only what ships with PowerPoint for Windows, and once they become habit, most alignment problems take a single click to fix.
 
-## 1. Pasting graphics without snapping to grid
+## Seven steps to tidy alignment
 
-You copy a slick icon from your brand kit and paste it onto a slide. It lands somewhere near the margin, not on it. You nudge it with the arrow keys. Half a millimetre too far. You hit undo. Repeat.
+1. **Open the Selection Pane first.** On the Home tab, go to Arrange, then Selection Pane. It lists every object on the slide, including the ones hiding behind others, so you can select exactly what you mean to align.
 
-PowerPoint’s default paste ignores the grid. You end up with a row of icons that drift in and out like drunken penguins. The fix is embarrassingly simple.
+2. **Choose what you're aligning to.** Select your objects, then on the Shape Format tab open Align. At the bottom you'll see Align to Slide and Align Selected Objects. The first lines things up against the slide edges; the second lines them up against each other. Most "it's still off" moments come from having the wrong one ticked.
 
-Hold Ctrl while you drag any object. You’ll feel a satisfying snap as it locks onto the nearest gridline or guide. No extra add-ins required, but do it consistently and your deck starts to breathe.
+3. **Align edges in one action.** With the right mode chosen, use Align Left, Align Top, Align Centre or Align Middle. Pick the edge that matters most for the layout, usually left for text and top for rows of boxes.
 
-## 2. Centring text boxes while ignoring the slide master
+4. **Distribute rather than drag.** For three or more objects in a row or column, use Distribute Horizontally or Distribute Vertically with Align Selected Objects ticked. PowerPoint keeps the outermost two where they are and makes the gaps in between equal, so position the ends first.
 
-You centre a text box so it looks tidy on slide 5. Flip to slide 12 and the same box is off by a pixel. Your eyes don’t notice, but your brand guidelines do.
+5. **Set guides for your margins.** Right-click an empty part of the slide and open Grid and Guides. Turn on Display drawing guides, then drag the guides to your margins. Hold Ctrl while dragging a guide to create a copy. Objects will snap to them as you move things around.
 
-PowerPoint’s master slide sets the true centre. When you drag a text box, it often ignores that master grid. The result is a quiet drift that compounds across 50 slides.
+6. **Type exact positions when it matters.** Right-click an object, choose Format Shape (or Format Picture), and open Size & Properties. Under Position you can enter exact horizontal and vertical values, which is the reliable way to put the same logo or footer in the same spot on every slide.
 
-Here’s the one-click cure. Open the Slide Master (View > Slide Master). Draw a single text box in the centre placeholder. Copy it. Paste it onto every slide. Then lock that layer so nothing can wander. One click to rule them all.
+7. **Hold Alt to override snapping.** If an object keeps jumping to a gridline you don't want, hold Alt while dragging to place it freely.
 
-## 3. Aligning shapes to each other instead of the slide
+## Copy this checklist
 
-You’ve got two arrows on a slide. You select both and hit Align Centre. They line up nicely, but the whole group is 3 mm left of the true centre. The slide now feels off, even if no one can say why.
+- Selection Pane open before aligning anything crowded
+- Align to Slide or Align Selected Objects checked before clicking
+- Outer objects placed before using Distribute
+- Margin guides switched on in Grid and Guides
+- Recurring items positioned by exact values, not by eye
 
-PowerPoint’s Align tools default to the last-selected object, not the slide boundaries. That’s why your perfectly aligned icons still look orphaned.
-
-The fix takes seconds. Select all objects on the slide. Hold Ctrl and click once more on the slide background. Now choose Align Centre. Everything snaps to the slide’s true centre, not to each other.
-
-## 4. Ignoring baseline grid for text-heavy slides
-
-A slide packed with bullet points can still look untidy if the baselines don’t line up. You adjust the font size, the line spacing slips by half a point, and suddenly every paragraph has its own vertical rhythm.
-
-PowerPoint’s default line spacing ignores the baseline grid. The result is a ragged sea of text that screams “amateur”.
-
-Turn on the baseline grid. Go to View > Guides > Baseline Grid. If it’s greyed out, open PowerPoint Options > Advanced > Display > Show baseline grid for all new slides. Now every line of text snaps to the grid, not to the cap-height above it.
-
-## 5. Forgetting that margins exist
-
-You’ve spent hours crafting a beautiful slide. You export to PDF, and the client’s logo is clipped by a millimetre. The margin setting in PowerPoint is set to 0 by default, so objects happily drift into the danger zone.
-
-Set the margin once and forget it. Go to Design > Slide Size > Custom Slide Size. Change the margins to 10 mm on all sides. Save this as a template. Every new slide inherits the margin, and nothing can creep into the forbidden zone again.
-
-## One click to end the chaos
-
-You can fight every alignment mistake with the tools already in PowerPoint. But you’ll still waste minutes per slide, cursing the ribbon’s hidden traps.
-
-That’s where a proper alignment helper shines. A bespoke add-in can lock your master grids, enforce baseline snaps, and auto-centre objects in one click. No more nudging, no more undo queues, just a deck that feels intentional.
-
-Try it today. Open a messy deck. Run the alignment scan. Watch the tool straighten every drift in seconds. Your future self will thank you.
-
-[See how alignment scanning works](https://tlbr.io/#features)
-
-[Book a 3-minute demo](https://tlbr.io/#demo)
+These steps will get most decks into shape, but they still rely on each person remembering them and applying them the same way. That's why some firms put alignment, distribution and spacing commands into a bespoke toolbar so they sit in one place with the brand's own margins built in, an approach [tlbr.io](https://tlbr.io/#features) takes. Either way, start with step two: checking the alignment mode alone will explain a surprising number of slides that never quite looked right.
