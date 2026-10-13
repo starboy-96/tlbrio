@@ -7,6 +7,8 @@ import {
   XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid
 } from "recharts";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
+import type { NewsletterStats } from "@/lib/newsletter-stats";
+import NewsletterPanel from "./NewsletterPanel";
 
 const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
@@ -106,11 +108,11 @@ const COUNTRY_CODES: Record<string, string> = {
   "New Zealand": "554", "Japan": "392", "Brazil": "076",
 };
 
-export default function Dashboard({ events: allEvents }: { events: Event[] }) {
+export default function Dashboard({ events: allEvents, newsletter }: { events: Event[]; newsletter: NewsletterStats }) {
   const [timeRange, setTimeRange] = useState<TimeRange>("24h");
   const [filterDevice, setFilterDevice] = useState("all");
   const [filterCountry, setFilterCountry] = useState("all");
-  const [activeTab, setActiveTab] = useState<"overview" | "visitors" | "map" | "events">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "visitors" | "map" | "events" | "newsletter">("overview");
 
 
   const startDate = useMemo(() => getStartDate(timeRange), [timeRange]);
@@ -287,7 +289,7 @@ export default function Dashboard({ events: allEvents }: { events: Event[] }) {
       <div className="max-w-7xl mx-auto px-6 py-8 space-y-6">
 
         {/* Filters */}
-        <div className="flex flex-wrap gap-3 items-center">
+        <div className={`flex flex-wrap gap-3 items-center ${activeTab === "newsletter" ? "hidden" : ""}`}>
           <div className="flex bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
             {TIME_RANGES.map(({ label, value }) => (
               <button
@@ -324,7 +326,7 @@ export default function Dashboard({ events: allEvents }: { events: Event[] }) {
 
         {/* Tabs */}
         <div className="flex gap-2 flex-wrap">
-          {(["overview", "visitors", "map", "events"] as const).map((tab) => (
+          {(["overview", "visitors", "map", "events", "newsletter"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -336,7 +338,9 @@ export default function Dashboard({ events: allEvents }: { events: Event[] }) {
           ))}
         </div>
 
-        {activeTab === "overview" ? (
+        {activeTab === "newsletter" ? (
+          <NewsletterPanel stats={newsletter} />
+        ) : activeTab === "overview" ? (
           <div className="space-y-6">
             {/* Stat cards row 1 */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
